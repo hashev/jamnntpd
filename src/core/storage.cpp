@@ -15,6 +15,7 @@
 #include <utility>
 #ifdef _WIN32
 #include <io.h>
+#include <share.h>
 #include <sys/locking.h>
 #include <sys/stat.h>
 #include <windows.h>
@@ -668,7 +669,8 @@ auto Storage::open(const std::filesystem::path &base, StorageOptions options,
             return std::unexpected(path_identity.error());
         }
 #ifdef _WIN32
-        file->handle.reset(_wfopen(path.c_str(), L"r+b"));
+        // Keep first-byte locking interoperable with independent readers/tossers.
+        file->handle.reset(_wfsopen(path.c_str(), L"r+b", _SH_DENYNO));
 #else
         // unique_ptr adopts the FILE immediately; no raw owner escapes this boundary.
         // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)

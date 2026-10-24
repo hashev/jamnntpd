@@ -41,3 +41,10 @@ Original notices are preserved in `src/jamlib/NOTICE` and the LGPL text in
 See [rehearsal.md](rehearsal.md) for independent tosser and complete backup restore
 verification. Native Windows validation and final quality acceptance are recorded
 in verification.md, superseding the earlier component-stage status above.
+
+On Windows, `_wfsopen(..., _SH_DENYNO)` opens native wide paths with read/write
+sharing, while the first-byte record lock coordinates mutations. `_wfopen_s` is
+unsuitable because its non-sharing behavior would exclude compatible tossers;
+see [Microsoft CRT sharing documentation](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/fsopen-wfsopen?view=msvc-170).
+The native process-lock and independent tosser tests verify that sharing and locking
+remain separate requirements.

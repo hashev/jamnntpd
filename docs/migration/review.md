@@ -99,3 +99,9 @@ verification.md and OpenSpec tasks.
   read conversion. The read model now owns converted extra headers, rendering
   encodes them with the outgoing charset, and mismatched models/control injection
   fail. Unit and real IBMPC/CODEPAGE e2e cases verify decoded Unicode and wire bytes.
+
+- R35: MSVC/clang-cl rejected deprecated `_wfopen` under warnings-as-errors.
+  Native storage now adopts `_wfsopen` with explicit `_SH_DENYNO`, retaining wide
+  paths and external tosser sharing. The secure `_wfopen_s` alternative is not used
+  because its non-sharing semantics would break that contract. Native lock/tosser
+  e2e must pass before acceptance; no CRT diagnostic is disabled.
