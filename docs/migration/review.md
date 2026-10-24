@@ -31,11 +31,11 @@ Baseline revision: `a05db5daf83d8277dd08bc1c64c20c5781d3a968`. This register rec
 - R22 (P1, static): `JAM_AddMessage` copies receiver subfield bytes into `User_AC[101]` without a length check. Closure: long/corrupt receiver subfield tests under ASan, checked parser and no fixed copy.
 - R23 (P1, static): `command_post` sends `240 Article posted` before parent-thread updates and `JAM_UnlockMB` flushes. Closure: injected parent-update/flush failure cannot yield a success response.
 
-Every finding remains **open** until its regression passes against the migrated production implementation. Baseline fixture checks do not close these findings.
+Findings were kept open until regression checks passed against the migrated production implementation; baseline fixture checks alone did not close them. The completed evidence is recorded below.
 
 - R24 (P2, static, migrated makechs regression covered): original `makechs.c` leaves firstdiff uninitialized for identical maps and bypasses explicit destination-map ASCII remaps. New tests verify identity-table generation and swapped ASCII destination bytes. Closure of the project-wide finding still requires final executable/platform acceptance.
 
-- R25 (migration conformance, corrected in codec component): ICU IBM DOS aliases differ from the project's published Microsoft mappings for SUB/FS/DEL and CP437/865 MICRO SIGN; some Windows aliases also define control mappings for undefined bytes. Explicit adapter profiles and independent per-byte Unicode fixtures enforce the intended code-page definitions. Full service integration remains open.
+- R25 (migration conformance, corrected in codec component): ICU IBM DOS aliases differ from the project's published Microsoft mappings for SUB/FS/DEL and CP437/865 MICRO SIGN; some Windows aliases also define control mappings for undefined bytes. Explicit adapter profiles and independent per-byte Unicode fixtures enforce the intended code-page definitions. Full service integration and executable roundtrips pass.
 
 ## Integrated regression evidence (2026-10-24)
 
@@ -117,3 +117,7 @@ verification.md and OpenSpec tasks.
   hexadecimal escapes before any sink. A regression verifies ESC/DEL absence and
   the exact escaped payload while preserving ordinary UTF-8 text and AUTHINFO
   redaction.
+
+Final acceptance: R01–R37 are closed. Native Windows/MSVC and clang-cl, Linux GCC/Clang,
+AppleClang, both sanitizer profiles, pinned clang-tidy and aggregate Linux/Windows
+coverage gates all pass. See verification.md and coverage.md for the recorded run.

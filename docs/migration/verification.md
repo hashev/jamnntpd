@@ -1,9 +1,9 @@
 # Migration acceptance
 
 Change: `modernize-cpp23-raii`. Date: 2026-10-24.
-Accepted full native CI: [40068403981](https://github.com/hashev/jamnntpd/actions/runs/40068403981),
-source tree `598a17c4943746b9bd09b409263da3a2c6ebf996` (identical to `aadeb75`).
-The final documentation/gate commit reruns the same matrix before delivery.
+Accepted full native CI: [40069175330](https://github.com/hashev/jamnntpd/actions/runs/40069175330),
+Validated implementation revision: `16a3105b736cf5d4f517cdc134e2787f60a274f5`.
+Documentation-only completion commits do not change the validated production/test sources.
 
 The production `jamnntpd` executable integrates the network loop, scoped workers,
 NNTP session engine, authentication/privacy, MIME/text conversion, spdlog and the
@@ -39,8 +39,8 @@ headers and uncovered error branches, merging all five executable objects:
 
 | Platform | Lines | Branches | Required |
 | --- | --- | --- | --- |
-| Linux x64 | 4,925 / 5,323 (92.52%) | 2,392 / 2,796 (85.55%) | 90% / 85% |
-| Native Windows x64 | 4,946 / 5,364 (92.21%) | 2,397 / 2,816 (85.12%) | 90% / 85% |
+| Linux x64 | 4,930 / 5,323 (92.62%) | 2,394 / 2,796 (85.62%) | 90% / 85% |
+| Native Windows x64 | 4,950 / 5,364 (92.28%) | 2,399 / 2,816 (85.19%) | 90% / 85% |
 
 Both reports pass. Native Windows additionally verifies execution of Winsock,
 file-identity/record-lock and console-control functions. Some OS failure and
