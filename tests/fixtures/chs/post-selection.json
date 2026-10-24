@@ -1,0 +1,61 @@
+[
+  {
+    "name": "default source then first alias",
+    "source": "",
+    "defaultpost": "iso-8859-1",
+    "aliases": [
+      [
+        "iso-8859-1",
+        "CP1252"
+      ],
+      [
+        "CP1252",
+        "UTF-8"
+      ]
+    ],
+    "group": "",
+    "global": "",
+    "expected_source": "CP1252",
+    "expected_destination": null
+  },
+  {
+    "name": "explicit source beats default",
+    "source": "UTF-8",
+    "defaultpost": "iso-8859-1",
+    "aliases": [],
+    "group": "",
+    "global": "",
+    "expected_source": "UTF-8",
+    "expected_destination": null
+  },
+  {
+    "name": "forced group destination beats global",
+    "source": "UTF-8",
+    "defaultpost": "",
+    "aliases": [],
+    "group": "!CP866",
+    "global": "!CP850",
+    "expected_source": "UTF-8",
+    "expected_destination": "CP866"
+  },
+  {
+    "name": "forced global constrains ordinary group",
+    "source": "UTF-8",
+    "defaultpost": "",
+    "aliases": [],
+    "group": "CP866",
+    "global": "!CP850",
+    "expected_source": "UTF-8",
+    "expected_destination": "CP850"
+  },
+  {
+    "name": "ordinary group does not constrain post",
+    "source": "UTF-8",
+    "defaultpost": "",
+    "aliases": [],
+    "group": "CP866",
+    "global": "CP850",
+    "expected_source": "UTF-8",
+    "expected_destination": null
+  }
+]

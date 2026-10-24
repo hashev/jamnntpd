@@ -1,3 +1,5 @@
+Historical pre-C++23 installation guide. Current build and operation: README.md and docs/migration/build.md.
+
 So you finally decided to take a look at that JamNNTPd package you've heard so much about? And after you've unpacked it, you have absolutely no clue about what to do with it? Well, then you've decided to read the right textfile. I did very much the same, half a year ago. It wasn't until I got a permanent connection to the internet that I realized what I could do with this package. If you *don't* have a permanent connection to the internet, you can stop reading here, and just delete the entire package.
 
    Well, on second thought maybe not -- a local installation of JamNNTPd and your favourite news reader will probably be a better combination for reading and writing fidonet echoes than most others you will find, so stay with us.

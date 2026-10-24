@@ -1,0 +1,51 @@
+name: C++23 quality
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-24.04, compiler: g++-14, triplet: x64-linux}
+          - {os: ubuntu-24.04, compiler: clang++-19, triplet: x64-linux}
+          - {os: macos-15, compiler: /usr/bin/clang++, triplet: arm64-osx}
+          - {os: windows-2025, compiler: cl, triplet: x64-windows-static}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.13.9'
+      - name: Linux compiler and build dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 libclang-rt-19-dev autoconf automake libtool
+      - name: Pinned dependency manager
+        shell: bash
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git "$RUNNER_TEMP/jam-vcpkg"
+          git -C "$RUNNER_TEMP/jam-vcpkg" checkout b42e8ed051d17a7f95b9d2a3140c1f9296423712
+      - name: Bootstrap dependencies (POSIX)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: "$RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.sh" -disableMetrics
+      - name: Bootstrap dependencies (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: '& "$env:RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.bat" -disableMetrics'
+      - name: Configure (POSIX)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+      - name: Configure (MSVC)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: cmake -S . -B build/ci -A x64 -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+      - run: cmake --build build/ci --config Debug --parallel 4
+      - run: ctest --test-dir build/ci -C Debug --output-on-failure
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-${{ matrix.os }}-${{ strategy.job-index }}
+          path: build/ci/Testing/Temporary/

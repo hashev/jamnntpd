@@ -1,0 +1,23 @@
+100 Help text follows
+Recognized commands:
+
+ARTICLE
+AUTHINFO
+BODY
+GROUP
+HEAD
+HELP
+IHAVE (not implemented, messages are always rejected)
+LAST
+LIST
+NEWGROUPS (not implemented, always returns an empty list)
+NEWNEWS (not implemented, always returns an empty list)
+NEXT
+QUIT
+SLAVE (has no effect)
+STAT
+XOVER (partially implemented, byte count and line count are always empty)
+
+JamNNTPd supports most of RFC-977 and also has support for AUTHINFO and
+limited XOVER support (RFC-2980)
+.

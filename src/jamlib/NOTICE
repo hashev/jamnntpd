@@ -1,0 +1,268 @@
+Historical notices preserved from the pre-migration sources.
+The C++23 implementation is a modified version; see README.md.
+
+Source: src/jamlib/crc32.c
+/*
+    Crc32 - CRC32-calculation for JAM
+    Copyright (C) 2000 Johan Billing
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2003-10-22
+
+    - Fixed comparison between signed and unsigned variable in JAM_Crc32()
+*/
+
+Source: src/jamlib/jam.h
+/*
+    JAMLIB - A JAM subroutine library
+    Copyright (C) 1999 Björn Stenberg
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2000-04-16:
+
+    - Added #defines for JAM_NO_MESSAGE and JAM_CORRUPT_MSG
+    - Added #ifndef linux around typedefs for ushort and ulong
+    - Added prototype for JAM_AddEmptyMessage()
+
+    Backported changes from JAMLIB 1.4.7 made by Johan Billing 2003-10-26
+
+    - Added prototype for JAM_DeleteMessage()
+*/
+
+Source: src/jamlib/lastread.c
+/*
+    JAMLIB - A JAM subroutine library
+    Copyright (C) 1999 Björn Stenberg
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2000-04-16:
+
+    - Changed source to use feof() instead of errno == EPASTEOF
+    - Changed source to use structrw to read and write structures
+*/
+
+Source: src/jamlib/mbase.c
+/*
+    JAMLIB - A JAM subroutine library
+    Copyright (C) 1999 Björn Stenberg
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2000-04-16:
+
+    - Added support for Win32 and Linux
+    - Changed JAM_OpenMB to open files in binary mode
+    - Changed source to use feof() instead of errno == EPASTEOF
+    - Changed source to use structrw to read and write structures
+    - Fixed broken JAM_FindUser()
+    - #includes string.h and stdlib.h instead of memory.h
+
+    Backported changes from JAMLIB 1.4.7 made by Johan Billing 2003-10-26
+
+    - Now uses calloc instead of malloc/memset
+    - (*NewArea_PPS) will be set to zero even if calloc() failed in
+      JAM_OpenMB() and JAM_CreateMB()
+    - JAM_CreateMB() no longer attempts to forever to lock the newly created
+      messagebase. If the first attempt fails, it will return an error.
+    - jam_Lock() now sets Base_PS->Errno under Linux
+
+    Other changes made by Johan Billing 2003-10-26
+
+    - Fixed comparison between signed and unsigned variable in JAM_GetMBSize()
+
+    - JAM_CreateMB() would not unlock and close the newly created messagebase
+      upon failure.
+
+    Changes made by Johan Billing 2004-07-10
+
+    - Updated the Win32-specific parts of the code to make it compatible with
+      newer versions of MinGW (tested with 3.1.0-1):
+
+      * Now uses Sleep() instead of sleep()
+      * Changed _LK_UNLOCK to _LK_UNLCK in jam_Lock()
+
+*/
+
+Source: src/jamlib/message.c
+/*
+    JAMLIB - A JAM subroutine library
+    Copyright (C) 1999 Björn Stenberg
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2000-04-16:
+
+    - Changed source to use feof() instead of errno == EPASTEOF
+    - Changed source to use structrw to read and write structures
+    - Added JAM_AddEmptyMessage()
+    - Added error messages JAM_NO_MESSAGE and JAM_CORRUPT_MSG for
+      JAM_ReadMsgHeader()
+    - #includes stdlib.h instead of malloc.h and memory.h
+    - Fixed a bug that caused JAM_AddMessage() to fail when trying to
+      add an empty message to the messagebase under Linux.
+
+    Backported changes from JAMLIB 1.4.7 made by Johan Billing 2003-10-26
+
+    - Fixed memory leaks that would occur if JAM_ReadMsgHeader() failed
+    - Added JAM_DeleteMessage()
+
+    Other changes made by Johan Billing 2003-10-26
+
+    - Fixed comparison between signed and unsigned variable in JAM_AddMessage()
+
+    - Improved handling of ActiveMsgs counter. JAM_AddMessage() now only
+      increases ActiveMsgs if the added message does not have MSG_DELETED set.
+      JAM_ChangeMsgHeader() decreases ActiveMsgs if MSG_DELETED is set and the
+      message wasn't already deleted. JAM_DeleteMessage() now only decreases
+      ActiveMsgs if the message wasn't already deleted.
+
+*/
+
+Source: src/jamlib/structrw.c
+/*
+    structrw - Platform-independent reading and writing of JAM structs
+    Copyright (C) 1999 Johan Billing
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2003-10-22
+
+    - Added #include <string.h>
+*/
+
+Source: src/jamlib/structrw.h
+/*
+    structrw - Platform-independent reading and writing of JAM structs
+    Copyright (C) 1999 Johan Billing
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+Source: src/jamlib/subpack.c
+/*
+    JAMLIB - A JAM subroutine library
+    Copyright (C) 1999 Björn Stenberg
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    Changes made by Johan Billing 2000-04-16:
+
+    - Fixed broken JAM_GetSubfield()
+    - #includes stdlib.h instead of malloc.h and memory.h
+
+    Changes made by Johan Billing 2000-09-17:
+
+    - Added JAM_GetSubfield_R()
+
+    Backported changes from JAMLIB 1.4.7 made by Johan Billing 2003-10-22
+
+    - JAM_NewSubPacket() and JAM_PutSubField() would give memory leaks under
+      low memory conditions. Fixed.
+
+    Other changes made by Johan Billing 2003-10-22
+
+    - Fixed comparison between signed and unsigned variable in
+      JAM_DelSubPacket() and JAM_GetSubField()
+*/
+
+Source: src/makechs.c
+/* The table below is Markus Kuhn's transliteration table transtab with some minor changes (see comments below) */

@@ -1,0 +1,100 @@
+[
+  {
+    "name": "group force overrides global force and metadata",
+    "chrs": "CP437",
+    "codepage": "",
+    "group": "!CP866",
+    "global": "!CP850",
+    "readaliases": [],
+    "expected": [
+      "CP866",
+      ""
+    ]
+  },
+  {
+    "name": "global force overrides metadata and ordinary group default",
+    "chrs": "CP437",
+    "codepage": "",
+    "group": "CP866",
+    "global": "!CP850",
+    "readaliases": [],
+    "expected": [
+      "CP850",
+      ""
+    ]
+  },
+  {
+    "name": "metadata beats ordinary defaults",
+    "chrs": "CP437",
+    "codepage": "",
+    "group": "CP866",
+    "global": "CP850",
+    "readaliases": [],
+    "expected": [
+      "CP437",
+      ""
+    ]
+  },
+  {
+    "name": "group default beats global",
+    "chrs": "",
+    "codepage": "",
+    "group": "CP866",
+    "global": "CP850",
+    "readaliases": [],
+    "expected": [
+      "CP866",
+      ""
+    ]
+  },
+  {
+    "name": "global fallback",
+    "chrs": "",
+    "codepage": "",
+    "group": "",
+    "global": "CP850",
+    "readaliases": [],
+    "expected": [
+      "CP850",
+      ""
+    ]
+  },
+  {
+    "name": "first alias only clears codepage",
+    "chrs": "IBMPC",
+    "codepage": "866",
+    "group": "",
+    "global": "",
+    "readaliases": [
+      [
+        "IBMPC,866",
+        "CP866"
+      ],
+      [
+        "CP866",
+        "CP437"
+      ]
+    ],
+    "expected": [
+      "CP866",
+      ""
+    ]
+  },
+  {
+    "name": "alias without comma matches any codepage",
+    "chrs": "IBMPC",
+    "codepage": "865",
+    "group": "",
+    "global": "",
+    "readaliases": [
+      [
+        "IBMPC",
+        "CP437"
+      ]
+    ],
+    "expected": [
+      "CP437",
+      ""
+    ]
+  }
+]

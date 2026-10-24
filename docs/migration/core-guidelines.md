@@ -1,0 +1,555 @@
+# C++ Core Guidelines applicability register
+
+Reference revision: `33bcd015997f0d8e0fa0202eb66254a16f59ad8f` of
+https://github.com/isocpp/CppCoreGuidelines (retrieved during implementation).
+This is a review register, not a claim that enabling clang-tidy proves compliance.
+Every rule is listed below; unreviewed rules remain pending until the relevant
+production layers and tests exist. Rules for features not used must receive an
+explicit not-applicable reason during final review rather than being silently omitted.
+
+## Existing evidence
+
+- R.1/R.5/R.11, C.20: codec converters are unique_ptr owners; CHS/file buffers use
+  containers and ifstream scope; no manual allocation in the migrated modules.
+- R.3, F.16, SL.str.1/SL.str.2: text owners are string; borrowed input is string_view;
+  SourceEncoding/DestinationEncoding prevent swapping conversion direction.
+- E.6: parse/encoding/format failures use expected; tests assert error cases.
+- SF: migrated headers have include guards and implementation is out of line.
+- CP.2/CP.20/CP.21: server/storage lifecycle migration remains pending. No race-free
+  claim is made for the original C server.
+- Standard-library pointer interfaces (from_chars, ICU) receive borrowed pointers;
+  ownership never transfers except into an explicit unique_ptr deleter.
+
+## Static-analysis baseline
+
+LLVM/clang-tidy 23.1.3, compile database `build/debug/compile_commands.json`.
+Initial migrated-core run produced 162 diagnostics (including repeated headers).
+No families were disabled to hide them. The raw local report is
+`build/clang-tidy-baseline.txt`; final acceptance requires a fresh clean run on
+all migrated production targets, not this baseline or just currently available modules.
+
+## Reviewed native-boundary exceptions
+
+- `cppcoreguidelines-owning-memory`: FILE adoption and the unique_ptr FILE deleter
+  are annotated at the exact C boundary. The deleter argument is owned by unique_ptr,
+  not a second raw owner; mutation success requires explicit checked flush.
+- `cppcoreguidelines-pro-type-vararg`: POSIX fcntl F_GETFL/F_SETFL and F_SETLK
+  have command-defined integer/flock-pointer arguments. These are system ABI calls,
+  not unrestricted formatting interfaces.
+- `cppcoreguidelines-pro-type-reinterpret-cast`: sockaddr_in is borrowed through
+  the sockaddr ABI in one adapter; Windows CRT file handle conversion has its own
+  borrowed native-handle annotation. No cast changes ownership or manages text.
+
+These exceptions do not disable any diagnostic family. They require native Windows
+validation and final review along with the rest of the migration.
+
+## Rule-by-rule disposition
+
+| Rule | Disposition | Verification / applicability evidence |
+|---|---|---|
+| [In.0](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#r0) | Pending manual review | Not assessed yet |
+| [P.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-direct) | Pending manual review | Not assessed yet |
+| [P.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-cplusplus) | Pending manual review | Not assessed yet |
+| [P.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-what) | Pending manual review | Not assessed yet |
+| [P.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-typesafe) | Pending manual review | Not assessed yet |
+| [P.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-compile-time) | Pending manual review | Not assessed yet |
+| [P.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-run-time) | Pending manual review | Not assessed yet |
+| [P.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-early) | Pending manual review | Not assessed yet |
+| [P.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-leak) | Pending manual review | Not assessed yet |
+| [P.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-waste) | Pending manual review | Not assessed yet |
+| [P.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-mutable) | Pending manual review | Not assessed yet |
+| [P.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-library) | Pending manual review | Not assessed yet |
+| [P.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-tools) | Pending manual review | Not assessed yet |
+| [P.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rp-lib) | Pending manual review | Not assessed yet |
+| [I.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-explicit) | Pending manual review | Not assessed yet |
+| [I.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-global) | Pending manual review | Not assessed yet |
+| [I.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-singleton) | Pending manual review | Not assessed yet |
+| [I.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-typed) | Pending manual review | Not assessed yet |
+| [I.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-pre) | Pending manual review | Not assessed yet |
+| [I.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-expects) | Pending manual review | Not assessed yet |
+| [I.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-post) | Pending manual review | Not assessed yet |
+| [I.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-ensures) | Pending manual review | Not assessed yet |
+| [I.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-concepts) | Pending manual review | Not assessed yet |
+| [I.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-except) | Pending manual review | Not assessed yet |
+| [I.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-raw) | Pending manual review | Not assessed yet |
+| [I.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-nullptr) | Pending manual review | Not assessed yet |
+| [I.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-array) | Pending manual review | Not assessed yet |
+| [I.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-global-init) | Pending manual review | Not assessed yet |
+| [I.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-nargs) | Pending manual review | Not assessed yet |
+| [I.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-unrelated) | Pending manual review | Not assessed yet |
+| [I.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-abstract) | Pending manual review | Not assessed yet |
+| [I.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-abi) | Pending manual review | Not assessed yet |
+| [I.27](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-pimpl) | Pending manual review | Not assessed yet |
+| [I.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ri-encapsulate) | Pending manual review | Not assessed yet |
+| [F.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-package) | Pending manual review | Not assessed yet |
+| [F.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-logical) | Pending manual review | Not assessed yet |
+| [F.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-single) | Pending manual review | Not assessed yet |
+| [F.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-constexpr) | Pending manual review | Not assessed yet |
+| [F.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-inline) | Pending manual review | Not assessed yet |
+| [F.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-noexcept) | Pending manual review | Not assessed yet |
+| [F.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-smart) | Pending manual review | Not assessed yet |
+| [F.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-pure) | Pending manual review | Not assessed yet |
+| [F.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-unused) | Pending manual review | Not assessed yet |
+| [F.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-name) | Pending manual review | Not assessed yet |
+| [F.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-lambda) | Pending manual review | Not assessed yet |
+| [F.15](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-conventional) | Pending manual review | Not assessed yet |
+| [F.16](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-in) | Pending manual review | Not assessed yet |
+| [F.17](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-inout) | Pending manual review | Not assessed yet |
+| [F.18](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-consume) | Pending manual review | Not assessed yet |
+| [F.19](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-forward) | Pending manual review | Not assessed yet |
+| [F.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-out) | Pending manual review | Not assessed yet |
+| [F.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-out-multi) | Pending manual review | Not assessed yet |
+| [F.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-ptr-ref) | Pending manual review | Not assessed yet |
+| [F.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-ptr) | Pending manual review | Not assessed yet |
+| [F.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-nullptr) | Pending manual review | Not assessed yet |
+| [F.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-range) | Pending manual review | Not assessed yet |
+| [F.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-zstring) | Pending manual review | Not assessed yet |
+| [F.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-unique_ptr) | Pending manual review | Not assessed yet |
+| [F.27](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-shared_ptr) | Pending manual review | Not assessed yet |
+| [F.42](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-return-ptr) | Pending manual review | Not assessed yet |
+| [F.43](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-dangle) | Pending manual review | Not assessed yet |
+| [F.44](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-return-ref) | Pending manual review | Not assessed yet |
+| [F.45](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-return-ref-ref) | Pending manual review | Not assessed yet |
+| [F.46](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-main) | Pending manual review | Not assessed yet |
+| [F.47](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-assignment-op) | Pending manual review | Not assessed yet |
+| [F.48](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-return-move-local) | Pending manual review | Not assessed yet |
+| [F.49](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-return-const) | Pending manual review | Not assessed yet |
+| [F.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-capture-vs-overload) | Pending manual review | Not assessed yet |
+| [F.51](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-default-args) | Pending manual review | Not assessed yet |
+| [F.52](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-reference-capture) | Pending manual review | Not assessed yet |
+| [F.53](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-value-capture) | Pending manual review | Not assessed yet |
+| [F.54](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rf-this-capture) | Pending manual review | Not assessed yet |
+| [F.55](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#f-varargs) | Pending manual review | Not assessed yet |
+| [F.56](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#f-nesting) | Pending manual review | Not assessed yet |
+| [C.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-org) | Pending manual review | Not assessed yet |
+| [C.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-struct) | Pending manual review | Not assessed yet |
+| [C.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-interface) | Pending manual review | Not assessed yet |
+| [C.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-member) | Pending manual review | Not assessed yet |
+| [C.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-helper) | Pending manual review | Not assessed yet |
+| [C.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-standalone) | Pending manual review | Not assessed yet |
+| [C.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-class) | Pending manual review | Not assessed yet |
+| [C.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-private) | Pending manual review | Not assessed yet |
+| [C.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-concrete) | Pending manual review | Not assessed yet |
+| [C.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-regular) | Pending manual review | Not assessed yet |
+| [C.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-constref) | Pending manual review | Not assessed yet |
+| [C.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-lifetime) | Pending manual review | Not assessed yet |
+| [C.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-zero) | Pending manual review | Not assessed yet |
+| [C.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-five) | Pending manual review | Not assessed yet |
+| [C.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-matched) | Pending manual review | Not assessed yet |
+| [C.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor) | Pending manual review | Not assessed yet |
+| [C.31](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-release) | Pending manual review | Not assessed yet |
+| [C.32](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-ptr) | Pending manual review | Not assessed yet |
+| [C.33](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-ptr2) | Pending manual review | Not assessed yet |
+| [C.35](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-virtual) | Pending manual review | Not assessed yet |
+| [C.36](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-fail) | Pending manual review | Not assessed yet |
+| [C.37](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-dtor-noexcept) | Pending manual review | Not assessed yet |
+| [C.40](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-ctor) | Pending manual review | Not assessed yet |
+| [C.41](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-complete) | Pending manual review | Not assessed yet |
+| [C.42](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-throw) | Pending manual review | Not assessed yet |
+| [C.43](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-default0) | Pending manual review | Not assessed yet |
+| [C.44](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-default00) | Pending manual review | Not assessed yet |
+| [C.45](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-default) | Pending manual review | Not assessed yet |
+| [C.46](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-explicit) | Pending manual review | Not assessed yet |
+| [C.47](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-order) | Pending manual review | Not assessed yet |
+| [C.48](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-in-class-initializer) | Pending manual review | Not assessed yet |
+| [C.49](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-initialize) | Pending manual review | Not assessed yet |
+| [C.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-factory) | Pending manual review | Not assessed yet |
+| [C.51](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-delegating) | Pending manual review | Not assessed yet |
+| [C.52](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-inheriting) | Pending manual review | Not assessed yet |
+| [C.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-copy-assignment) | Pending manual review | Not assessed yet |
+| [C.61](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-copy-semantic) | Pending manual review | Not assessed yet |
+| [C.62](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-copy-self) | Pending manual review | Not assessed yet |
+| [C.63](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-move-assignment) | Pending manual review | Not assessed yet |
+| [C.64](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-move-semantic) | Pending manual review | Not assessed yet |
+| [C.65](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-move-self) | Pending manual review | Not assessed yet |
+| [C.66](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-move-noexcept) | Pending manual review | Not assessed yet |
+| [C.67](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-copy-virtual) | Pending manual review | Not assessed yet |
+| [C.80](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-eqdefault) | Pending manual review | Not assessed yet |
+| [C.81](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-delete) | Pending manual review | Not assessed yet |
+| [C.82](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-ctor-virtual) | Pending manual review | Not assessed yet |
+| [C.83](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-swap) | Pending manual review | Not assessed yet |
+| [C.84](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-swap-fail) | Pending manual review | Not assessed yet |
+| [C.85](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-swap-noexcept) | Pending manual review | Not assessed yet |
+| [C.86](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-eq) | Pending manual review | Not assessed yet |
+| [C.87](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-eq-base) | Pending manual review | Not assessed yet |
+| [C.89](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-hash) | Pending manual review | Not assessed yet |
+| [C.90](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rc-memset) | Pending manual review | Not assessed yet |
+| [C.100](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-stl) | Pending manual review | Not assessed yet |
+| [C.101](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-val) | Pending manual review | Not assessed yet |
+| [C.102](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-move) | Pending manual review | Not assessed yet |
+| [C.103](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-init) | Pending manual review | Not assessed yet |
+| [C.104](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-empty) | Pending manual review | Not assessed yet |
+| [C.109](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcon-ptr) | Pending manual review | Not assessed yet |
+| [C.120](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-domain) | Pending manual review | Not assessed yet |
+| [C.121](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-abstract) | Pending manual review | Not assessed yet |
+| [C.122](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-separation) | Pending manual review | Not assessed yet |
+| [C.126](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-abstract-ctor) | Pending manual review | Not assessed yet |
+| [C.127](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-dtor) | Pending manual review | Not assessed yet |
+| [C.128](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-override) | Pending manual review | Not assessed yet |
+| [C.129](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-kind) | Pending manual review | Not assessed yet |
+| [C.130](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-copy) | Pending manual review | Not assessed yet |
+| [C.131](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-get) | Pending manual review | Not assessed yet |
+| [C.132](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-virtual) | Pending manual review | Not assessed yet |
+| [C.133](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-protected) | Pending manual review | Not assessed yet |
+| [C.134](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-public) | Pending manual review | Not assessed yet |
+| [C.135](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-mi-interface) | Pending manual review | Not assessed yet |
+| [C.136](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-mi-implementation) | Pending manual review | Not assessed yet |
+| [C.137](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-vbase) | Pending manual review | Not assessed yet |
+| [C.138](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-using) | Pending manual review | Not assessed yet |
+| [C.139](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-final) | Pending manual review | Not assessed yet |
+| [C.140](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-virtual-default-arg) | Pending manual review | Not assessed yet |
+| [C.145](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-poly) | Pending manual review | Not assessed yet |
+| [C.146](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-dynamic_cast) | Pending manual review | Not assessed yet |
+| [C.147](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-ref-cast) | Pending manual review | Not assessed yet |
+| [C.148](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-ptr-cast) | Pending manual review | Not assessed yet |
+| [C.149](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-smart) | Pending manual review | Not assessed yet |
+| [C.150](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-make_unique) | Pending manual review | Not assessed yet |
+| [C.151](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-make_shared) | Pending manual review | Not assessed yet |
+| [C.152](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-array) | Pending manual review | Not assessed yet |
+| [C.153](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rh-use-virtual) | Pending manual review | Not assessed yet |
+| [C.160](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-conventional) | Pending manual review | Not assessed yet |
+| [C.161](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-symmetric) | Pending manual review | Not assessed yet |
+| [C.162](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-equivalent) | Pending manual review | Not assessed yet |
+| [C.163](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-equivalent-2) | Pending manual review | Not assessed yet |
+| [C.164](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-conversion) | Pending manual review | Not assessed yet |
+| [C.165](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-custom) | Pending manual review | Not assessed yet |
+| [C.166](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-address-of) | Pending manual review | Not assessed yet |
+| [C.167](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-overload) | Pending manual review | Not assessed yet |
+| [C.168](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-namespace) | Pending manual review | Not assessed yet |
+| [C.170](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ro-lambda) | Pending manual review | Not assessed yet |
+| [C.180](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ru-union) | Pending manual review | Not assessed yet |
+| [C.181](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ru-naked) | Pending manual review | Not assessed yet |
+| [C.182](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ru-anonymous) | Pending manual review | Not assessed yet |
+| [C.183](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ru-pun) | Pending manual review | Not assessed yet |
+| [Enum.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-macro) | Pending manual review | Not assessed yet |
+| [Enum.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-set) | Pending manual review | Not assessed yet |
+| [Enum.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-class) | Pending manual review | Not assessed yet |
+| [Enum.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-oper) | Pending manual review | Not assessed yet |
+| [Enum.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-caps) | Pending manual review | Not assessed yet |
+| [Enum.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-unnamed) | Pending manual review | Not assessed yet |
+| [Enum.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-underlying) | Pending manual review | Not assessed yet |
+| [Enum.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#renum-value) | Pending manual review | Not assessed yet |
+| [R.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-raii) | Pending manual review | Not assessed yet |
+| [R.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-use-ptr) | Pending manual review | Not assessed yet |
+| [R.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-ptr) | Pending manual review | Not assessed yet |
+| [R.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-ref) | Pending manual review | Not assessed yet |
+| [R.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-scoped) | Pending manual review | Not assessed yet |
+| [R.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-global) | Pending manual review | Not assessed yet |
+| [R.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-mallocfree) | Pending manual review | Not assessed yet |
+| [R.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-newdelete) | Pending manual review | Not assessed yet |
+| [R.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-immediate-alloc) | Pending manual review | Not assessed yet |
+| [R.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-single-alloc) | Pending manual review | Not assessed yet |
+| [R.14](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-ap) | Pending manual review | Not assessed yet |
+| [R.15](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-pair) | Pending manual review | Not assessed yet |
+| [R.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-owner) | Pending manual review | Not assessed yet |
+| [R.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-unique) | Pending manual review | Not assessed yet |
+| [R.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-make_shared) | Pending manual review | Not assessed yet |
+| [R.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-make_unique) | Pending manual review | Not assessed yet |
+| [R.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-weak_ptr) | Pending manual review | Not assessed yet |
+| [R.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-smartptrparam) | Pending manual review | Not assessed yet |
+| [R.31](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-smart) | Pending manual review | Not assessed yet |
+| [R.32](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-uniqueptrparam) | Pending manual review | Not assessed yet |
+| [R.33](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-reseat) | Pending manual review | Not assessed yet |
+| [R.34](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-sharedptrparam-owner) | Pending manual review | Not assessed yet |
+| [R.35](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-sharedptrparam) | Pending manual review | Not assessed yet |
+| [R.36](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-sharedptrparam-const) | Pending manual review | Not assessed yet |
+| [R.37](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rr-smartptrget) | Pending manual review | Not assessed yet |
+| [ES.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-lib) | Pending manual review | Not assessed yet |
+| [ES.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-abstr) | Pending manual review | Not assessed yet |
+| [ES.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-dry) | Pending manual review | Not assessed yet |
+| [ES.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-scope) | Pending manual review | Not assessed yet |
+| [ES.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-cond) | Pending manual review | Not assessed yet |
+| [ES.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-name-length) | Pending manual review | Not assessed yet |
+| [ES.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-name-similar) | Pending manual review | Not assessed yet |
+| [ES.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-not-caps) | Pending manual review | Not assessed yet |
+| [ES.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-name-one) | Pending manual review | Not assessed yet |
+| [ES.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-auto) | Pending manual review | Not assessed yet |
+| [ES.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-reuse) | Pending manual review | Not assessed yet |
+| [ES.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-always) | Pending manual review | Not assessed yet |
+| [ES.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-introduce) | Pending manual review | Not assessed yet |
+| [ES.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-init) | Pending manual review | Not assessed yet |
+| [ES.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-list) | Pending manual review | Not assessed yet |
+| [ES.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-unique) | Pending manual review | Not assessed yet |
+| [ES.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-const) | Pending manual review | Not assessed yet |
+| [ES.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-recycle) | Pending manual review | Not assessed yet |
+| [ES.27](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-stack) | Pending manual review | Not assessed yet |
+| [ES.28](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-lambda-init) | Pending manual review | Not assessed yet |
+| [ES.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-macros) | Pending manual review | Not assessed yet |
+| [ES.31](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-macros2) | Pending manual review | Not assessed yet |
+| [ES.32](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-all_caps) | Pending manual review | Not assessed yet |
+| [ES.33](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-macros3) | Pending manual review | Not assessed yet |
+| [ES.40](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-complicated) | Pending manual review | Not assessed yet |
+| [ES.41](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-parens) | Pending manual review | Not assessed yet |
+| [ES.42](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-ptr) | Pending manual review | Not assessed yet |
+| [ES.43](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-order) | Pending manual review | Not assessed yet |
+| [ES.44](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-order-fct) | Pending manual review | Not assessed yet |
+| [ES.45](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-magic) | Pending manual review | Not assessed yet |
+| [ES.46](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-narrowing) | Pending manual review | Not assessed yet |
+| [ES.47](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-nullptr) | Pending manual review | Not assessed yet |
+| [ES.48](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-casts) | Pending manual review | Not assessed yet |
+| [ES.49](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-casts-named) | Pending manual review | Not assessed yet |
+| [ES.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-casts-const) | Pending manual review | Not assessed yet |
+| [ES.55](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-range-checking) | Pending manual review | Not assessed yet |
+| [ES.56](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-move) | Pending manual review | Not assessed yet |
+| [ES.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-new) | Pending manual review | Not assessed yet |
+| [ES.61](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-del) | Pending manual review | Not assessed yet |
+| [ES.62](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-arr2) | Pending manual review | Not assessed yet |
+| [ES.63](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-slice) | Pending manual review | Not assessed yet |
+| [ES.64](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-construct) | Pending manual review | Not assessed yet |
+| [ES.65](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-deref) | Pending manual review | Not assessed yet |
+| [ES.70](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-switch-if) | Pending manual review | Not assessed yet |
+| [ES.71](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-for-range) | Pending manual review | Not assessed yet |
+| [ES.72](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-for-while) | Pending manual review | Not assessed yet |
+| [ES.73](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-while-for) | Pending manual review | Not assessed yet |
+| [ES.74](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-for-init) | Pending manual review | Not assessed yet |
+| [ES.75](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-do) | Pending manual review | Not assessed yet |
+| [ES.76](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-goto) | Pending manual review | Not assessed yet |
+| [ES.77](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-continue) | Pending manual review | Not assessed yet |
+| [ES.78](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-break) | Pending manual review | Not assessed yet |
+| [ES.79](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-default) | Pending manual review | Not assessed yet |
+| [ES.84](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-noname) | Pending manual review | Not assessed yet |
+| [ES.85](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-empty) | Pending manual review | Not assessed yet |
+| [ES.86](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-loop-counter) | Pending manual review | Not assessed yet |
+| [ES.87](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-if) | Pending manual review | Not assessed yet |
+| [ES.100](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-mix) | Pending manual review | Not assessed yet |
+| [ES.101](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-unsigned) | Pending manual review | Not assessed yet |
+| [ES.102](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-signed) | Pending manual review | Not assessed yet |
+| [ES.103](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-overflow) | Pending manual review | Not assessed yet |
+| [ES.104](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-underflow) | Pending manual review | Not assessed yet |
+| [ES.105](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-zero) | Pending manual review | Not assessed yet |
+| [ES.106](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-nonnegative) | Pending manual review | Not assessed yet |
+| [ES.107](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#res-subscripts) | Pending manual review | Not assessed yet |
+| [Per.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-reason) | Pending manual review | Not assessed yet |
+| [Per.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-knuth) | Pending manual review | Not assessed yet |
+| [Per.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-critical) | Pending manual review | Not assessed yet |
+| [Per.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-simple) | Pending manual review | Not assessed yet |
+| [Per.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-low) | Pending manual review | Not assessed yet |
+| [Per.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-measure) | Pending manual review | Not assessed yet |
+| [Per.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-efficiency) | Pending manual review | Not assessed yet |
+| [Per.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-type) | Pending manual review | Not assessed yet |
+| [Per.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-comp) | Pending manual review | Not assessed yet |
+| [Per.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-alias) | Pending manual review | Not assessed yet |
+| [Per.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-indirect) | Pending manual review | Not assessed yet |
+| [Per.14](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-alloc) | Pending manual review | Not assessed yet |
+| [Per.15](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-alloc0) | Pending manual review | Not assessed yet |
+| [Per.16](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-compact) | Pending manual review | Not assessed yet |
+| [Per.17](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-struct) | Pending manual review | Not assessed yet |
+| [Per.18](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-space) | Pending manual review | Not assessed yet |
+| [Per.19](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-access) | Pending manual review | Not assessed yet |
+| [Per.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rper-context) | Pending manual review | Not assessed yet |
+| [CP.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-multi) | Pending manual review | Not assessed yet |
+| [CP.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-races) | Pending manual review | Not assessed yet |
+| [CP.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-data) | Pending manual review | Not assessed yet |
+| [CP.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-task) | Pending manual review | Not assessed yet |
+| [CP.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-volatile) | Pending manual review | Not assessed yet |
+| [CP.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-tools) | Pending manual review | Not assessed yet |
+| [CP.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-raii) | Pending manual review | Not assessed yet |
+| [CP.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-lock) | Pending manual review | Not assessed yet |
+| [CP.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-unknown) | Pending manual review | Not assessed yet |
+| [CP.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-join) | Pending manual review | Not assessed yet |
+| [CP.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-detach) | Pending manual review | Not assessed yet |
+| [CP.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-joining_thread) | Pending manual review | Not assessed yet |
+| [CP.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-detached_thread) | Pending manual review | Not assessed yet |
+| [CP.31](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-data-by-value) | Pending manual review | Not assessed yet |
+| [CP.32](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-shared) | Pending manual review | Not assessed yet |
+| [CP.40](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-switch) | Pending manual review | Not assessed yet |
+| [CP.41](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-create) | Pending manual review | Not assessed yet |
+| [CP.42](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-wait) | Pending manual review | Not assessed yet |
+| [CP.43](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-time) | Pending manual review | Not assessed yet |
+| [CP.44](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-name) | Pending manual review | Not assessed yet |
+| [CP.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-mutex) | Pending manual review | Not assessed yet |
+| [CP.51](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcoro-capture) | Pending manual review | Not assessed yet |
+| [CP.52](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcoro-locks) | Pending manual review | Not assessed yet |
+| [CP.53](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcoro-reference-parameters) | Pending manual review | Not assessed yet |
+| [CP.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-future) | Pending manual review | Not assessed yet |
+| [CP.61](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-async) | Pending manual review | Not assessed yet |
+| [CP.100](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-lockfree) | Pending manual review | Not assessed yet |
+| [CP.101](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-distrust) | Pending manual review | Not assessed yet |
+| [CP.102](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-literature) | Pending manual review | Not assessed yet |
+| [CP.110](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-double) | Pending manual review | Not assessed yet |
+| [CP.111](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-double-pattern) | Pending manual review | Not assessed yet |
+| [CP.200](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-volatile2) | Pending manual review | Not assessed yet |
+| [CP.201](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconc-signal) | Pending manual review | Not assessed yet |
+| [E.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-design) | Pending manual review | Not assessed yet |
+| [E.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-throw) | Pending manual review | Not assessed yet |
+| [E.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-errors) | Pending manual review | Not assessed yet |
+| [E.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-design-invariants) | Pending manual review | Not assessed yet |
+| [E.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-invariant) | Pending manual review | Not assessed yet |
+| [E.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-raii) | Pending manual review | Not assessed yet |
+| [E.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-precondition) | Pending manual review | Not assessed yet |
+| [E.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-postcondition) | Pending manual review | Not assessed yet |
+| [E.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-noexcept) | Pending manual review | Not assessed yet |
+| [E.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-never-throw) | Pending manual review | Not assessed yet |
+| [E.14](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-exception-types) | Pending manual review | Not assessed yet |
+| [E.15](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-exception-ref) | Pending manual review | Not assessed yet |
+| [E.16](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-never-fail) | Pending manual review | Not assessed yet |
+| [E.17](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-not-always) | Pending manual review | Not assessed yet |
+| [E.18](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-catch) | Pending manual review | Not assessed yet |
+| [E.19](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-finally) | Pending manual review | Not assessed yet |
+| [E.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-no-throw-raii) | Pending manual review | Not assessed yet |
+| [E.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-no-throw-crash) | Pending manual review | Not assessed yet |
+| [E.27](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-no-throw-codes) | Pending manual review | Not assessed yet |
+| [E.28](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-no-throw) | Pending manual review | Not assessed yet |
+| [E.30](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re-specifications) | Pending manual review | Not assessed yet |
+| [E.31](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#re_catch) | Pending manual review | Not assessed yet |
+| [Con.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconst-immutable) | Pending manual review | Not assessed yet |
+| [Con.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconst-fct) | Pending manual review | Not assessed yet |
+| [Con.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconst-ref) | Pending manual review | Not assessed yet |
+| [Con.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconst-const) | Pending manual review | Not assessed yet |
+| [Con.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rconst-constexpr) | Pending manual review | Not assessed yet |
+| [T.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-raise) | Pending manual review | Not assessed yet |
+| [T.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-algo) | Pending manual review | Not assessed yet |
+| [T.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-cont) | Pending manual review | Not assessed yet |
+| [T.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-expr) | Pending manual review | Not assessed yet |
+| [T.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-generic-oo) | Pending manual review | Not assessed yet |
+| [T.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-concepts) | Pending manual review | Not assessed yet |
+| [T.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-std-concepts) | Pending manual review | Not assessed yet |
+| [T.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-auto) | Pending manual review | Not assessed yet |
+| [T.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-shorthand) | Pending manual review | Not assessed yet |
+| [T.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-low) | Pending manual review | Not assessed yet |
+| [T.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-complete) | Pending manual review | Not assessed yet |
+| [T.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-axiom) | Pending manual review | Not assessed yet |
+| [T.23](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-refine) | Pending manual review | Not assessed yet |
+| [T.24](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-tag) | Pending manual review | Not assessed yet |
+| [T.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-not) | Pending manual review | Not assessed yet |
+| [T.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-use) | Pending manual review | Not assessed yet |
+| [T.40](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-fo) | Pending manual review | Not assessed yet |
+| [T.41](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-essential) | Pending manual review | Not assessed yet |
+| [T.42](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-alias) | Pending manual review | Not assessed yet |
+| [T.43](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-using) | Pending manual review | Not assessed yet |
+| [T.44](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-deduce) | Pending manual review | Not assessed yet |
+| [T.46](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-regular) | Pending manual review | Not assessed yet |
+| [T.47](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-visible) | Pending manual review | Not assessed yet |
+| [T.48](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-concept-def) | Pending manual review | Not assessed yet |
+| [T.49](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-erasure) | Pending manual review | Not assessed yet |
+| [T.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-depend) | Pending manual review | Not assessed yet |
+| [T.61](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-scary) | Pending manual review | Not assessed yet |
+| [T.62](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-nondependent) | Pending manual review | Not assessed yet |
+| [T.64](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-specialization) | Pending manual review | Not assessed yet |
+| [T.65](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-tag-dispatch) | Pending manual review | Not assessed yet |
+| [T.67](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-specialization2) | Pending manual review | Not assessed yet |
+| [T.68](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-cast) | Pending manual review | Not assessed yet |
+| [T.69](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-customization) | Pending manual review | Not assessed yet |
+| [T.80](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-hier) | Pending manual review | Not assessed yet |
+| [T.81](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-array) | Pending manual review | Not assessed yet |
+| [T.82](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-linear) | Pending manual review | Not assessed yet |
+| [T.83](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-virtual) | Pending manual review | Not assessed yet |
+| [T.84](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-abi) | Pending manual review | Not assessed yet |
+| [T.100](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-variadic) | Pending manual review | Not assessed yet |
+| [T.101](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-variadic-pass) | Pending manual review | Not assessed yet |
+| [T.102](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-variadic-process) | Pending manual review | Not assessed yet |
+| [T.103](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-variadic-not) | Pending manual review | Not assessed yet |
+| [T.120](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-metameta) | Pending manual review | Not assessed yet |
+| [T.121](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-emulate) | Pending manual review | Not assessed yet |
+| [T.122](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-tmp) | Pending manual review | Not assessed yet |
+| [T.123](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-fct) | Pending manual review | Not assessed yet |
+| [T.124](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-std-tmp) | Pending manual review | Not assessed yet |
+| [T.125](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-lib) | Pending manual review | Not assessed yet |
+| [T.140](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-name) | Pending manual review | Not assessed yet |
+| [T.141](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-lambda) | Pending manual review | Not assessed yet |
+| [T.143](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-non-generic) | Pending manual review | Not assessed yet |
+| [T.144](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-specialize-function) | Pending manual review | Not assessed yet |
+| [T.150](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rt-check-class) | Pending manual review | Not assessed yet |
+| [CPL.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcpl-c) | Pending manual review | Not assessed yet |
+| [CPL.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcpl-subset) | Pending manual review | Not assessed yet |
+| [CPL.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rcpl-interface) | Pending manual review | Not assessed yet |
+| [SF.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-file-suffix) | Pending manual review | Not assessed yet |
+| [SF.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-inline) | Pending manual review | Not assessed yet |
+| [SF.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-declaration-header) | Pending manual review | Not assessed yet |
+| [SF.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-include-order) | Pending manual review | Not assessed yet |
+| [SF.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-consistency) | Pending manual review | Not assessed yet |
+| [SF.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-using) | Pending manual review | Not assessed yet |
+| [SF.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-using-directive) | Pending manual review | Not assessed yet |
+| [SF.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-guards) | Pending manual review | Not assessed yet |
+| [SF.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-cycles) | Pending manual review | Not assessed yet |
+| [SF.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-implicit) | Pending manual review | Not assessed yet |
+| [SF.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-contained) | Pending manual review | Not assessed yet |
+| [SF.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-incform) | Pending manual review | Not assessed yet |
+| [SF.13](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-portable-header-id) | Pending manual review | Not assessed yet |
+| [SF.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-namespace) | Pending manual review | Not assessed yet |
+| [SF.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-unnamed) | Pending manual review | Not assessed yet |
+| [SF.22](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rs-unnamed2) | Pending manual review | Not assessed yet |
+| [SL.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-lib) | Pending manual review | Not assessed yet |
+| [SL.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-sl) | Pending manual review | Not assessed yet |
+| [SL.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#sl-std) | Pending manual review | Not assessed yet |
+| [SL.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#sl-safe) | Pending manual review | Not assessed yet |
+| [SL.con.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-arrays) | Pending manual review | Not assessed yet |
+| [SL.con.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-vector) | Pending manual review | Not assessed yet |
+| [SL.con.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-bounds) | Pending manual review | Not assessed yet |
+| [SL.con.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rsl-copy) | Pending manual review | Not assessed yet |
+| [SL.str.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-string) | Pending manual review | Not assessed yet |
+| [SL.str.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-view) | Pending manual review | Not assessed yet |
+| [SL.str.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-zstring) | Pending manual review | Not assessed yet |
+| [SL.str.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-charp) | Pending manual review | Not assessed yet |
+| [SL.str.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-byte) | Pending manual review | Not assessed yet |
+| [SL.str.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-locale) | Pending manual review | Not assessed yet |
+| [SL.str.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-span) | Pending manual review | Not assessed yet |
+| [SL.str.12](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rstr-s) | Pending manual review | Not assessed yet |
+| [SL.io.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rio-low) | Pending manual review | Not assessed yet |
+| [SL.io.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rio-validate) | Pending manual review | Not assessed yet |
+| [SL.io.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rio-streams) | Pending manual review | Not assessed yet |
+| [SL.io.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rio-sync) | Pending manual review | Not assessed yet |
+| [SL.io.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rio-endl) | Pending manual review | Not assessed yet |
+| [SL.C.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rclib-jmp) | Pending manual review | Not assessed yet |
+| [A.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ra-stable) | Pending manual review | Not assessed yet |
+| [A.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ra-lib) | Pending manual review | Not assessed yet |
+| [A.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#ra-dag) | Pending manual review | Not assessed yet |
+| [NR.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-top) | Pending manual review | Not assessed yet |
+| [NR.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-single-return) | Pending manual review | Not assessed yet |
+| [NR.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-no-exceptions) | Pending manual review | Not assessed yet |
+| [NR.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-lots-of-files) | Pending manual review | Not assessed yet |
+| [NR.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-two-phase-init) | Pending manual review | Not assessed yet |
+| [NR.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-goto-exit) | Pending manual review | Not assessed yet |
+| [NR.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rnr-protected-data) | Pending manual review | Not assessed yet |
+| [NL.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-comments) | Pending manual review | Not assessed yet |
+| [NL.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-comments-intent) | Pending manual review | Not assessed yet |
+| [NL.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-comments-crisp) | Pending manual review | Not assessed yet |
+| [NL.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-indent) | Pending manual review | Not assessed yet |
+| [NL.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-name-type) | Pending manual review | Not assessed yet |
+| [NL.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-name-length) | Pending manual review | Not assessed yet |
+| [NL.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-name) | Pending manual review | Not assessed yet |
+| [NL.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-all-caps) | Pending manual review | Not assessed yet |
+| [NL.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-camel) | Pending manual review | Not assessed yet |
+| [NL.11](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-literals) | Pending manual review | Not assessed yet |
+| [NL.15](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-space) | Pending manual review | Not assessed yet |
+| [NL.16](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-order) | Pending manual review | Not assessed yet |
+| [NL.17](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-knr) | Pending manual review | Not assessed yet |
+| [NL.18](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-ptr) | Pending manual review | Not assessed yet |
+| [NL.19](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-misread) | Pending manual review | Not assessed yet |
+| [NL.20](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-stmt) | Pending manual review | Not assessed yet |
+| [NL.21](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-dcl) | Pending manual review | Not assessed yet |
+| [NL.25](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-void) | Pending manual review | Not assessed yet |
+| [NL.26](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-const) | Pending manual review | Not assessed yet |
+| [NL.27](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#rl-file-suffix) | Pending manual review | Not assessed yet |
+| [FAQ.1](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-aims) | Pending manual review | Not assessed yet |
+| [FAQ.2](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-announced) | Pending manual review | Not assessed yet |
+| [FAQ.3](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-maintainers) | Pending manual review | Not assessed yet |
+| [FAQ.4](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-contribute) | Pending manual review | Not assessed yet |
+| [FAQ.5](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-maintainer) | Pending manual review | Not assessed yet |
+| [FAQ.6](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-iso) | Pending manual review | Not assessed yet |
+| [FAQ.7](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-isocpp) | Pending manual review | Not assessed yet |
+| [FAQ.8](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-cpp98) | Pending manual review | Not assessed yet |
+| [FAQ.9](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-language-extensions) | Pending manual review | Not assessed yet |
+| [FAQ.10](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-markdown) | Pending manual review | Not assessed yet |
+| [FAQ.50](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl) | Pending manual review | Not assessed yet |
+| [FAQ.51](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-msgsl) | Pending manual review | Not assessed yet |
+| [FAQ.52](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-implementation) | Pending manual review | Not assessed yet |
+| [FAQ.53](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-boost) | Pending manual review | Not assessed yet |
+| [FAQ.54](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-iso) | Pending manual review | Not assessed yet |
+| [FAQ.55](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-string-view) | Pending manual review | Not assessed yet |
+| [FAQ.56](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-owner) | Pending manual review | Not assessed yet |
+| [FAQ.57](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-stack-array) | Pending manual review | Not assessed yet |
+| [FAQ.58](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-dyn-array) | Pending manual review | Not assessed yet |
+| [FAQ.59](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-expects) | Pending manual review | Not assessed yet |
+| [FAQ.60](https://github.com/isocpp/CppCoreGuidelines/blob/33bcd015997f0d8e0fa0202eb66254a16f59ad8f/CppCoreGuidelines.md#faq-gsl-ensures) | Pending manual review | Not assessed yet |
+
+
+Additional component evidence (2026-10-24): `charset_rules` preserves explicit
+one-way mappings and label-only rules, with opt-in `-builtin`; formatting uses
+validated UTF-8 boundaries and checks final encoded byte limits. `message_values`
+uses fixed-width JAM dates, chrono calendar arithmetic and caller-owned native
+local-time buffers. `workers` owns admission leases and all jthreads; `signals`
+uses synchronous POSIX sigwait and joins its watcher. `session` owns authentication
+and article-selection state and delegates storage/content through explicit
+callbacks. Component tests and current clang-tidy runs support this evidence;
+whole-service applicability review and integration acceptance remain pending.

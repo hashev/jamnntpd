@@ -1,0 +1,132 @@
+[
+  {
+    "state": "no group selected",
+    "request": "ARTICLE\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "HEAD\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "BODY\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "STAT\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "NEXT\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "LAST\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "XOVER\r\n",
+    "response": "412 No newsgroup selected\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "GROUP\r\n",
+    "response": "501 No group specified\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "GROUP hidden\r\n",
+    "response": "411 No such newsgroup\r\n"
+  },
+  {
+    "state": "guest without group access",
+    "request": "LIST\r\n",
+    "response": "215 List of newsgroups follows\r\n.\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "LIST NEWSGROUPS *\r\n",
+    "response": "501 Patterns not supported for LIST NEWSGROUPS\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "LIST unknown\r\n",
+    "response": "501 Unknown argument for LIST command\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "LIST OVERVIEW.FMT\r\n",
+    "response": "215 List of fields in XOVER result\r\nSubject:\r\nFrom:\r\nDate:\r\nMessage-ID:\r\nReferences:\r\nBytes:\r\nLines:\r\n.\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "AUTHINFO\r\n",
+    "response": "501 Only AUTHINFO USER or AUTHINFO pass are understood\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "AUTHINFO PASS sentinel\r\n",
+    "response": "482 Use AUTHINFO USER before AUTHINFO pass\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "AUTHINFO USER\r\n",
+    "response": "482 No user specified for AUTHINFO USER\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "AUTHINFO USER alice\r\n",
+    "response": "381 Received login name, now send password\r\n"
+  },
+  {
+    "state": "USER alice supplied; password mismatch",
+    "request": "AUTHINFO PASS bad\r\n",
+    "response": "481 Authentication rejected\r\n"
+  },
+  {
+    "state": "USER alice supplied; correct password",
+    "request": "AUTHINFO PASS secret\r\n",
+    "response": "281 Authentication accepted\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "IHAVE <x@example>\r\n",
+    "response": "435 Article not wanted - do not send it\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "NEWGROUPS 000101 000000\r\n",
+    "response": "231 Warning: NEWGROUPS not implemented, returning empty list\r\n.\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "NEWNEWS * 000101 000000\r\n",
+    "response": "230 Warning: NEWNEWS not implemented, returning empty list\r\n.\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "SLAVE\r\n",
+    "response": "202 Slave status noted (but ignored)\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "MODE READER\r\n",
+    "response": "200 Server ready - posting allowed\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "UNRECOGNIZED\r\n",
+    "response": "500 Unknown command\r\n"
+  },
+  {
+    "state": "no group selected",
+    "request": "QUIT\r\n",
+    "response": "205 Goodbye\r\n"
+  }
+]

@@ -1,0 +1,205 @@
+{
+  "revision": "a05db5daf83d8277dd08bc1c64c20c5781d3a968",
+  "files": [
+    {
+      "path": "src/Makefile",
+      "sha256": "6a5548743cc618314d1a14a540f2a264a8623d1eae8fc407e572d37fbe6111b6",
+      "lines": 37
+    },
+    {
+      "path": "src/Makefile.linux",
+      "sha256": "f95b313881261e5da2c533b484d795d2087bb9f90bd0a37353c8a35314c56fe9",
+      "lines": 55
+    },
+    {
+      "path": "src/Makefile.os2",
+      "sha256": "d699936cee2c3a61c304d069b13579960200b02eb4a8850fcd96db6d5c15cb6c",
+      "lines": 55
+    },
+    {
+      "path": "src/Makefile.win32",
+      "sha256": "4af4889b2e14719cf6187b5668f0c8fca4208c74739423dbe92a39326d860932",
+      "lines": 55
+    },
+    {
+      "path": "src/allow.c",
+      "sha256": "9220780b6447bc49f31fdc3742ca835d494bbefab292d4669a2f1a0a10ba526f",
+      "lines": 50
+    },
+    {
+      "path": "src/allow.h",
+      "sha256": "541cfd7c85cd71a3b0a4e6c6f0b1f68a54634337ef5118178ced3987c3da7e13",
+      "lines": 1
+    },
+    {
+      "path": "src/groups.c",
+      "sha256": "51f87ae8f3bb230f28ba1a38adb531e6e35c360313f63bbff991ea7b79f8e4ae",
+      "lines": 112
+    },
+    {
+      "path": "src/groups.h",
+      "sha256": "790ae915e8ef21c22466cf1f2b4d06766bfcbfc4b3b750903613a91a0ea2e139",
+      "lines": 16
+    },
+    {
+      "path": "src/jamlib/Makefile.linux",
+      "sha256": "852aecaf411362e0827ea5f0263228c7dc45977a77cc2c8fde1409739aaf5b4d",
+      "lines": 29
+    },
+    {
+      "path": "src/jamlib/Makefile.os2",
+      "sha256": "2a1e71e3bb77bdcaa9c767eb31d7abf3ec5c6e4b724aa59ee0cfd66e25d337f5",
+      "lines": 30
+    },
+    {
+      "path": "src/jamlib/Makefile.win32",
+      "sha256": "8f3bdedaf400869b8450ac58c2d00188a6d2fa1bb01171c5a6f36af1900def79",
+      "lines": 29
+    },
+    {
+      "path": "src/jamlib/crc32.c",
+      "sha256": "07500df2af7391d4843e0369e62609c48cf1ce91b89f76f309eceeafe6483d18",
+      "lines": 78
+    },
+    {
+      "path": "src/jamlib/jam.h",
+      "sha256": "3f574e9a6b8df45fc3c25da5d0890558589a1669a70e00db226fad07b0006e79",
+      "lines": 332
+    },
+    {
+      "path": "src/jamlib/lastread.c",
+      "sha256": "8cd6234f3c35c61f4593b17a6a3ae0d131df224d68daae4ec0daa858c6d2d74d",
+      "lines": 174
+    },
+    {
+      "path": "src/jamlib/mbase.c",
+      "sha256": "3b120e3941eb9ece1eae9da6489d32c1a045f554b2347b8282fc67f927dcced5",
+      "lines": 591
+    },
+    {
+      "path": "src/jamlib/message.c",
+      "sha256": "9a4142e8b7002b6607db722c8e6c421b3b85a0b680dfdbf52112981f32f50e8a",
+      "lines": 625
+    },
+    {
+      "path": "src/jamlib/structrw.c",
+      "sha256": "f5838eb4eda0837c911e89c3ddca606b4ae0ecbb7f67b48dd469ea489905f16a",
+      "lines": 239
+    },
+    {
+      "path": "src/jamlib/structrw.h",
+      "sha256": "316026da51f413bea590da6bb7c1bdb6ca3af21ca50e2922862394a01aba5f97",
+      "lines": 86
+    },
+    {
+      "path": "src/jamlib/subpack.c",
+      "sha256": "24c8036e90a8fcab34138751b88947f16320671deea74b5230b526a6fdcc00a6",
+      "lines": 201
+    },
+    {
+      "path": "src/login.c",
+      "sha256": "83c41925c49b1197ce0a9b080af7b5391433f96f0f0bb4c3a63deb5017f5dc42",
+      "lines": 64
+    },
+    {
+      "path": "src/login.h",
+      "sha256": "c1967a3476e8f425d4b8aad179200badd4627886cadf64e598de90df9c8a2b5b",
+      "lines": 1
+    },
+    {
+      "path": "src/main.c",
+      "sha256": "50c237342410301f025e273e000cea9e93959bfd9a229d524e8b751022eb3918",
+      "lines": 611
+    },
+    {
+      "path": "src/makechs.c",
+      "sha256": "152701f48ddbe0f890f0c2afe492cb9af32aadabfe463103b204b933e426f3d3",
+      "lines": 1205
+    },
+    {
+      "path": "src/mime.c",
+      "sha256": "d1d9fd96fbd7144d3cf64b436a22524e33b773ff358413677d83d609b6f9c3e0",
+      "lines": 525
+    },
+    {
+      "path": "src/mime.h",
+      "sha256": "85725d5f42b4da9c58945f51abb83c6d1dacdf709c9129ebdb26fa3a840f81ab",
+      "lines": 9
+    },
+    {
+      "path": "src/misc.c",
+      "sha256": "90880e199921bed9790950c24928aa3b656bbadd0c3e36d73fa2c4d0bded95c9",
+      "lines": 247
+    },
+    {
+      "path": "src/misc.h",
+      "sha256": "097680edf65888c554b806df1e012f0e07870b76bed8ad452d9bd4d2c1f88721",
+      "lines": 14
+    },
+    {
+      "path": "src/nntpserv.c",
+      "sha256": "0fc33b9186cdcce41d8471975f26631e486a0863587c5d2798fef6a6e231178c",
+      "lines": 3336
+    },
+    {
+      "path": "src/nntpserv.h",
+      "sha256": "61c22fe9d4f3613daa4e151cbb718c430d5a927c9e595186c4bb4450d1eecb01",
+      "lines": 143
+    },
+    {
+      "path": "src/os.h",
+      "sha256": "9ba4449db4098517b3ea9ee2a55a58bdb0a08e81cfae1e172b069b658c4c1a47",
+      "lines": 22
+    },
+    {
+      "path": "src/os_linux.c",
+      "sha256": "979ccc438a72ab5fe41f422b52996cb38ef44e4cd36e29806fa76effe8c0e6e3",
+      "lines": 124
+    },
+    {
+      "path": "src/os_linux.h",
+      "sha256": "899ebc80ddda57b8272b636809742f8eabe3e818d75c1c96ca80de10c6f50a82",
+      "lines": 22
+    },
+    {
+      "path": "src/os_os2.c",
+      "sha256": "65c0fda283c1ec6e6f3f8bd75746e023008d20ceb7ea0bab24bdcb989bbe45d9",
+      "lines": 172
+    },
+    {
+      "path": "src/os_os2.h",
+      "sha256": "e14ca96ca8a64cd867f1503f8d9cdc76c310b8ee4c41e885e5fff76c876822b2",
+      "lines": 21
+    },
+    {
+      "path": "src/os_win32.c",
+      "sha256": "58a2b9892af34b83819064aee4937e64853b778394fb9b578ef8d52307948a08",
+      "lines": 151
+    },
+    {
+      "path": "src/os_win32.h",
+      "sha256": "bddc1460fd2b211d9a4d9684fd4ad49837c5ede8e42b2ce424c81193fde95f8b",
+      "lines": 10
+    },
+    {
+      "path": "src/sockio.c",
+      "sha256": "f38ffc6a6116069bdb451ad894c3e745f31e80d4d04b621346be99657e8d541c",
+      "lines": 127
+    },
+    {
+      "path": "src/sockio.h",
+      "sha256": "fabdd7c8f0f2db4d4b397a093f49c1a9a6e8c7778a843d8ef2228caba8805739",
+      "lines": 15
+    },
+    {
+      "path": "src/xlat.c",
+      "sha256": "0bf6e380e58d02284b9491fa6e87b09c58cd45a52a6ca87acb8989c506cf0ea1",
+      "lines": 588
+    },
+    {
+      "path": "src/xlat.h",
+      "sha256": "0ca2445dc3faef667d6abc3cfadc819f8b3e517180d09aedbb286189530ab980",
+      "lines": 31
+    }
+  ]
+}

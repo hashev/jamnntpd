@@ -1,0 +1,9 @@
+* text=auto
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.py text eol=lf
+*.jhr -text -diff
+*.jdt -text -diff
+*.jdx -text -diff
+*.jlr -text -diff
+tests/fixtures/protocol/help-response.txt -text whitespace=cr-at-eol

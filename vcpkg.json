@@ -1,0 +1,6 @@
+{
+  "name": "jamnntpd",
+  "version-string": "2.0.0",
+  "builtin-baseline": "b42e8ed051d17a7f95b9d2a3140c1f9296423712",
+  "dependencies": ["icu", "spdlog", "catch2"]
+}
