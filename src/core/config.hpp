@@ -53,7 +53,7 @@ struct Config {
 [[nodiscard]] auto apply_config_arguments(Config &config, std::span<const std::string> arguments)
     -> Result<void>;
 [[nodiscard]] auto load_config(Config &config, const std::filesystem::path &path) -> Result<void>;
-[[nodiscard]] auto config_text(const Config &config) -> std::string;
+[[nodiscard]] auto config_text(const Config &config) -> Result<std::string>;
 enum class CommandAction : std::uint8_t { run, help, create_config };
 struct CommandLine {
     Config config;

@@ -27,3 +27,9 @@ the returned action. `-config`/`-create` inside configuration files are rejected
 Configuration input has a bounded line and total size, rejects NUL, and rejects
 non-regular files. The production executable performs the selected action; CLI e2e
 checks include Unicode paths, creation failures and option aliases.
+
+Configuration serialization is checked before `-create` opens its destination.
+The retained grammar has no embedded-quote escape, so quote/CR/LF/NUL values that
+cannot be represented are refused with an error instead of writing a misleading
+file. A failed serialization leaves any existing destination unchanged. This does
+not change valid runtime CLI text or invent escapes that reinterpret Windows paths.

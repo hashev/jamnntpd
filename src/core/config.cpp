@@ -357,7 +357,20 @@ auto set_user_option(UserOptions &options, UserOptionSetting setting) -> Result<
     options.*user_options.at(option).member = equal_ascii(setting.value, "on");
     return {};
 }
-auto config_text(const Config &config) -> std::string {
+auto config_text(const Config &config) -> Result<std::string> {
+    const auto representable = [](std::string_view value) -> bool {
+        return value.find_first_of("\"\r\n") == std::string_view::npos && !value.contains('\0');
+    };
+    for (const auto &option : paths) {
+        if (!representable((config.*option.member).string())) {
+            return failure(ErrorKind::input, "Path cannot be represented in configuration syntax");
+        }
+    }
+    for (const auto *value : {&config.origin, &config.guest_suffix}) {
+        if (*value && !representable(**value)) {
+            return failure(ErrorKind::input, "Text cannot be represented in configuration syntax");
+        }
+    }
     std::ostringstream output;
     output << "port " << config.port << "\nmax " << config.maximum_connections << '\n';
     for (const auto &option : paths) {
@@ -389,6 +402,9 @@ auto config_text(const Config &config) -> std::string {
     }
     output << "conversion_errors "
            << (config.conversion_policy == ConversionPolicy::strict ? "strict" : "replace") << '\n';
+    if (!output) {
+        return failure(ErrorKind::io, "Cannot format configuration");
+    }
     return output.str();
 }
 auto load_groups(const std::filesystem::path &path) -> Result<std::vector<Group>> {
