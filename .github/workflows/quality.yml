@@ -29,7 +29,8 @@ jobs:
       - name: Bootstrap dependencies (POSIX)
         if: runner.os != 'Windows'
         shell: bash
-        run: "$RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.sh" -disableMetrics
+        run: |
+          "$RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.sh" -disableMetrics
       - name: Bootstrap dependencies (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
