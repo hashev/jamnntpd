@@ -9,7 +9,7 @@ jobs:
       matrix:
         include:
           - {os: ubuntu-24.04, compiler: g++-14, triplet: x64-linux}
-          - {os: ubuntu-24.04, compiler: clang++-19, triplet: x64-linux}
+          - {os: ubuntu-24.04, compiler: clang++-19, triplet: x64-linux, flags: --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14}
           - {os: macos-26, compiler: /usr/bin/clang++, triplet: arm64-osx}
           - {os: windows-2025, compiler: cl, triplet: x64-windows-static}
     runs-on: ${{ matrix.os }}
@@ -38,7 +38,7 @@ jobs:
       - name: Configure (POSIX)
         if: runner.os != 'Windows'
         shell: bash
-        run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+        run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_CXX_FLAGS="${{ matrix.flags }}" -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
       - name: Configure (MSVC)
         if: runner.os == 'Windows'
         shell: pwsh
@@ -49,4 +49,6 @@ jobs:
         if: always()
         with:
           name: native-${{ matrix.os }}-${{ strategy.job-index }}
-          path: build/ci/Testing/Temporary/
+          path: |
+            build/ci/Testing/Temporary/
+            build/ci/CMakeFiles/CMakeConfigureLog.yaml

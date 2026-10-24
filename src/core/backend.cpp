@@ -292,12 +292,16 @@ auto JamBackend::submit(std::string_view article, const Identity &identity,
         return std::unexpected{number.error()};
     }
     if (!config_.echomail_file.empty()) {
-        static std::mutex notify_mutex;
-        std::scoped_lock lock{notify_mutex};
-        std::ofstream output{config_.echomail_file, std::ios::app};
-        output << group->base.string() << ' ' << *number << '\n';
-        output.flush();
-        if (!output && report_) {
+        bool failed{};
+        {
+            static std::mutex notify_mutex;
+            std::scoped_lock lock{notify_mutex};
+            std::ofstream output{config_.echomail_file, std::ios::app};
+            output << group->base.string() << ' ' << *number << '\n';
+            output.flush();
+            failed = !output;
+        }
+        if (failed && report_) {
             report_("Article committed but echomail notification failed");
         }
     }

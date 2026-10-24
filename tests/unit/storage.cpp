@@ -135,7 +135,8 @@ TEST_CASE("Short writes and flush errors rollback every modified JAM file") {
         }
     }
 }
-TEST_CASE("Permanent I/O failure disables the base instead of claiming successful rollback") {
+TEST_CASE("Permanent I/O failure disables the base instead of claiming successful rollback",
+          "[quarantine]") {
     TempDirectory directory;
     const auto base = copy_base(directory);
     bool armed = false;
@@ -336,7 +337,7 @@ TEST_CASE("Cancellation and lastread failures restore every original record") {
     }
 }
 
-TEST_CASE("An unrecoverable base cannot be reopened after its last handle closes") {
+TEST_CASE("An unrecoverable base cannot be reopened after its last handle closes", "[quarantine]") {
     TempDirectory directory;
     const auto base = copy_base(directory);
     bool fail = false;

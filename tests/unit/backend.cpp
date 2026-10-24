@@ -110,3 +110,41 @@ TEST_CASE("JAM backend rejects invalid references and enforces permission before
     REQUIRE(storage);
     CHECK(storage->info()->slots == 2);
 }
+TEST_CASE("Committed post notification failures are diagnosed outside the notification lock") {
+    TempDirectory directory;
+    const auto base = directory.file("base");
+    for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        std::filesystem::copy_file(std::filesystem::path{JAM_FIXTURE_DIR} / "jam" /
+                                       (std::string{"sample"} + suffix),
+                                   directory.file(std::string{"base"} + suffix));
+    }
+    const Group group{.name = "test",
+                      .access = 'a',
+                      .address = "2:1/2",
+                      .base = base,
+                      .default_charset = "!CP866"};
+    const auto rules = parse_charset_config("post UTF-8 CP866 -builtin\n", "rules");
+    REQUIRE(rules);
+    const Identity alice{
+        .username = "alice", .permissions = {.read = "a", .post = "a"}, .realnames = "Alice"};
+    const std::string post = "From: Alice <a@example.org>\r\nNewsgroups: test\r\nContent-Type: "
+                             "text/plain; charset=UTF-8\r\n\r\nBody\r\n";
+    Config config;
+    config.echomail_file = directory.file("notification");
+    JamBackend successful{config, *rules, {group}};
+    REQUIRE(successful.submit(post, alice, {}, {}));
+    CHECK(std::filesystem::file_size(config.echomail_file) > 0);
+    config.echomail_file = directory.file("missing/notification");
+    bool diagnosed = false;
+    JamBackend failing{config, *rules, {group}, [&](std::string_view message) -> void {
+                           CHECK(message == "Article committed but echomail notification failed");
+                           diagnosed = true;
+                           // A reentrant notification on a different backend must not deadlock.
+                           REQUIRE(successful.submit(post, alice, {}, {}));
+                       }};
+    REQUIRE(failing.submit(post, alice, {}, {}));
+    CHECK(diagnosed);
+    const auto storage = jam::Storage::open(base);
+    REQUIRE(storage);
+    CHECK(storage->info()->slots == 5);
+}

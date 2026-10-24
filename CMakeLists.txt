@@ -106,7 +106,14 @@ if(BUILD_TESTING)
   add_test(NAME makechs-cli COMMAND ${Python3_EXECUTABLE}
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_makechs.py --executable $<TARGET_FILE:makechs>)
   set_tests_properties(makechs-cli PROPERTIES TIMEOUT 15)
-  add_test(NAME unit COMMAND jam_unit "~[native-tz]")
+  add_test(NAME unit COMMAND jam_unit "~[native-tz]~[quarantine]")
+  # Quarantine intentionally lasts for a process lifetime, including recycled inodes.
+  # Isolate destructive fault cases so filesystem inode reuse cannot poison other tests.
+  add_test(NAME storage-quarantine COMMAND jam_unit
+    "Permanent I/O failure disables the base instead of claiming successful rollback")
+  add_test(NAME storage-quarantine-reopen COMMAND jam_unit
+    "An unrecoverable base cannot be reopened after its last handle closes")
+  set_tests_properties(storage-quarantine storage-quarantine-reopen PROPERTIES TIMEOUT 15)
   add_test(NAME timezone-native COMMAND jam_unit "[native-tz]")
   set_tests_properties(timezone-native PROPERTIES ENVIRONMENT "TZ=EST5EDT" TIMEOUT 15)
   set_tests_properties(unit PROPERTIES TIMEOUT 60)
