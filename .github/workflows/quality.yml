@@ -65,8 +65,7 @@ jobs:
         if: matrix.coverage == 'ON'
         shell: pwsh
         run: |
-          $compilerLine = Get-Content build/ci/CMakeCache.txt | Where-Object { $_ -match '^CMAKE_CXX_COMPILER:[^=]+=' } | Select-Object -First 1
-          $compiler = ($compilerLine -split '=',2)[1]
+          $compiler = (Get-Content build/ci/coverage-compiler.txt -Raw).Trim()
           $llvm = Split-Path $compiler
           python tools/check_coverage.py --build build/ci --native-windows-evidence --llvm-cov "$llvm/llvm-cov.exe" --llvm-profdata "$llvm/llvm-profdata.exe"
       - name: Save pinned dependency binaries

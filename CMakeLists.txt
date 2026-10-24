@@ -29,6 +29,7 @@ if(MSVC)
     execute_process(COMMAND ${CMAKE_CXX_COMPILER} -print-resource-dir
       OUTPUT_VARIABLE JAM_CLANG_RESOURCE_DIR OUTPUT_STRIP_TRAILING_WHITESPACE
       COMMAND_ERROR_IS_FATAL ANY)
+    file(WRITE "${CMAKE_BINARY_DIR}/coverage-compiler.txt" "${CMAKE_CXX_COMPILER}\n")
     target_compile_options(jam_options INTERFACE /clang:-fprofile-instr-generate
       /clang:-fcoverage-mapping /clang:-fprofile-update=atomic)
     target_link_options(jam_options INTERFACE "/LIBPATH:${JAM_CLANG_RESOURCE_DIR}/lib/windows")
