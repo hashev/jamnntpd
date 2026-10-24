@@ -5,6 +5,12 @@
 #include <optional>
 #include <stop_token>
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <string_view>
+#include <vector>
+
 namespace jamnntpd {
 struct GroupIndex {
     std::uint32_t count{};

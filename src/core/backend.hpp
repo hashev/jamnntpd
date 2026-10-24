@@ -4,6 +4,13 @@
 #include "mime.hpp"
 #include "post_builder.hpp"
 
+#include <cstdint>
+#include <functional>
+#include <stop_token>
+#include <string>
+#include <string_view>
+#include <vector>
+
 namespace jamnntpd {
 class JamBackend {
   public:

@@ -1,11 +1,13 @@
 #ifndef JAMNNTPD_CORE_MAKECHS_FALLBACKS_HPP
 #define JAMNNTPD_CORE_MAKECHS_FALLBACKS_HPP
 // Preserved from makechs by Johan Billing. The original table is Markus Kuhn's
-// transtab with Billing's changes; see original attribution in src/historical makechs.c
-// (attribution preserved in src/jamlib/NOTICE).
+// transtab with Billing's changes; historical attribution is preserved in
+// src/jamlib/NOTICE.
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <string_view>
+
 namespace jamnntpd {
 struct MappingFallback {
     char32_t code_point;

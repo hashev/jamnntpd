@@ -148,3 +148,54 @@ TEST_CASE("Committed post notification failures are diagnosed outside the notifi
     REQUIRE(storage);
     CHECK(storage->info()->slots == 5);
 }
+TEST_CASE("Real backend never acknowledges a post after injected write or flush failure") {
+    for (const auto event : {jam::IoEvent::write, jam::IoEvent::flush}) {
+        for (std::size_t fail_index = 0; fail_index < 5; ++fail_index) {
+            TempDirectory directory;
+            const auto base = directory.file("base");
+            for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                std::filesystem::copy_file(std::filesystem::path{JAM_FIXTURE_DIR} / "jam" /
+                                               (std::string{"sample"} + suffix),
+                                           directory.file(std::string{"base"} + suffix));
+            }
+            bool armed = false;
+            std::size_t attempts = 0;
+            const auto storage =
+                jam::Storage::open(base, {.fail_io = [&](jam::IoEvent current) -> bool {
+                                       return armed && current == event && attempts++ == fail_index;
+                                   }});
+            REQUIRE(storage);
+            const auto before = storage->read(1);
+            REQUIRE(before);
+            const Group group{.name = "test",
+                              .access = 'a',
+                              .address = "2:1/2",
+                              .base = base,
+                              .default_charset = "!CP866"};
+            const auto rules = parse_charset_config("post UTF-8 CP866 -builtin\n", "rules");
+            REQUIRE(rules);
+            const Identity alice{.username = "alice",
+                                 .permissions = {.read = "a", .post = "a"},
+                                 .realnames = "Alice"};
+            JamBackend backend{Config{}, *rules, {group}};
+            Session session{{group}, alice, {}, backend.services()};
+            REQUIRE(session.command("POST").action == ProtocolAction::receive_post);
+            armed = true;
+            const auto reply = session.post(
+                "From: Alice <a@example.org>\r\nNewsgroups: test\r\nContent-Type: text/plain; "
+                "charset=UTF-8\r\nReferences: <1$test@JamNNTPd>\r\n\r\nBody\r\n");
+            armed = false;
+            if (attempts > fail_index) {
+                CHECK(reply.bytes.starts_with("441"));
+                CHECK(storage->info()->slots == 2);
+                const auto after = storage->read(1);
+                REQUIRE(after);
+                CHECK(after->text == before->text);
+                CHECK(after->header.first_reply == before->header.first_reply);
+                CHECK(jam::encode_message(after->header) == jam::encode_message(before->header));
+            } else {
+                CHECK(reply.bytes.starts_with("240"));
+            }
+        }
+    }
+}

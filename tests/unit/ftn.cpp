@@ -296,3 +296,31 @@ TEST_CASE("Post conversion distinguishes guest names custom bytes and malformed 
     CHECK(jam_field(built->message, field_subject) == "Raw\xe9");
     CHECK(built->message.text.find("byte\xe9") != std::string::npos);
 }
+TEST_CASE("IBMPC CODEPAGE is represented unambiguously in outgoing MIME") {
+    const Group group{.name = "test",
+                      .access = 'a',
+                      .address = "2:1/2",
+                      .base = {},
+                      .default_charset = "!IBMPC,866"};
+    const auto rules = parse_charset_config("read IBMPC,866 IBMPC,866\n", "rules");
+    REQUIRE(rules);
+    auto message = sample_message();
+    for (auto &field : message.fields) {
+        if (field.low == field_kludge) {
+            field.data = jam::bytes_from("CHRS: IBMPC 2");
+        }
+        if (field.low == field_subject) {
+            field.data = jam::bytes_from("\x8d");
+        }
+    }
+    add_jam_field(message, field_kludge, "CODEPAGE: 866");
+    message.text = "\x8d\r";
+    const auto text = read_message_text(message, group, *rules, ConversionPolicy::strict);
+    REQUIRE(text);
+    CHECK(text->subject == "Н");
+    const auto rendered = render_message(message, *text, group, {}, {});
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find("charset=CP866") != std::string::npos);
+    CHECK(rendered->headers.find("=?CP866?B?") != std::string::npos);
+    CHECK(rendered->body.find('\x8d') != std::string::npos);
+}

@@ -15,6 +15,8 @@
 #include <sys/socket.h>
 #endif
 
+#include <cstddef>
+
 namespace jamnntpd {
 #ifdef _WIN32
 using NativeSocket = SOCKET;

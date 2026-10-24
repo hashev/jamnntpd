@@ -2,6 +2,7 @@
 #define JAMNNTPD_CORE_WORKERS_HPP
 #include "error.hpp"
 #include <atomic>
+#include <concepts>
 #include <functional>
 #include <memory>
 #include <mutex>
@@ -10,6 +11,9 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
+
+#include <cstdint>
+#include <string_view>
 
 namespace jamnntpd {
 struct AdmissionState;
@@ -49,7 +53,9 @@ class WorkerPool {
     auto operator=(const WorkerPool &) -> WorkerPool & = delete;
     WorkerPool(WorkerPool &&) = delete;
     auto operator=(WorkerPool &&) -> WorkerPool & = delete;
-    template <class Function> [[nodiscard]] auto start(Function &&worker) -> Result<void> {
+    template <class Function>
+        requires std::invocable<std::remove_cvref_t<Function> &, const std::stop_token &>
+    [[nodiscard]] auto start(Function &&worker) -> Result<void> {
         try {
             auto owner =
                 std::make_shared<std::remove_cvref_t<Function>>(std::forward<Function>(worker));

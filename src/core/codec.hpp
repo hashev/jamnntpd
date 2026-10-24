@@ -8,6 +8,8 @@
 #include <string>
 #include <string_view>
 
+#include <cstddef>
+
 namespace jamnntpd {
 enum class ConversionPolicy : std::uint8_t { strict, replace };
 inline constexpr std::size_t chs_entries = 256;

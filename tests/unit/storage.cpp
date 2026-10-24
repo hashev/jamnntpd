@@ -520,3 +520,46 @@ TEST_CASE("Storage rejects invalid publication headers and corrupt companion ext
     directory.write("base.jhr", bytes);
     CHECK_FALSE(storage->cancel(1));
 }
+TEST_CASE("Independent bases keep concurrent subfields and long receivers value owned") {
+    TempDirectory first_directory;
+    TempDirectory second_directory;
+    const auto first = jam::Storage::open(copy_base(first_directory));
+    const auto second = jam::Storage::open(copy_base(second_directory));
+    REQUIRE(first);
+    REQUIRE(second);
+    std::barrier ready{2};
+    std::atomic<bool> successful{true};
+    const auto append = [&](const jam::Storage &storage, std::string marker) -> void {
+        ready.arrive_and_wait();
+        for (int index = 0; index < 20; ++index) {
+            auto article = message();
+            article.fields.at(1).data = jam::bytes_from(marker);
+            article.text = marker;
+            if (!storage.append(article))
+                successful = false;
+        }
+    };
+    std::jthread left{[&]() -> void { append(*first, "First base"); }};
+    std::jthread right{[&]() -> void { append(*second, "Second base"); }};
+    left.join();
+    right.join();
+    REQUIRE(successful.load());
+    for (std::uint32_t number = 3; number < 23; ++number) {
+        const auto a = first->read(number);
+        const auto b = second->read(number);
+        REQUIRE(a);
+        REQUIRE(b);
+        CHECK(a->text == "First base");
+        CHECK(b->text == "Second base");
+        CHECK(jam::text_from(a->fields.at(1).data) == "First base");
+        CHECK(jam::text_from(b->fields.at(1).data) == "Second base");
+    }
+    const std::string receiver(32000, 'R');
+    auto article = message();
+    article.fields.at(1).data = jam::bytes_from(receiver);
+    const auto number = first->append(article);
+    REQUIRE(number);
+    const auto stored = first->read(*number);
+    REQUIRE(stored);
+    CHECK(jam::text_from(stored->fields.at(1).data) == receiver);
+}

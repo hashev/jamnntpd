@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <string_view>
 
+#include <string>
+
 namespace jamnntpd {
 struct UtcOffset {
     std::chrono::minutes value{};

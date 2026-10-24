@@ -9,6 +9,10 @@
 #include <optional>
 #include <stop_token>
 
+#include <cstdint>
+#include <string>
+#include <vector>
+
 namespace jamnntpd::jam {
 enum class IoEvent : std::uint8_t { read, write, flush, resize, lock };
 inline constexpr auto default_lock_timeout = std::chrono::seconds{5};

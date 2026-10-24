@@ -12,6 +12,8 @@
 #include <string_view>
 #include <vector>
 
+#include <string>
+
 namespace jamnntpd::jam {
 using Bytes = std::vector<std::byte>;
 using ByteView = std::span<const std::byte>;

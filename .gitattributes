@@ -7,3 +7,4 @@
 *.jdx -text -diff
 *.jlr -text -diff
 tests/fixtures/protocol/help-response.txt -text whitespace=cr-at-eol
+tests/fixtures/** -text

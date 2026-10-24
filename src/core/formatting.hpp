@@ -3,6 +3,10 @@
 #include "codec.hpp"
 #include <vector>
 
+#include <cstddef>
+#include <string>
+#include <string_view>
+
 namespace jamnntpd {
 struct PostTextOptions {
     bool flowed{};

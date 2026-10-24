@@ -5,6 +5,10 @@
 #include <optional>
 #include <vector>
 
+#include <cstdint>
+#include <string>
+#include <string_view>
+
 namespace jamnntpd {
 struct Charset {
     std::string chrs;

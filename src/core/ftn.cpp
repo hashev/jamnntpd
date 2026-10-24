@@ -52,7 +52,7 @@ auto opaque_header(std::string_view bytes, std::string_view charset, bool no_enc
 }
 auto encoded_header(std::string_view value, const MessageText &text, bool no_encode)
     -> Result<std::string> {
-    return text.opaque ? opaque_header(value, text.charset.chrs, no_encode)
+    return text.opaque ? opaque_header(value, encoding_name(text.charset), no_encode)
                        : encode_header_words(value, {encoding_name(text.charset)}, no_encode);
 }
 auto wire_body(const MessageText &text, bool flowed, ConversionPolicy policy)
@@ -327,7 +327,7 @@ auto render_message(const jam::Message &message, const MessageText &text, const 
     const bool high_bit = std::ranges::any_of(body->bytes, [](char value) -> bool {
         return static_cast<unsigned char>(value) >= high_bit_boundary;
     });
-    const auto charset = high_bit ? text.charset.chrs : "us-ascii";
+    const auto charset = high_bit ? encoding_name(text.charset) : "us-ascii";
     article.headers +=
         std::format("MIME-Version: 1.0\r\nContent-Type: text/plain; charset={}; "
                     "format={}\r\nContent-Transfer-Encoding: {}\r\n",

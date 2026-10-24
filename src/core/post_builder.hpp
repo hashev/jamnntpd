@@ -2,6 +2,9 @@
 #define JAMNNTPD_CORE_POST_BUILDER_HPP
 #include "ftn.hpp"
 #include "mime.hpp"
+#include <cstdint>
+#include <string>
+
 namespace jamnntpd {
 struct ReplyTarget {
     std::string name{"All"};
