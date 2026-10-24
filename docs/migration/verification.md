@@ -11,16 +11,16 @@ were checked before removing those files; notices and license texts were retaine
 | Check | Current result |
 | --- | --- |
 | Local Debug, warnings as errors | All 10 CTest groups pass |
-| Local AppleClang 21 | Earlier integrated 8-group suite passed; final rerun pending |
-| Linux GCC 14 | Earlier integrated 8-group suite passed; final native CI pending |
-| Linux Clang 19 ASan/UBSan | Integrated 8-group unit/e2e/stress suite passed; final rerun pending |
-| Linux Clang 19 TSan | Integrated 8-group suite passed including 100 contested shutdown rounds, with dependencies instrumented |
-| clang-tidy 23.1.3 | All 21 production translation units passed; final header changes require rerun |
+| Local AppleClang 21 | Current full 10-group suite passed |
+| Linux GCC 14 | Native CI full 10-group suite passed; release validation also runs locally |
+| Linux Clang 19 ASan/UBSan | Current full 10-group unit/e2e/stress suite passed |
+| Linux Clang 19 TSan | Current full 10-group suite passed including 100 contested shutdown rounds, with dependencies instrumented |
+| clang-tidy 23.1.3 | All 21 production translation units and all own header paths passed; individual header compile checks also pass |
 | Independent tosser / backup restore | Passed against real executable and independently serialized JAM files |
-| Linux whole production coverage | 4,861/5,263 lines (92.36%); 2,353/2,762 branches (85.19%), both gates passed |
+| Linux whole production coverage | 4,921/5,319 lines (92.52%); 2,388/2,792 branches (85.53%), both gates passed |
 | macOS whole production coverage | 4,864/5,269 lines (92.31%); 2,339/2,751 branches (85.02%), both gates passed |
 | Native Windows MSVC and clang-cl coverage | CI running; not accepted yet |
-| Final Guidelines applicability and diff review | In progress |
+| Final Guidelines applicability and diff review | 495 rule dispositions reviewed; final diff/native acceptance pending |
 
 Coverage merges all five executable objects and rejects missing production C++
 translation units. Own headers and error branches are included. Linux and macOS
@@ -58,3 +58,9 @@ bytes; `-builtin` opts into standard conversion. Recoverable I/O errors rollback
 persistent rollback failure quarantines the base and requires consistent backup
 restore plus restart. No journal, physical-disk availability or power-loss atomicity
 is claimed. See rehearsal.md and storage.md for operational limits.
+
+Initial native Windows compilation exposed an assumption that std::array iterators
+are pointers. Portable value/position lookups now replace that assumption (R33).
+Windows dependencies were installed cleanly and their pinned binary cache is saved;
+corrected native executable and coverage results are still required. CTest starts
+Python explicitly in UTF-8 mode, and executable tests verify Unicode config/map paths.
