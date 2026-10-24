@@ -19,6 +19,20 @@ endif()
 add_library(jam_options INTERFACE)
 if(MSVC)
   target_compile_options(jam_options INTERFACE /W4 /WX /permissive- /utf-8)
+  if(JAM_ASAN_UBSAN OR JAM_TSAN)
+    message(FATAL_ERROR "Use the supported POSIX sanitizer profiles; this MSVC configuration cannot provide the requested sanitizer suite")
+  endif()
+  if(JAM_COVERAGE)
+    if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+      message(FATAL_ERROR "Windows source coverage requires clang-cl")
+    endif()
+    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -print-resource-dir
+      OUTPUT_VARIABLE JAM_CLANG_RESOURCE_DIR OUTPUT_STRIP_TRAILING_WHITESPACE
+      COMMAND_ERROR_IS_FATAL ANY)
+    target_compile_options(jam_options INTERFACE /clang:-fprofile-instr-generate
+      /clang:-fcoverage-mapping /clang:-fprofile-update=atomic)
+    target_link_options(jam_options INTERFACE "/LIBPATH:${JAM_CLANG_RESOURCE_DIR}/lib/windows")
+  endif()
 else()
   target_compile_options(jam_options INTERFACE -Wall -Wextra -Wpedantic -Wconversion
     -Wsign-conversion -Wshadow -Wformat=2 -Werror)

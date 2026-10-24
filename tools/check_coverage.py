@@ -7,6 +7,8 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--build', type=Path, required=True)
+parser.add_argument('--native-windows-evidence', action='store_true',
+                    help='Export native Windows adapter evidence; aggregate gates run on Linux')
 parser.add_argument('--llvm-cov', default='llvm-cov')
 parser.add_argument('--llvm-profdata', default='llvm-profdata')
 args = parser.parse_args()
@@ -18,6 +20,11 @@ if not profiles:
 merged = build / 'current.profdata'
 subprocess.run([args.llvm_profdata, 'merge', '-sparse', *map(str, profiles), '-o', str(merged)], check=True)
 objects = [build / name for name in ['jam_unit', 'jamnntpd', 'makechs', 'jam_storage_probe', 'jam_lifecycle_probe']]
+if sys.platform == 'win32':
+    objects = [obj.with_suffix('.exe') if obj.with_suffix('.exe').exists()
+               else obj.parent / 'Debug' / (obj.name + '.exe') for obj in objects]
+if args.native_windows_evidence and sys.platform != 'win32':
+    sys.exit('Native Windows evidence must run on Windows')
 command = [args.llvm_cov, 'export', str(objects[0]), '-instr-profile=' + str(merged)]
 for obj in objects[1:]:
     command += ['-object', str(obj)]
@@ -46,4 +53,9 @@ for metric, threshold in [('lines', 90), ('branches', 85)]:
     print(f"{metric}: {total['covered']}/{total['count']} = {percent:.2f}% (required {threshold}%)")
     passed &= percent >= threshold
 (build / 'current-summary.json').write_text(json.dumps(totals, indent=2))
+if args.native_windows_evidence:
+    adapters = {'network.cpp', 'storage.cpp', 'signals.cpp'}
+    covered = {Path(entry['filename']).name for entry in files
+               if entry['summary']['lines']['covered'] > 0}
+    sys.exit(0 if adapters <= covered else 'Missing native adapter execution')
 sys.exit(0 if passed else 1)

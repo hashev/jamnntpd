@@ -1,0 +1,8 @@
+set(VCPKG_TARGET_ARCHITECTURE x64)
+set(VCPKG_CRT_LINKAGE dynamic)
+set(VCPKG_LIBRARY_LINKAGE static)
+set(VCPKG_CMAKE_SYSTEM_NAME Linux)
+set(VCPKG_C_FLAGS "-fsanitize=thread -fno-omit-frame-pointer")
+set(VCPKG_CXX_FLAGS "-fsanitize=thread -fno-omit-frame-pointer --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14")
+set(VCPKG_LINKER_FLAGS "-fsanitize=thread")
+set(VCPKG_CHAINLOAD_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/clang-linux.cmake")

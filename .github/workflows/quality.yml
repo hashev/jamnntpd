@@ -12,6 +12,7 @@ jobs:
           - {os: ubuntu-24.04, compiler: clang++-19, triplet: x64-linux, flags: --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14}
           - {os: macos-26, compiler: /usr/bin/clang++, triplet: arm64-osx}
           - {os: windows-2025, compiler: cl, triplet: x64-windows-static}
+          - {os: windows-2025, compiler: clang-cl, triplet: x64-windows-static, coverage: ON}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -42,9 +43,23 @@ jobs:
       - name: Configure (MSVC)
         if: runner.os == 'Windows'
         shell: pwsh
-        run: cmake -S . -B build/ci -A x64 -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+        run: |
+          $toolset = if ('${{ matrix.compiler }}' -eq 'clang-cl') { @('-T','ClangCL') } else { @() }
+          cmake -S . -B build/ci -A x64 @toolset -DJAM_COVERAGE=${{ matrix.coverage || 'OFF' }} -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
       - run: cmake --build build/ci --config Debug --parallel 4
-      - run: ctest --test-dir build/ci -C Debug --output-on-failure
+      - name: Run complete native suite
+        shell: bash
+        env:
+          LLVM_PROFILE_FILE: ${{ github.workspace }}/build/ci/current-%p-%m.profraw
+        run: ctest --test-dir build/ci -C Debug --output-on-failure
+      - name: Native Windows coverage evidence
+        if: matrix.coverage == 'ON'
+        shell: pwsh
+        run: |
+          $compilerLine = Get-Content build/ci/CMakeCache.txt | Where-Object { $_ -match '^CMAKE_CXX_COMPILER:[^=]+=' } | Select-Object -First 1
+          $compiler = ($compilerLine -split '=',2)[1]
+          $llvm = Split-Path $compiler
+          python tools/check_coverage.py --build build/ci --native-windows-evidence --llvm-cov "$llvm/llvm-cov.exe" --llvm-profdata "$llvm/llvm-profdata.exe"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -52,3 +67,46 @@ jobs:
           path: |
             build/ci/Testing/Temporary/
             build/ci/CMakeFiles/CMakeConfigureLog.yaml
+            build/ci/current-summary.json
+            build/ci/current-coverage.json
+  instrumented:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [asan-ubsan, tsan, coverage]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 llvm-19 libclang-rt-19-dev autoconf automake libtool
+      - name: Pinned dependencies and instrumentation
+        shell: bash
+        env:
+          CC: clang-19
+          CXX: clang++-19
+        run: |
+          export VCPKG_ROOT="$RUNNER_TEMP/jam-vcpkg"
+          git clone https://github.com/microsoft/vcpkg.git "$VCPKG_ROOT"
+          git -C "$VCPKG_ROOT" checkout b42e8ed051d17a7f95b9d2a3140c1f9296423712
+          "$VCPKG_ROOT/bootstrap-vcpkg.sh" -disableMetrics
+          triplet=x64-linux
+          if [ '${{ matrix.profile }}' = tsan ]; then triplet=x64-linux-tsan; fi
+          cmake --preset '${{ matrix.profile }}' -G Ninja -DCMAKE_CXX_COMPILER=clang++-19 \
+            -DCMAKE_CXX_FLAGS=--gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14 \
+            -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+            -DVCPKG_TARGET_TRIPLET="$triplet" -DVCPKG_OVERLAY_TRIPLETS="$PWD/cmake/triplets"
+      - run: cmake --build --preset '${{ matrix.profile }}' --parallel 4
+      - name: Full unit, executable and 100-round concurrency suite
+        env:
+          LLVM_PROFILE_FILE: ${{ github.workspace }}/build/${{ matrix.profile }}/current-%p-%m.profraw
+        run: ctest --test-dir 'build/${{ matrix.profile }}' --output-on-failure
+      - name: Whole production coverage gates
+        if: matrix.profile == 'coverage'
+        run: python3 tools/check_coverage.py --build build/coverage --llvm-cov llvm-cov-19 --llvm-profdata llvm-profdata-19
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: instrumented-${{ matrix.profile }}
+          path: |
+            build/${{ matrix.profile }}/Testing/Temporary/
+            build/${{ matrix.profile }}/current-summary.json
+            build/${{ matrix.profile }}/current-coverage.json
