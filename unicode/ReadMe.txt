@@ -1,3 +1,7 @@
+Current C++23 server supports both Unicode reading and posting with Unicode-safe MIME. See README.md, docs/migration/text.md and examples/jamnntpd-utf8.xlat. The -noencode workaround below is not required for the new server.
+
+Historical 1.x workaround documentation (retained for the shipped custom tables):
+
 How to get JamNNTPd to display texts in Unicode
 ===============================================
 With the help of the unicode/jamnntpd.xlat file and the *.chs files in 

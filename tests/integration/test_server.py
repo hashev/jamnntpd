@@ -174,6 +174,11 @@ class NntpEndToEnd(unittest.TestCase):
                     self.assertTrue(client.greeting.startswith(b'503'))
         with tempfile.TemporaryDirectory(prefix='jamnntpd-startup-') as temporary:
             root = Path(temporary)
+            unicode_config = root / 'конфигурация.config'
+            created = subprocess.run([OPTIONS.executable,'-create',str(unicode_config)],
+                capture_output=True,timeout=5)
+            self.assertEqual(created.returncode,0,created.stderr)
+            self.assertTrue(unicode_config.is_file())
             for arguments in [['-logfile',str(root / 'missing' / 'log')],
                               ['-create',str(root / 'missing' / 'config')]]:
                 result = subprocess.run([OPTIONS.executable,*arguments],capture_output=True,timeout=5)
@@ -184,6 +189,22 @@ class NntpEndToEnd(unittest.TestCase):
                 result = subprocess.run([OPTIONS.executable,'-port',str(occupied.getsockname()[1]),
                     '-logfile',str(root / 'log'),'-noecholog'],capture_output=True,timeout=5)
                 self.assertNotEqual(result.returncode,0)
+
+    def test_ibmpc_codepage_and_textual_diagnostic_headers(self):
+        rules = 'defaultpost UTF-8\nread IBMPC,866 IBMPC,866\npost UTF-8 IBMPC,866 -builtin\n'
+        with Server(extra='note\n',charset='IBMPC,866',xlat=rules) as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            self.assertTrue(client.post(article(extra='X-Newsreader: Reader Н\r\n')).startswith(b'240'))
+            self.assertIn(b'CODEPAGE: 866',server.message(3)[3])
+            self.assertTrue(client.command('GROUP test').startswith(b'211'))
+            first,data = client.multiline('ARTICLE 3')
+            self.assertTrue(first.startswith(b'220'))
+            message = email.message_from_bytes(data)
+            self.assertEqual(message.get_content_charset(),'cp866')
+            self.assertIn('Н─│'.encode('cp866'),message.get_payload(decode=True))
+            diagnostics = [str(email.header.make_header(email.header.decode_header(value)))
+                           for value in message.get_all('X-JAM-FTSKLUDGE',[])]
+            self.assertIn('NOTE: Reader Н',diagnostics)
 
     def test_read_post_reply_cancel_and_independent_storage(self):
         with Server() as server, server.client() as client:

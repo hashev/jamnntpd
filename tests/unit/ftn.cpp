@@ -324,3 +324,49 @@ TEST_CASE("IBMPC CODEPAGE is represented unambiguously in outgoing MIME") {
     CHECK(rendered->headers.find("=?CP866?B?") != std::string::npos);
     CHECK(rendered->body.find('\x8d') != std::string::npos);
 }
+TEST_CASE("Textual JAM diagnostic headers follow conversion and reject mismatched models") {
+    const Group group{
+        .name = "test", .access = 'a', .address = "2:1/2", .base = {}, .default_charset = "!CP866"};
+    const auto rules = parse_charset_config("read CP866 UTF-8 -builtin\n", "rules");
+    REQUIRE(rules);
+    auto message = sample_message();
+    add_jam_field(message, field_pid, "Program \x8d");
+    add_jam_field(message, field_kludge, "NOTE: Reader \x8d");
+    const auto text = read_message_text(message, group, *rules, ConversionPolicy::strict);
+    REQUIRE(text);
+    auto rendered = render_message(message, *text, group, {}, {});
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find('\x8d') == std::string::npos);
+    const auto begin = rendered->headers.find("X-JAM-PID: ");
+    REQUIRE(begin != std::string::npos);
+    const auto end = rendered->headers.find("\r\n", begin);
+    const auto decoded = decode_header(
+        std::string_view{rendered->headers}.substr(begin + 11, end - begin - 11), {"UTF-8"});
+    REQUIRE(decoded);
+    CHECK(decoded->bytes == "Program Н");
+    auto changed = *text;
+    changed.extra_headers.clear();
+    CHECK_FALSE(render_message(message, changed, group, {}, {}));
+    changed = *text;
+    changed.extra_headers.front().first = 999;
+    CHECK_FALSE(render_message(message, changed, group, {}, {}));
+    changed = *text;
+    changed.extra_headers.push_back({field_pid, "extra"});
+    CHECK_FALSE(render_message(message, changed, group, {}, {}));
+    changed = *text;
+    changed.extra_headers.front().second = "bad\nheader";
+    CHECK_FALSE(render_message(message, changed, group, {}, {}));
+    for (auto &field : message.fields) {
+        if (field.low == field_pid)
+            field.data = jam::bytes_from("bad\nheader");
+    }
+    CHECK_FALSE(read_message_text(message, group, *rules, ConversionPolicy::strict));
+    message = sample_message();
+    add_jam_field(message, field_pid, "bad\xff");
+    auto utf8_group = group;
+    utf8_group.default_charset = "!UTF-8";
+    CHECK_FALSE(read_message_text(message, utf8_group, *rules, ConversionPolicy::strict));
+    const auto replaced = read_message_text(message, utf8_group, *rules, ConversionPolicy::replace);
+    REQUIRE(replaced);
+    CHECK(replaced->replaced);
+}

@@ -9,6 +9,8 @@
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 namespace jamnntpd {
 inline constexpr std::uint16_t field_origin = 0;
@@ -40,6 +42,7 @@ struct MessageText {
     std::string reply_id;
     std::string reply_address;
     std::string timezone;
+    std::vector<std::pair<std::uint16_t, std::string>> extra_headers;
     Charset charset;
     bool opaque{};
     bool replaced{};

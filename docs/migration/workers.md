@@ -18,7 +18,7 @@ Tests cover 100 barrier-controlled admission rounds, zero/capped capacity,
 move-only task ownership, thread creation and allocation failure, idle stop,
 exception isolation and release after joins. The single control-thread ownership
 of pool mutation is part of its contract; workers do not mutate the pool.
-Service and signal integration remain separate tasks.
+The production network loop uses these owners directly.
 
 `SignalStop` is created on the control thread before workers and destroyed there
 after their joins. POSIX blocks SIGINT/SIGTERM and the internal wake signal
@@ -32,7 +32,7 @@ close/logoff/shutdown callbacks allow a bounded interval for orderly completion.
 The Windows implementation has not yet been run on a native host. An independent
 macOS process test sends real SIGINT and SIGTERM while a worker waits, checks
 exit within five seconds, and verifies that no active reservation remains.
-Full service termination under storage contention/load is still outstanding.
+The full service stress scenario additionally checks termination under storage contention.
 
 The production server now uses these workers and signals. Actual executable
 stress tests repeat shutdown 100 times with concurrent POST/read/cancel and an

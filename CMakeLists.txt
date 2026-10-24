@@ -99,25 +99,25 @@ if(BUILD_TESTING)
   target_compile_definitions(jam_unit PRIVATE JAM_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures")
   add_executable(jam_lifecycle_probe tests/integration/lifecycle_probe.cpp)
   target_link_libraries(jam_lifecycle_probe PRIVATE jam_core)
-  add_test(NAME server-stress COMMAND ${Python3_EXECUTABLE}
+  add_test(NAME server-stress COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_server_stress.py --executable $<TARGET_FILE:jamnntpd>
     --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures --rounds 100)
   set_tests_properties(server-stress PROPERTIES TIMEOUT 240)
-  add_test(NAME server-e2e COMMAND ${Python3_EXECUTABLE}
+  add_test(NAME server-e2e COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_server.py --executable $<TARGET_FILE:jamnntpd>
     --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures)
   set_tests_properties(server-e2e PROPERTIES TIMEOUT 90)
-  add_test(NAME lifecycle-native COMMAND ${Python3_EXECUTABLE}
+  add_test(NAME lifecycle-native COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_lifecycle.py --probe $<TARGET_FILE:jam_lifecycle_probe>)
   set_tests_properties(lifecycle-native PROPERTIES TIMEOUT 20)
   add_executable(jam_storage_probe tests/integration/storage_probe.cpp)
   target_link_libraries(jam_storage_probe PRIVATE jam_core)
-  add_test(NAME storage-process-lock COMMAND ${Python3_EXECUTABLE}
+  add_test(NAME storage-process-lock COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_storage.py
     --probe $<TARGET_FILE:jam_storage_probe>
     --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/jam)
   set_tests_properties(storage-process-lock PROPERTIES TIMEOUT 15)
-  add_test(NAME makechs-cli COMMAND ${Python3_EXECUTABLE}
+  add_test(NAME makechs-cli COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_makechs.py --executable $<TARGET_FILE:makechs>)
   set_tests_properties(makechs-cli PROPERTIES TIMEOUT 15)
   add_test(NAME unit COMMAND jam_unit "~[native-tz]~[quarantine]")
@@ -131,7 +131,7 @@ if(BUILD_TESTING)
   add_test(NAME timezone-native COMMAND jam_unit "[native-tz]")
   set_tests_properties(timezone-native PROPERTIES ENVIRONMENT "TZ=EST5EDT" TIMEOUT 15)
   set_tests_properties(unit PROPERTIES TIMEOUT 60)
-  add_test(NAME baseline COMMAND ${Python3_EXECUTABLE} -m unittest discover -s tests/baseline -v)
+  add_test(NAME baseline COMMAND ${Python3_EXECUTABLE} -X utf8 -m unittest discover -s tests/baseline -v)
   set_tests_properties(baseline PROPERTIES WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 

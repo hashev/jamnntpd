@@ -2,8 +2,8 @@
 
 `Session` owns group selection, current article, identity, pending login name and
 user options. It receives callbacks for storage/content operations and does not
-own sockets or call FTN serializers. The network loop and actual JAM/content
-backend remain to be connected; these component tests are not server e2e.
+own sockets or call FTN serializers. The production network loop and JamBackend
+connect through SessionServices; component and executable tests cover both layers.
 
 Dispatch covers ARTICLE, HEAD, BODY, STAT, GROUP, LIST, NEXT, LAST, XOVER,
 AUTHINFO, POST, HELP, QUIT and the original IHAVE/NEWGROUPS/NEWNEWS/SLAVE/MODE
@@ -23,10 +23,9 @@ Options-only USER syntax remains supported. Password arguments are transient
 views and are never copied into session state or error replies.
 
 POST produces a receive action; only a successful backend submission produces
-240. The forthcoming network loop must bound and unstuff the article, handle
-incomplete input without calling submission, redact AUTHINFO before logging,
-and retain logger lifetime beyond worker joins. Backend field conversion,
-netmail checks and transactional mutation are still integration work.
+240. The network loop bounds and unstuffs articles, refuses incomplete input,
+redacts AUTHINFO and retains logger lifetime beyond worker joins. Backend conversion,
+privacy and transactional mutations are checked through the real executable.
 
 ## Production integration (2026-10-24)
 
@@ -46,6 +45,4 @@ and native JAM lock waits also observe stop; shutdown requests stop and joins al
 workers before flushing the logger. The stress suite repeats contested shutdown
 100 times, with an independent first-byte locker and unchanged blocked-post files.
 
-The earlier descriptions of integration as forthcoming above record the component
-stage; this section supersedes that status. Native platform acceptance and coverage
-results are tracked in verification.md.
+Native platform acceptance and coverage results are tracked in verification.md.

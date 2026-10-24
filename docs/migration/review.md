@@ -94,3 +94,8 @@ verification.md and OpenSpec tasks.
   configuration/dispatch/makechs lookups obtain bounded positions with standard
   iterator distance and checked array access. Existing command/CLI/map regressions
   cover successful and absent matches; native Windows rerun is required.
+
+- R34: non-ASCII PID/NOTE and other X-JAM textual headers bypassed the selected
+  read conversion. The read model now owns converted extra headers, rendering
+  encodes them with the outgoing charset, and mismatched models/control injection
+  fail. Unit and real IBMPC/CODEPAGE e2e cases verify decoded Unicode and wire bytes.

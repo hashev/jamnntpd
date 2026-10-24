@@ -25,4 +25,5 @@ default-file lookup only when no options are supplied, sole-argument help aliase
 and the `-create` action. Parsing does not write files; the executable performs
 the returned action. `-config`/`-create` inside configuration files are rejected.
 Configuration input has a bounded line and total size, rejects NUL, and rejects
-non-regular files. Server executable integration remains outstanding.
+non-regular files. The production executable performs the selected action; CLI e2e
+checks include Unicode paths, creation failures and option aliases.

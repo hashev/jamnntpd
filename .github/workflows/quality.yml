@@ -3,6 +3,7 @@ on: [pull_request, workflow_dispatch]
 permissions:
   contents: read
 env:
+  PYTHONUTF8: '1'
   VCPKG_BINARY_SOURCES: "clear;files,${{ github.workspace }}/build/vcpkg-binary-cache,readwrite"
 jobs:
   native:

@@ -24,12 +24,12 @@ identity for the process lifetime; reopening it does not bypass quarantine, even
 after its last handle closes. Restore a consistent backup and restart the service.
 No recovery journal or power-loss transaction guarantee is provided. File identity
 quarantine is deliberately conservative: replacement files reusing an old inode can
-require restart as well. Native Linux and Windows validation remains pending.
+require restart as well. Linux native validation passes; Windows status is tracked
+in verification.md.
 
 Reads validate file extents and cap raw read buffers at 64 MiB; corrupt lengths
-cannot request arbitrary allocations. No server is switched to this library until
-its authorization and protocol integration tasks are complete. Authorization is a
-service-layer responsibility, not a bypass offered to NNTP clients.
+cannot request arbitrary allocations. The production server uses this library;
+authorization is checked in the service layer on every client operation.
 
 ## Production and interoperability status (2026-10-24)
 

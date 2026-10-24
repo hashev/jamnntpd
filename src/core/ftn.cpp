@@ -152,6 +152,48 @@ auto decode_stored_value(std::string_view bytes, const ConversionPlan &plan,
     unicode->replaced = unicode->replaced || converted->replaced;
     return unicode;
 }
+auto decode_extra_headers(const jam::Message &message, const ConversionPlan &plan,
+                          ConversionPolicy policy, MessageText &text) -> Result<void> {
+    for (const auto &field : message.fields) {
+        if (extra_header_name(field.low).empty()) {
+            continue;
+        }
+        auto value = decode_stored_value(jam::text_from(field.data), plan, policy, text.opaque);
+        if (!value) {
+            return std::unexpected{value.error()};
+        }
+        if (!header_safe(value->bytes)) {
+            return failure(ErrorKind::corrupt, "Control in stored textual metadata");
+        }
+        text.replaced = text.replaced || value->replaced;
+        text.extra_headers.emplace_back(field.low, std::move(value->bytes));
+    }
+    return {};
+}
+auto render_extra_headers(const jam::Message &message, const MessageText &text, bool no_encode)
+    -> Result<std::string> {
+    std::string headers;
+    std::size_t extra_index{};
+    for (const auto &field : message.fields) {
+        const auto label = extra_header_name(field.low);
+        if (label.empty()) {
+            continue;
+        }
+        if (!header_safe(jam::text_from(field.data)) || extra_index >= text.extra_headers.size() ||
+            text.extra_headers.at(extra_index).first != field.low) {
+            return failure(ErrorKind::corrupt, "Invalid or mismatched JAM header metadata");
+        }
+        auto value = encoded_header(text.extra_headers.at(extra_index++).second, text, no_encode);
+        if (!value) {
+            return std::unexpected{value.error()};
+        }
+        headers += "X-JAM-" + std::string{label} + ": " + *value + "\r\n";
+    }
+    if (extra_index != text.extra_headers.size()) {
+        return failure(ErrorKind::corrupt, "Mismatched JAM header metadata");
+    }
+    return headers;
+}
 } // namespace
 
 auto jam_field(const jam::Message &message, std::uint16_t number) -> std::string {
@@ -206,6 +248,7 @@ auto read_message_text(const jam::Message &message, const Group &group,
         .reply_id = jam_field(message, field_reply_id),
         .reply_address = {},
         .timezone = jam_field(message, field_timezone),
+        .extra_headers = {},
         .charset = plan->destination,
         .opaque = false,
         .replaced = false,
@@ -253,6 +296,9 @@ auto read_message_text(const jam::Message &message, const Group &group,
         if (const auto address = kludge_value(value, "REPLYADDR "); !address.empty()) {
             text.reply_address = address;
         }
+    }
+    if (auto decoded = decode_extra_headers(message, *plan, policy, text); !decoded) {
+        return std::unexpected{decoded.error()};
     }
     for (const auto *value :
          {&text.origin, &text.destination, &text.message_id, &text.reply_id, &text.reply_address}) {
@@ -318,17 +364,11 @@ auto render_message(const jam::Message &message, const MessageText &text, const 
     article.headers += "X-JAM-From: " + *wire_sender + (origin.empty() ? "" : " <" + origin + ">") +
                        "\r\nX-JAM-To: " + *wire_recipient +
                        (text.destination.empty() ? "" : " <" + text.destination + ">") + "\r\n";
-    for (const auto &field : message.fields) {
-        const auto label = extra_header_name(field.low);
-        if (label.empty()) {
-            continue;
-        }
-        const auto value = jam::text_from(field.data);
-        if (!header_safe(value)) {
-            return failure(ErrorKind::corrupt, "Invalid JAM header metadata");
-        }
-        article.headers += "X-JAM-" + std::string{label} + ": " + value + "\r\n";
+    auto extras = render_extra_headers(message, text, config.no_encode);
+    if (!extras) {
+        return std::unexpected{extras.error()};
     }
+    article.headers += *extras;
     article.headers += attributes_header(message.header.attributes);
     const bool high_bit = std::ranges::any_of(body->bytes, [](char value) -> bool {
         return static_cast<unsigned char>(value) >= high_bit_boundary;

@@ -38,8 +38,7 @@ of a reverse mapping, including equivalent standard charset spellings. A separat
 configured reverse rule remains authoritative. Conversion plans own their mappings
 and can outlive the parsed configuration. `-keepsoftcr` is retained in the plan for
 the formatting stage. Configuration errors identify file/line, missing tables fail
-closed, and bounded configuration input rejects embedded NUL. Service wiring remains
-an open task.
+closed, and bounded configuration input rejects embedded NUL.
 
 MIME helpers decode base64, quoted-printable and RFC encoded words into validated
 UTF-8. Encoded headers are folded on source code-point boundaries, with independently
@@ -49,9 +48,8 @@ HTML, multipart, malformed encodings and duplicate headers fail before storage.
 Tests cover known vectors, full-byte base64 payloads, multibyte folding, adjacent
 encoded words, corrupt input and deterministic mutated parser seeds.
 
-These are tested library components. Their existence does not yet mean that the
-legacy NNTP executable uses them, or that end-to-end posting/replies preserve all
-historical formatting options. Those integration tasks remain open.
+The production NNTP executable uses these components for reads, posts and replies;
+independent stored-byte and MIME e2e checks verify their service integration.
 
 The DOS profile follows the project's shipped Unicode CHS files and the
 [Microsoft CP437 mapping](https://unicode.org/Public/MAPPINGS/VENDORS/MICSFT/PC/CP437.TXT).
@@ -90,5 +88,10 @@ ten supported standard encodings, special characters and pseudographics,
 custom KOI8/CP866 mappings, explicit label-only byte pass-through, invalid UTF-8,
 unrepresentable strict failures without mutation and replacement mode. Independent
 Python decoders verify stored text and CHRS metadata rather than trusting the
-production serializer. Earlier component-only status above is superseded by this
-integration; final acceptance remains recorded in verification.md.
+production serializer. Final acceptance remains recorded in verification.md.
+
+Textual X-JAM diagnostic headers (including PID and NOTE) pass through the same
+selected read conversion as the ordinary text headers. The read model owns their
+converted values; MIME encoding uses the transmitted codec. `IBMPC` plus `CODEPAGE`
+is emitted as an unambiguous MIME name such as `CP866`. Original CHRS/CODEPAGE
+records remain stored unchanged; decoded diagnostic values do not rewrite JAM.

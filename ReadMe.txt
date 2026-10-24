@@ -1,3 +1,5 @@
+Historical JamNNTPd 1.x documentation. Current C++23 build, supported platforms and migration status: README.md and docs/migration/.
+
 
                                JamNNTPd 1.3
 

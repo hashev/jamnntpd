@@ -69,9 +69,9 @@ auto emit_row(std::ostream &output, std::string_view mapping) -> Result<void> {
 }
 auto legacy_mapping(char32_t value, const UnicodeMap &destination, ChsGeneration &result)
     -> std::string {
-    const auto target =
-        std::ranges::distance(destination.begin(), std::ranges::find(destination, value));
-    if (target != static_cast<std::ptrdiff_t>(destination.size())) {
+    const auto target = static_cast<std::size_t>(
+        std::ranges::distance(destination.begin(), std::ranges::find(destination, value)));
+    if (target != destination.size()) {
         std::string mapped(1, static_cast<char>(target));
         return mapped;
     }
