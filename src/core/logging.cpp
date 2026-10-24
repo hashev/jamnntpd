@@ -2,6 +2,7 @@
 #include "text.hpp"
 #include <atomic>
 #include <cstdio>
+#include <format>
 #include <spdlog/sinks/ostream_sink.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include <string>
@@ -22,7 +23,11 @@ auto safe_record(std::string_view input) -> std::string {
             result += "\\0";
             break;
         default:
-            result.push_back(value);
+            if (static_cast<unsigned char>(value) < ' ' || value == '\x7f') {
+                result += std::format("\\x{:02X}", static_cast<unsigned char>(value));
+            } else {
+                result.push_back(value);
+            }
             break;
         }
     }

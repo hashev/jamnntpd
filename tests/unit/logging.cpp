@@ -59,6 +59,16 @@ TEST_CASE("Thread-safe logger keeps long records complete and prevents line inje
     }
     CHECK(count == 81);
 }
+TEST_CASE("Diagnostic records escape terminal controls as printable data") {
+    std::ostringstream output;
+    const auto sink = std::make_shared<spdlog::sinks::ostream_sink_mt>(output);
+    ServiceLogger logger{{sink}, true};
+    logger.protocol_input("client", "UNKNOWN\t\x1b[31m\x7f");
+    logger.flush();
+    CHECK(output.str().find("UNKNOWN\\x09\\x1B[31m\\x7F") != std::string::npos);
+    CHECK(output.str().find('\x1b') == std::string::npos);
+    CHECK(output.str().find('\x7f') == std::string::npos);
+}
 TEST_CASE("Log destination failures do not recurse or escape workers") {
     const auto sink =
         std::make_shared<spdlog::sinks::callback_sink_mt>([](const spdlog::details::log_msg &) {

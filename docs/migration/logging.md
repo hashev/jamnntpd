@@ -7,7 +7,8 @@ console sink and debug enables protocol command diagnostics. The service records
 group selections when loggroups is enabled.
 
 AUTHINFO input is replaced by a redacted record before any sink receives it.
-CR/LF/NUL in diagnostic fields are escaped to prevent forged records. Message bodies
+CR/LF/NUL and other C0/DEL bytes in diagnostic fields are escaped to prevent
+forged records and terminal-control injection. Message bodies
 are not intended for protocol command logging. Unit tests cover concurrent long
 records, file flushing, redaction and injected sink failure. A sink failure uses a
 constant bounded stderr fallback once per process, without echoing record contents

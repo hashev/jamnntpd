@@ -111,3 +111,9 @@ verification.md and OpenSpec tasks.
   Debug/Release presets also choose the actual multi-config build/test configuration.
   Native linking and complete CTest must pass; no mismatch or duplicate-symbol check
   is bypassed.
+
+- R37: debug records escaped CR/LF/NUL but could still send raw terminal ESC and
+  other C0/DEL controls to the console sink. These bytes now become printable
+  hexadecimal escapes before any sink. A regression verifies ESC/DEL absence and
+  the exact escaped payload while preserving ordinary UTF-8 text and AUTHINFO
+  redaction.
