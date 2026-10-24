@@ -160,6 +160,31 @@ class NntpEndToEnd(unittest.TestCase):
                 self.assertTrue(client.command('STAT 3').startswith(b'423'))
             self.assertEqual(server.snapshot(), backup)
 
+    def test_admission_and_configuration_failures_are_bounded(self):
+        with Server(extra='max 1\n') as server, server.client() as admitted:
+            with server.client() as rejected:
+                self.assertTrue(rejected.greeting.startswith(b'502'))
+            self.assertTrue(admitted.command('HELP').startswith(b'100'))
+        with Server(allow='10.0.0.1 a a\n') as server, server.client() as client:
+            self.assertTrue(client.greeting.startswith(b'502'))
+        for filename in ['groups','xlat']:
+            with Server() as server:
+                (server.root / filename).unlink()
+                with server.client() as client:
+                    self.assertTrue(client.greeting.startswith(b'503'))
+        with tempfile.TemporaryDirectory(prefix='jamnntpd-startup-') as temporary:
+            root = Path(temporary)
+            for arguments in [['-logfile',str(root / 'missing' / 'log')],
+                              ['-create',str(root / 'missing' / 'config')]]:
+                result = subprocess.run([OPTIONS.executable,*arguments],capture_output=True,timeout=5)
+                self.assertNotEqual(result.returncode,0)
+            with socket.socket() as occupied:
+                occupied.bind(('0.0.0.0',0))
+                occupied.listen()
+                result = subprocess.run([OPTIONS.executable,'-port',str(occupied.getsockname()[1]),
+                    '-logfile',str(root / 'log'),'-noecholog'],capture_output=True,timeout=5)
+                self.assertNotEqual(result.returncode,0)
+
     def test_read_post_reply_cancel_and_independent_storage(self):
         with Server() as server, server.client() as client:
             self.assertTrue(client.greeting.startswith(b'200'))

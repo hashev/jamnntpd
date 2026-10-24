@@ -87,3 +87,212 @@ TEST_CASE("FTN charset metadata and privacy handle opaque and standard names") {
     text.charset = {.chrs = "CP866", .codepage = ""};
     CHECK_FALSE(identity_matches(identity, "😀", text));
 }
+TEST_CASE("Post builder preserves routing and applies options with encoded field limits") {
+    Group group{
+        .name = "test", .access = 'a', .address = "2:1/2", .base = {}, .default_charset = "!CP866"};
+    const auto rules = parse_charset_config("post UTF-8 CP866 -builtin\n", "rules");
+    REQUIRE(rules);
+    const auto plan =
+        resolve_post(*rules, {.source = "UTF-8", .group_default = group.default_charset});
+    REQUIRE(plan);
+    const Identity identity{
+        .username = "alice", .permissions = {.read = "a", .post = "a"}, .realnames = "Alice"};
+    RawMimeArticle raw;
+    raw.headers = {{"from", "Sender <a@example.org>"},
+                   {"subject", "Re: Topic"},
+                   {"organization", "Origin"},
+                   {"user-agent", "Reader"}};
+    raw.source_charset = "UTF-8";
+    raw.body = "To: Bob, 2:1/3\r\n\r\nBody\r\n";
+    const auto build = [&](const Config &config, const UserOptions &options,
+                           const ReplyTarget &parent) -> Result<BuiltPost> {
+        return build_post(raw, group, identity, options, *plan, *rules, config, parent);
+    };
+    Config config;
+    config.note = true;
+    auto built = build(config, {}, {});
+    REQUIRE(built);
+    CHECK(jam_field(built->message, field_recipient) == "Bob");
+    CHECK(jam_field(built->message, field_subject) == "Topic");
+    CHECK(built->message.text.find("Origin") != std::string::npos);
+    config.no_tearline = true;
+    config.no_strip_re = true;
+    config.no_reply_address = true;
+    config.no_tzutc = true;
+    built = build(config, {}, {});
+    REQUIRE(built);
+    CHECK(jam_field(built->message, field_subject) == "Re: Topic");
+    CHECK(built->message.text.find("--- Reader") == std::string::npos);
+    CHECK(built->message.text.find("---\r") != std::string::npos);
+    group.netmail = true;
+    built = build({}, {}, {});
+    REQUIRE(built);
+    CHECK(jam_field(built->message, field_destination) == "2:1/3");
+    CHECK(built->message.header.attributes ==
+          (attribute_local | attribute_private | attribute_type_net));
+    raw.body = "Body";
+    CHECK_FALSE(build({}, {}, {}));
+    raw.body = "To: Bob, invalid\r\nBody";
+    CHECK_FALSE(build({}, {}, {}));
+    raw.body = "Body";
+    raw.headers["references"] = "<1$test@JamNNTPd>";
+    const ReplyTarget parent{
+        .name = "Bob", .address = "2:1/3", .message_id = "old id", .number = 1};
+    UserOptions options;
+    options.squote = true;
+    raw.body = "> quoted\r\n";
+    built = build({}, options, parent);
+    REQUIRE(built);
+    CHECK(built->message.header.reply_to == 1);
+    CHECK(jam_field(built->message, field_reply_id) == "old id");
+    group.netmail = false;
+    group.local = true;
+    group.no_chrs = true;
+    raw.headers.erase("references");
+    built = build({}, {}, {});
+    REQUIRE(built);
+    CHECK(built->message.header.attributes == (attribute_local | attribute_type_local));
+    CHECK(jam_field(built->message, field_origin).empty());
+    raw.headers["subject"] = std::string(72, 'S');
+    CHECK_FALSE(build({}, {}, {}));
+    raw.headers["subject"] = "A\tB";
+    CHECK(build({}, {}, {}));
+    raw.headers["subject"] = "Bad\x01";
+    CHECK_FALSE(build({}, {}, {}));
+    raw.headers["subject"] = "Topic";
+    raw.headers["from"] = "a@example.org";
+    CHECK_FALSE(build({}, {}, {}));
+    raw.headers["from"] = "Sender <a@example.org>";
+    raw.headers["reply-to"] = std::string(101, 'x');
+    CHECK_FALSE(build({}, {}, {}));
+    raw.headers.erase("reply-to");
+    raw.body = "\xff";
+    CHECK_FALSE(build({}, {}, {}));
+    config = Config{};
+    config.conversion_policy = ConversionPolicy::replace;
+    built = build(config, {}, {});
+    REQUIRE(built);
+    CHECK(built->replaced);
+}
+TEST_CASE("Opaque custom charset articles retain bytes and reject unsafe MIME headers") {
+    Group group{.name = "test",
+                .access = 'a',
+                .address = "2:1/2",
+                .base = {},
+                .default_charset = "!CUSTOM"};
+    const auto rules = parse_charset_config("read CUSTOM PRIVATE\n", "rules");
+    REQUIRE(rules);
+    auto message = sample_message();
+    for (auto &field : message.fields) {
+        if (field.low == field_sender) {
+            field.data = jam::bytes_from("A\xe9");
+        }
+        if (field.low == field_kludge) {
+            field.data = jam::bytes_from("CHRS: CUSTOM 2");
+        }
+    }
+    message.text = "legacy\xe9\r";
+    auto text = read_message_text(message, group, *rules, ConversionPolicy::strict);
+    REQUIRE(text);
+    CHECK(text->opaque);
+    CHECK(text->sender == "A\xe9");
+    auto rendered = render_message(message, *text, group, {}, {});
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find("=?PRIVATE?B?") != std::string::npos);
+    CHECK(rendered->body.find("legacy\xe9") != std::string::npos);
+    Config no_encode;
+    no_encode.no_encode = true;
+    rendered = render_message(message, *text, group, {}, no_encode);
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find("A\xe9") != std::string::npos);
+    text->charset.chrs = std::string(80, 'x');
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+    text->charset.chrs = "PRIVATE";
+    text->subject = "Bad\r\nInjected";
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+    text->subject = "Safe";
+    text->charset.chrs = "bad\nlabel";
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+    text->charset.chrs = "PRIVATE";
+    text->sender = "";
+    text->recipient = "";
+    text->origin = "";
+    text->reply_address = "";
+    message.header.attributes = 0;
+    rendered = render_message(message, *text, group, {}, {});
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find("X-JAM-Attributes:") == std::string::npos);
+    text->charset.chrs = "UTF-8";
+    text->opaque = false;
+    text->body = "\xff";
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+    text->body = "Body";
+    text->timezone = "invalid";
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+    text->timezone = "+0000";
+    text->sender = "Alice";
+    text->recipient = "All";
+    message.text = " * Origin: Place (2:3/4)\r";
+    Config read_origin;
+    read_origin.read_origin = true;
+    UserOptions options;
+    options.showto = false;
+    options.flowed = false;
+    rendered = render_message(message, *text, group, options, read_origin);
+    REQUIRE(rendered);
+    CHECK(rendered->headers.find("<0@4.3.2>") != std::string::npos);
+    add_jam_field(message, field_pid, "bad\nheader");
+    CHECK_FALSE(render_message(message, *text, group, {}, {}));
+}
+TEST_CASE("Post conversion distinguishes guest names custom bytes and malformed headers") {
+    const Group group{
+        .name = "test", .access = 'a', .address = "2:1/2", .base = {}, .default_charset = "!CP866"};
+    const auto rules = parse_charset_config("post UTF-8 CP866 -builtin\n", "rules");
+    REQUIRE(rules);
+    const auto plan =
+        resolve_post(*rules, {.source = "UTF-8", .group_default = group.default_charset});
+    REQUIRE(plan);
+    RawMimeArticle raw;
+    raw.headers = {{"from", "Sender <a@example.org>"}, {"subject", "Re:"}};
+    raw.source_charset = "UTF-8";
+    raw.body = "Body";
+    Identity guest{.username = "", .permissions = {.read = "a", .post = "a"}, .realnames = "*"};
+    Config config;
+    config.guest_suffix = " (guest)";
+    config.origin = "Configured origin";
+    auto built = build_post(raw, group, guest, {}, *plan, *rules, config, {});
+    REQUIRE(built);
+    CHECK(jam_field(built->message, field_sender) == "Sender (guest)");
+    CHECK(jam_field(built->message, field_subject).empty());
+    CHECK(built->message.text.find("Configured origin") != std::string::npos);
+    config.guest_suffix = "\xff";
+    CHECK_FALSE(build_post(raw, group, guest, {}, *plan, *rules, config, {}));
+    config.guest_suffix = "";
+    config.origin = "\xff";
+    CHECK_FALSE(build_post(raw, group, guest, {}, *plan, *rules, config, {}));
+    config.origin = "";
+    guest.realnames = "\xff";
+    CHECK_FALSE(build_post(raw, group, guest, {}, *plan, *rules, config, {}));
+    guest.realnames = "*";
+    for (const auto *key : {"from", "subject", "organization", "x-newsreader"}) {
+        auto malformed = raw;
+        malformed.headers[key] = std::string{"=?unknown?B?/w==?="} +
+                                 (std::string_view{key} == "from" ? " <a@example.org>" : "");
+        CHECK_FALSE(build_post(malformed, group, guest, {}, *plan, *rules, config, {}));
+    }
+    const auto opaque_rules = parse_charset_config("post PRIVATE CUSTOM\n", "rules");
+    REQUIRE(opaque_rules);
+    const auto opaque_plan =
+        resolve_post(*opaque_rules, {.source = "PRIVATE", .group_default = "CUSTOM"});
+    REQUIRE(opaque_plan);
+    raw.source_charset = "PRIVATE";
+    raw.body = "byte\xe9";
+    raw.headers["subject"] = "Raw\xe9";
+    auto custom_group = group;
+    custom_group.default_charset = "!CUSTOM";
+    built = build_post(raw, custom_group, guest, {}, *opaque_plan, *opaque_rules, config, {});
+    INFO((built ? "built" : built.error().message));
+    REQUIRE(built);
+    CHECK(jam_field(built->message, field_subject) == "Raw\xe9");
+    CHECK(built->message.text.find("byte\xe9") != std::string::npos);
+}

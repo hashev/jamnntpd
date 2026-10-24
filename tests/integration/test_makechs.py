@@ -23,6 +23,16 @@ class MakeChsCli(unittest.TestCase):
             self.assertNotEqual(bad.returncode, 0)
             self.assertEqual(bad.stdout, b'')
             self.assertIn(b'Usage: makechs', self.run_cli().stderr)
+            target = mapping.with_name('target.map')
+            target.write_text('0x8D 0x041D\n')
+            mapped = self.run_cli('CP866', 'CUSTOM', mapping, target)
+            self.assertEqual(mapped.returncode, 0, mapped.stderr)
+            self.assertIn(b'Warning:', mapped.stderr)
+            self.assertNotEqual(self.run_cli('CP866','CUSTOM',mapping,target.with_name('missing.map')).returncode,0)
+            self.assertNotEqual(self.run_cli('bad\nname','UTF-8',mapping).returncode,0)
+            mapping.write_text('0xFF invalid\n')
+            self.assertNotEqual(self.run_cli('CP866','UTF-8',mapping).returncode,0)
+
 
 
 if __name__ == '__main__':

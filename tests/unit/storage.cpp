@@ -423,3 +423,99 @@ TEST_CASE("Cancellation rechecks every authorized message byte while holding the
     CHECK(storage->cancel_checked(1, *snapshot));
     CHECK_FALSE(storage->read(1));
 }
+TEST_CASE("Every injected read failure preserves all JAM files across public operations") {
+    for (int operation = 0; operation < 6; ++operation) {
+        for (std::size_t failure_index = 0; failure_index < 32; ++failure_index) {
+            TempDirectory directory;
+            const auto base = copy_base(directory);
+            bool armed = false;
+            std::size_t attempts = 0;
+            const auto storage = jam::Storage::open(
+                base, {.fail_io = [&](jam::IoEvent event) -> bool {
+                    return armed && event == jam::IoEvent::read && attempts++ == failure_index;
+                }});
+            REQUIRE(storage);
+            std::vector<std::string> originals;
+            for (const auto *extension : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                originals.push_back(contents(directory, extension));
+            }
+            armed = true;
+            bool succeeded = false;
+            switch (operation) {
+            case 0:
+                succeeded = storage->info().has_value();
+                break;
+            case 1:
+                succeeded = storage->read(1).has_value();
+                break;
+            case 2: {
+                auto article = message();
+                article.header.reply_to = 1;
+                succeeded = storage->append(article).has_value();
+                break;
+            }
+            case 3:
+                succeeded = storage->cancel(1).has_value();
+                break;
+            case 4:
+                succeeded = storage->lastread(0xffffffffU).has_value();
+                break;
+            case 5:
+                succeeded = storage->set_lastread({0, 0xffffffffU, 2, 3}).has_value();
+                break;
+            default:
+                FAIL("Unknown operation");
+            }
+            armed = false;
+            if (attempts <= failure_index) {
+                REQUIRE(succeeded);
+                break;
+            }
+            INFO("operation " << operation << " read " << failure_index);
+            CHECK_FALSE(succeeded);
+            std::size_t index = 0;
+            for (const auto *extension : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                CHECK(contents(directory, extension) == originals.at(index++));
+            }
+            REQUIRE(storage->read(1));
+        }
+    }
+}
+TEST_CASE("Storage rejects invalid publication headers and corrupt companion extents") {
+    TempDirectory directory;
+    const auto base = copy_base(directory);
+    const auto storage = jam::Storage::open(base);
+    REQUIRE(storage);
+    for (int kind = 0; kind < 3; ++kind) {
+        auto article = message();
+        if (kind == 0)
+            article.header.revision = 2;
+        if (kind == 1)
+            article.header.first_reply = 1;
+        if (kind == 2)
+            article.header.next_reply = 1;
+        CHECK_FALSE(storage->append(article));
+    }
+    auto deleted = message();
+    deleted.header.attributes |= 0x80000000U;
+    REQUIRE(storage->append(deleted));
+    CHECK(storage->info()->header.active == 1);
+    CHECK_FALSE(storage->read(3));
+    std::stop_source stopped;
+    stopped.request_stop();
+    CHECK_FALSE(storage->read(1, stopped.get_token()));
+    CHECK_FALSE(storage->append(message(), stopped.get_token()));
+    CHECK_FALSE(storage->cancel(1, stopped.get_token()));
+    CHECK_FALSE(storage->lastread(1, stopped.get_token()));
+    CHECK_FALSE(storage->set_lastread({}, stopped.get_token()));
+    directory.write("base.jlr", "truncated");
+    CHECK_FALSE(storage->lastread(1));
+    CHECK_FALSE(storage->set_lastread({}));
+    auto bytes = contents(directory, ".jhr");
+    bytes.at(12) = 0;
+    bytes.at(13) = 0;
+    bytes.at(14) = 0;
+    bytes.at(15) = 0;
+    directory.write("base.jhr", bytes);
+    CHECK_FALSE(storage->cancel(1));
+}

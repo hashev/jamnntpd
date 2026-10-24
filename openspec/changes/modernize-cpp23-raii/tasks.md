@@ -30,7 +30,7 @@
 - [x] 4.3 Добавить checked length/offset arithmetic и ограничения allocation во всех message operations; проверить corrupt corpus, boundary uint32 values и fuzz smoke без sanitizer findings.
 - [x] 4.4 Реализовать canonical/file-identity registry и совместимые byte-range locks с guard; проверить два worker и отдельный locker process, aliases и timeout/error cases R12/R13.
 - [x] 4.5 Реализовать explicit commit/flush и безопасную публикацию append/update/cancel; fault-injection тестами проверить каждый write/flush failure, отсутствие ложного успеха и читаемость прежних статей.
-- [ ] 4.6 Перенести оставшиеся используемые jamlib API на C++23, сохранить notices и документировать format/locking guarantees; проверить отсутствие production C targets для jamlib и все storage unit tests.
+- [x] 4.6 Перенести оставшиеся используемые jamlib API на C++23, сохранить notices и документировать format/locking guarantees; проверить отсутствие production C targets для jamlib и все storage unit tests.
 
 ## 5. Unicode, CHS и MIME
 
@@ -55,14 +55,14 @@
 - [ ] 7.4 Реализовать async-signal-safe POSIX notification и Windows control notification с пробуждением waits; проверить R03 и shutdown <=10 секунд под load/idle/lock contention.
 - [x] 7.5 Отделить NNTP dispatch/session state от FTN mapping/storage; проверить все characterization transcripts, errors missing/deleted article, ranges и argument boundaries.
 - [x] 7.6 Перенести POST/reply/cancel/netmail operations на новые слои; проверить права по каждому пути, корректные CHRS/CODEPAGE и отсутствие mutation после decode/auth/commit failure.
-- [ ] 7.7 Документировать transport limits, shutdown deadlines и сохраненные CLI/config behavior; проверить примеры end-to-end и отсутствие оставшихся manual resource cleanup chains.
+- [x] 7.7 Документировать transport limits, shutdown deadlines и сохраненные CLI/config behavior; проверить примеры end-to-end и отсутствие оставшихся manual resource cleanup chains.
 
 ## 8. Платформы и интеграционная приемка
 
 - [ ] 8.1 Подключить native Linux GCC/Clang, macOS AppleClang и Windows MSVC build/unit/e2e CI; проверить warnings-as-errors на всех targets и документированные toolchain minima.
-- [ ] 8.2 Удалить OS/2 и оставшийся старый production C build, обновить README/HOWTO/examples и переход с Makefile; проверить отсутствие ссылок на поддерживаемую OS/2 и сборку обоих executable targets.
+- [x] 8.2 Удалить OS/2 и оставшийся старый production C build, обновить README/HOWTO/examples и переход с Makefile; проверить отсутствие ссылок на поддерживаемую OS/2 и сборку обоих executable targets.
 - [ ] 8.3 Запустить полный unit/e2e с ASan/UBSan и отдельный TSan unit+concurrency suite; проверить ноль errors/leaks/races, 100 stress повторений и отсутствие зависших процессов.
 - [ ] 8.4 Включить coverage gates >=90% lines и >=85% branches для всего собственного production code; проверить отчет unit+e2e, список denominators, module gaps и native Windows adapter evidence без скрытия error branches.
 - [ ] 8.5 Запустить закрепленный clang-tidy для всех production translation units и header paths; проверить ноль незакрытых diagnostics и review каждого узкого исключения в матрице Guidelines.
 - [ ] 8.6 Выполнить финальный построчный review diff и всех модулей, закрыть R01–R20/новые findings с regression evidence; проверить отсутствие незакрытых известных bugs/warnings, лишних generated files и секретов.
-- [ ] 8.7 Провести rehearsal миграции/rollback на копии JAM с independent reader/locker и совместимым tosser fixture; проверить backup согласованного набора файлов, чтение/запись старого формата и документированный отчет ограничений.
+- [x] 8.7 Провести rehearsal миграции/rollback на копии JAM с independent reader/locker и совместимым tosser fixture; проверить backup согласованного набора файлов, чтение/запись старого формата и документированный отчет ограничений.

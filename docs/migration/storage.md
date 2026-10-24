@@ -30,3 +30,14 @@ Reads validate file extents and cap raw read buffers at 64 MiB; corrupt lengths
 cannot request arbitrary allocations. No server is switched to this library until
 its authorization and protocol integration tasks are complete. Authorization is a
 service-layer responsibility, not a bypass offered to NNTP clients.
+
+## Production and interoperability status (2026-10-24)
+
+The server now uses this storage layer for indices, reads, posting, replies and
+cancellation. All legacy production C sources and Makefiles have been removed;
+JAM binary layout, CRC and required storage operations are implemented in C++23.
+Original notices are preserved in `src/jamlib/NOTICE` and the LGPL text in
+`src/jamlib/LICENSE`. Linux native process-lock and ASan/UBSan suites pass.
+See [rehearsal.md](rehearsal.md) for independent tosser and complete backup restore
+verification. Native Windows validation and final quality acceptance are recorded
+in verification.md, superseding the earlier component-stage status above.

@@ -1,5 +1,5 @@
 name: C++23 quality
-on: [push, pull_request, workflow_dispatch]
+on: [pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,7 @@ jobs:
         include:
           - {os: ubuntu-24.04, compiler: g++-14, triplet: x64-linux}
           - {os: ubuntu-24.04, compiler: clang++-19, triplet: x64-linux}
-          - {os: macos-15, compiler: /usr/bin/clang++, triplet: arm64-osx}
+          - {os: macos-26, compiler: /usr/bin/clang++, triplet: arm64-osx}
           - {os: windows-2025, compiler: cl, triplet: x64-windows-static}
     runs-on: ${{ matrix.os }}
     steps:

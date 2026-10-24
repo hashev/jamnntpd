@@ -40,3 +40,13 @@ Static analysis: LLVM/clang-tidy 23.1.3,
 families; reviewed ABI exceptions are local and documented in
 [core-guidelines.md](core-guidelines.md). Formatting: `clang-format --dry-run
 --Werror` over production and C++ test sources.
+
+Windows executables embed an active UTF-8 code-page manifest (Windows 10 version
+1903 or newer), so native argv and narrow configuration text have consistent UTF-8
+semantics. Files are opened through `std::filesystem::path` owners; binary JAM
+message bytes remain governed by the selected text conversion rules.
+
+AppleClang also needs a libc++ with `std::jthread` and `std::stop_token` enabled;
+Xcode 16.4 on the older macOS 15 runner does not satisfy that requirement. Native
+CI selects macOS 26 (AppleClang 21). Configure probes all three library facilities
+and rejects an incomplete standard library before compiling the application.
