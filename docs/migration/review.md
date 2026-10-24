@@ -88,3 +88,9 @@ Additional findings resolved during integration:
 This register is evidence against known findings, not a claim that no undiscovered
 bug exists. Final whole-diff review, native CI and quantitative gates are tracked in
 verification.md and OpenSpec tasks.
+
+- R33: native MSVC Debug uses checked std::array iterators, so declaring a ranges
+  search result as `auto*` was non-portable. FTN labels now use a value lookup;
+  configuration/dispatch/makechs lookups obtain bounded positions with standard
+  iterator distance and checked array access. Existing command/CLI/map regressions
+  cover successful and absent matches; native Windows rerun is required.

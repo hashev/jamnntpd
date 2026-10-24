@@ -230,8 +230,9 @@ auto help_requested(std::span<const std::string> arguments) -> bool {
             equal_ascii(arguments.front(), "--help"));
 }
 auto option_argument_count(std::string_view name) -> std::size_t {
-    const auto *const flag = std::ranges::find(flags, name, &FlagOption::name);
-    return flag != flags.end() || name == "smartquote" ? 1 : 2;
+    const auto flag = static_cast<std::size_t>(
+        std::ranges::distance(flags.begin(), std::ranges::find(flags, name, &FlagOption::name)));
+    return flag != flags.size() || name == "smartquote" ? 1 : 2;
 }
 } // namespace
 
@@ -266,9 +267,10 @@ auto apply_config_arguments(Config &config, std::span<const std::string> argumen
             candidate.defaults.squote = true;
             continue;
         }
-        const auto *const flag = std::ranges::find(flags, name, &FlagOption::name);
-        if (flag != flags.end()) {
-            candidate.*flag->member = true;
+        const auto flag = static_cast<std::size_t>(std::ranges::distance(
+            flags.begin(), std::ranges::find(flags, name, &FlagOption::name)));
+        if (flag != flags.size()) {
+            candidate.*flags.at(flag).member = true;
             continue;
         }
         if (arguments.empty()) {
@@ -343,15 +345,16 @@ auto parse_command_line(std::span<const std::string> arguments,
     return command;
 }
 auto set_user_option(UserOptions &options, UserOptionSetting setting) -> Result<void> {
-    const auto *const option =
-        std::ranges::find(user_options, lower_ascii(setting.name), &UserOption::name);
-    if (option == user_options.end()) {
+    const auto option = static_cast<std::size_t>(std::ranges::distance(
+        user_options.begin(),
+        std::ranges::find(user_options, lower_ascii(setting.name), &UserOption::name)));
+    if (option == user_options.size()) {
         return failure(ErrorKind::input, "Unknown user option");
     }
     if (!equal_ascii(setting.value, "on") && !equal_ascii(setting.value, "off")) {
         return failure(ErrorKind::input, "User option must be on or off");
     }
-    options.*option->member = equal_ascii(setting.value, "on");
+    options.*user_options.at(option).member = equal_ascii(setting.value, "on");
     return {};
 }
 auto config_text(const Config &config) -> std::string {

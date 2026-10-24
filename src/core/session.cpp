@@ -346,10 +346,12 @@ auto Session::command(std::string_view line, const std::stop_token &stop) -> Pro
         std::pair{"body", ArticlePart::body},
         std::pair{"stat", ArticlePart::status},
     };
-    const auto *const part = std::ranges::find(
-        parts, command, [](const auto &entry) -> std::string_view { return entry.first; });
-    if (part != parts.end()) {
-        return article(part->second, line, stop);
+    const auto part = static_cast<std::size_t>(std::ranges::distance(
+        parts.begin(), std::ranges::find(parts, command, [](const auto &entry) -> std::string_view {
+            return entry.first;
+        })));
+    if (part != parts.size()) {
+        return article(parts.at(part).second, line, stop);
     }
     if (command == "next" || command == "last") {
         return navigate(command == "next", stop);
@@ -379,9 +381,11 @@ auto Session::command(std::string_view line, const std::stop_token &stop) -> Pro
         std::pair{"slave", "202 Slave status noted (but ignored)"},
         std::pair{"mode", "200 Server ready - posting allowed"},
     };
-    const auto *const stub = std::ranges::find(
-        stubs, command, [](const auto &entry) -> std::string_view { return entry.first; });
-    return stub == stubs.end() ? response("500 Unknown command") : response(stub->second);
+    const auto stub = static_cast<std::size_t>(std::ranges::distance(
+        stubs.begin(), std::ranges::find(stubs, command, [](const auto &entry) -> std::string_view {
+            return entry.first;
+        })));
+    return stub == stubs.size() ? response("500 Unknown command") : response(stubs.at(stub).second);
 }
 namespace {
 auto help_response() -> std::string_view {

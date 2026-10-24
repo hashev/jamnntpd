@@ -69,19 +69,21 @@ auto emit_row(std::ostream &output, std::string_view mapping) -> Result<void> {
 }
 auto legacy_mapping(char32_t value, const UnicodeMap &destination, ChsGeneration &result)
     -> std::string {
-    const auto *const target = std::ranges::find(destination, value);
-    if (target != destination.end()) {
-        std::string mapped(1, static_cast<char>(std::distance(destination.begin(), target)));
+    const auto target =
+        std::ranges::distance(destination.begin(), std::ranges::find(destination, value));
+    if (target != static_cast<std::ptrdiff_t>(destination.size())) {
+        std::string mapped(1, static_cast<char>(target));
         return mapped;
     }
-    const auto *const fallback =
-        std::ranges::find(mapping_fallbacks, value, &MappingFallback::code_point);
+    const auto fallback = static_cast<std::size_t>(std::ranges::distance(
+        mapping_fallbacks.begin(),
+        std::ranges::find(mapping_fallbacks, value, &MappingFallback::code_point)));
     std::ostringstream message;
     message << "Unicode " << std::hex << static_cast<std::uint32_t>(value)
             << " absent from target map";
-    if (fallback != mapping_fallbacks.end()) {
+    if (fallback != mapping_fallbacks.size()) {
         result.warnings.push_back(message.str() + "; using explicit table fallback");
-        return std::string{fallback->text};
+        return std::string{mapping_fallbacks.at(fallback).text};
     }
     result.warnings.push_back(message.str() + "; using '?' in generated table");
     return "?";

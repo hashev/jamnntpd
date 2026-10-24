@@ -76,6 +76,25 @@ auto address_for_mailbox(std::string_view address) -> std::string {
     const auto mailbox = parse_mailbox(address);
     return mailbox && !mailbox->address.empty() ? mailbox->address : "unknown";
 }
+auto extra_header_name(std::uint16_t number) -> std::string_view {
+    constexpr std::array extra_fields{
+        std::pair{field_message_id, "MSGID"},
+        std::pair{field_reply_id, "REPLYID"},
+        std::pair{field_pid, "PID"},
+        std::pair{std::uint16_t{8}, "TRACE"},
+        std::pair{field_kludge, "FTSKLUDGE"},
+        std::pair{std::uint16_t{2001}, "SEENBY2D"},
+        std::pair{std::uint16_t{2002}, "PATH2D"},
+        std::pair{std::uint16_t{2003}, "FLAGS"},
+        std::pair{field_timezone, "TZUTCINFO"},
+    };
+    for (const auto &[identifier, name] : extra_fields) {
+        if (identifier == number) {
+            return name;
+        }
+    }
+    return {};
+}
 auto attributes_header(std::uint32_t attributes) -> std::string {
     if (attributes == 0) {
         return {};
@@ -299,29 +318,16 @@ auto render_message(const jam::Message &message, const MessageText &text, const 
     article.headers += "X-JAM-From: " + *wire_sender + (origin.empty() ? "" : " <" + origin + ">") +
                        "\r\nX-JAM-To: " + *wire_recipient +
                        (text.destination.empty() ? "" : " <" + text.destination + ">") + "\r\n";
-    constexpr std::array extra_fields{
-        std::pair{field_message_id, "MSGID"},
-        std::pair{field_reply_id, "REPLYID"},
-        std::pair{field_pid, "PID"},
-        std::pair{std::uint16_t{8}, "TRACE"},
-        std::pair{field_kludge, "FTSKLUDGE"},
-        std::pair{std::uint16_t{2001}, "SEENBY2D"},
-        std::pair{std::uint16_t{2002}, "PATH2D"},
-        std::pair{std::uint16_t{2003}, "FLAGS"},
-        std::pair{field_timezone, "TZUTCINFO"},
-    };
     for (const auto &field : message.fields) {
-        const auto *const found =
-            std::ranges::find(extra_fields, field.low,
-                              [](const auto &entry) -> std::uint16_t { return entry.first; });
-        if (found == extra_fields.end()) {
+        const auto label = extra_header_name(field.low);
+        if (label.empty()) {
             continue;
         }
         const auto value = jam::text_from(field.data);
         if (!header_safe(value)) {
             return failure(ErrorKind::corrupt, "Invalid JAM header metadata");
         }
-        article.headers += "X-JAM-" + std::string{found->second} + ": " + value + "\r\n";
+        article.headers += "X-JAM-" + std::string{label} + ": " + value + "\r\n";
     }
     article.headers += attributes_header(message.header.attributes);
     const bool high_bit = std::ranges::any_of(body->bytes, [](char value) -> bool {
