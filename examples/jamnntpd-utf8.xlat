@@ -1,0 +1,4 @@
+; Explicit standard conversion; existing rules without -builtin remain byte-pass-through.
+defaultpost UTF-8
+read CP866 UTF-8 -builtin
+post UTF-8 CP866 -builtin

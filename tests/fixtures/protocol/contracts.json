@@ -1,0 +1,98 @@
+{
+  "ARTICLE": [
+    "number/current/message-id",
+    "head plus blank line plus body",
+    "dot stuffing",
+    "missing/deleted/private denied"
+  ],
+  "HEAD": [
+    "number/current/message-id",
+    "headers only",
+    "MIME encoded words",
+    "missing/deleted/private denied"
+  ],
+  "BODY": [
+    "number/current/message-id",
+    "body only",
+    "dot stuffing",
+    "missing/deleted/private denied"
+  ],
+  "STAT": [
+    "number/current/message-id",
+    "223 article id only",
+    "private article existence must not leak"
+  ],
+  "GROUP": [
+    "missing argument",
+    "unknown/unauthorized group",
+    "211 count low high name",
+    "strictnetmail visible-only counters"
+  ],
+  "NEXT": [
+    "no group/current",
+    "421 at end",
+    "223 updates current number"
+  ],
+  "LAST": [
+    "no group/current",
+    "422 at beginning",
+    "223 updates current number"
+  ],
+  "XOVER": [
+    "no group/current",
+    "number and bounded/open ranges",
+    "224 plus visible articles only",
+    "empty byte/line columns"
+  ],
+  "LIST": [
+    "active/default group listing",
+    "read-group filtering",
+    "y/n based on post permission",
+    "NEWSGROUPS",
+    "OVERVIEW.FMT"
+  ],
+  "AUTHINFO": [
+    "USER then PASS",
+    "missing credentials",
+    "wrong password",
+    "correct password replaces read/post groups",
+    "options only login",
+    "flowed/showto/nonbsp/delssq/addcr/squote",
+    "no credential diagnostics"
+  ],
+  "POST": [
+    "340 then dot-terminated plain text",
+    "240 after successful commit",
+    "441 validation failure",
+    "503 storage failure",
+    "post permission",
+    "reject crosspost/HTML/multipart/oversized",
+    "7bit/8bit/QP/base64",
+    "reply metadata",
+    "cancellation ownership/local/unsent/unlocked",
+    "disconnect before terminator never publishes"
+  ],
+  "HELP": [
+    "100 multiline response",
+    "recognized command listing",
+    "dot terminator"
+  ],
+  "IHAVE": [
+    "435 reject without reading body"
+  ],
+  "NEWGROUPS": [
+    "231 empty list"
+  ],
+  "NEWNEWS": [
+    "230 empty list"
+  ],
+  "SLAVE": [
+    "202 ignored"
+  ],
+  "MODE": [
+    "200 compatibility response"
+  ],
+  "QUIT": [
+    "205 then disconnect"
+  ]
+}

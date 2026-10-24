@@ -1,0 +1,4 @@
+Checks: '-*,clang-analyzer-*,bugprone-*,cert-*,cppcoreguidelines-*,concurrency-*,modernize-*,performance-*,portability-*,readability-*'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*/src/core/.*'
+FormatStyle: file

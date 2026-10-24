@@ -1,3 +1,5 @@
+# C++23: rules without a table still preserve bytes. Add -builtin for standard conversion.
+# Bidirectional UTF-8 example: examples/jamnntpd-utf8.xlat; details: docs/migration/text.md.
 # Charset configuration for JamNNTPd
 #
 # If you want to disable charset translation, uncomment the following two lines

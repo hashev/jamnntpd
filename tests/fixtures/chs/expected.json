@@ -1,0 +1,19 @@
+{
+  "custom_input": "0041424380ff5c",
+  "custom_output": "616243e294803f5c",
+  "reverse_input": "80",
+  "reverse_output": "81",
+  "level_one_input": "4180",
+  "level_one_output": "5a80",
+  "cp866_to_utf8": {
+    "80": "d090",
+    "8d": "d09d",
+    "b0": "e29691",
+    "b3": "e29482",
+    "c4": "e29480",
+    "da": "e2948c",
+    "db": "e29688",
+    "f0": "d081",
+    "ff": "c2a0"
+  }
+}

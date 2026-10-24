@@ -1,3 +1,36 @@
+# JamNNTPd 2.0 C++23 migration
+
+This modified version replaces the original C implementation with a C++23 server
+and `makechs`. It preserves the JAM on-disk format and traditional configuration,
+NNTP commands, custom `.chs` tables and external tosser first-byte lock protocol.
+Original authors and license notices are retained below, in ReadMe.txt and
+src/jamlib/NOTICE; the jamlib LGPL text remains in src/jamlib/LICENSE.
+
+Build with CMake >=3.28 and a C++23 standard library supporting `std::expected`.
+Dependencies and commands: [build guide](docs/migration/build.md).
+CMake builds `jamnntpd` and `makechs`; legacy Makefiles and OS/2 support are removed.
+
+Run `jamnntpd -create jamnntpd.config`, edit paths and permissions, then
+`jamnntpd -config jamnntpd.config`. Run in the foreground under a service manager.
+Stop gracefully using SIGINT/SIGTERM or the Windows console control notification.
+The service joins workers and flushes logs before exiting.
+
+Logging uses spdlog. Standard text conversion uses ICU with strict errors by
+default; `conversion_errors replace` explicitly permits replacement with diagnostics.
+Read/post rules without a table preserve bytes. Add `-builtin` to opt into standard
+conversion, e.g. `read CP866 UTF-8 -builtin` and `post UTF-8 CP866 -builtin`.
+Custom tables take their explicit precedence; see [text conversion](docs/migration/text.md).
+
+Back up a consistent `.jhr`, `.jdt`, `.jdx`, `.jlr` set while all writers are stopped.
+For rollback stop all writers, restore the complete set and restart. Persistent
+I/O failure quarantines the base when rollback cannot complete. No recovery journal
+or power-loss transaction guarantee is provided. See [storage](docs/migration/storage.md).
+
+Migration acceptance status: [verification](docs/migration/verification.md).
+The completed native/sanitizer/coverage matrix and documented limitations are recorded there.
+
+## Historical project documentation and changelog
+
 # JamNNTPd (updated version)
 
 JamNNTPd is an NNTP server that allows newsreaders to access a JAM messagebase. It can be used to read and write messages in Fidonet/FTN echomail and netmail.
