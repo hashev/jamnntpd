@@ -49,10 +49,10 @@
 
 ## 7. Сеть, сессии и lifecycle
 
-- [ ] 7.1 Перенести sockets на move-only owners и корректные native types Winsock2/POSIX; проверить cleanup и системные errors на Linux/Windows/macOS R19/R20.
+- [x] 7.1 Перенести sockets на move-only owners и корректные native types Winsock2/POSIX; проверить cleanup и системные errors на Linux/Windows/macOS R19/R20.
 - [x] 7.2 Реализовать send-all и bounded line reader с EINTR/timeout/disconnect handling; deterministic transport tests закрывают R06/R07, включая partial writes и command injection через overlong line.
 - [x] 7.3 Реализовать admission reservation, owned jthreads и координацию stop/join; barriers/failure tests закрывают R04/R05, session cap и thread-start failure.
-- [ ] 7.4 Реализовать async-signal-safe POSIX notification и Windows control notification с пробуждением waits; проверить R03 и shutdown <=10 секунд под load/idle/lock contention.
+- [x] 7.4 Реализовать async-signal-safe POSIX notification и Windows control notification с пробуждением waits; проверить R03 и shutdown <=10 секунд под load/idle/lock contention.
 - [x] 7.5 Отделить NNTP dispatch/session state от FTN mapping/storage; проверить все characterization transcripts, errors missing/deleted article, ranges и argument boundaries.
 - [x] 7.6 Перенести POST/reply/cancel/netmail operations на новые слои; проверить права по каждому пути, корректные CHRS/CODEPAGE и отсутствие mutation после decode/auth/commit failure.
 - [x] 7.7 Документировать transport limits, shutdown deadlines и сохраненные CLI/config behavior; проверить примеры end-to-end и отсутствие оставшихся manual resource cleanup chains.

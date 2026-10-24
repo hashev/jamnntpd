@@ -1,4 +1,5 @@
 import argparse
+import os
 from pathlib import Path
 import subprocess
 import tempfile
@@ -16,9 +17,10 @@ class MakeChsCli(unittest.TestCase):
             mapping.write_text('0x8D 0x041D\n0xFF 0x1F600\n')
             generated = self.run_cli('CP866', 'UTF-8', mapping)
             self.assertEqual(generated.returncode, 0, generated.stderr)
-            self.assertIn(b'100000\n0\n2\nCP866\nUTF-8\n', generated.stdout)
+            newline = b'\r\n' if os.name == 'nt' else b'\n'
+            self.assertIn(newline.join([b'100000',b'0',b'2',b'CP866',b'UTF-8',b'']),generated.stdout)
             self.assertIn(b'\\xF0\t\\x9F\t\\x98\t\\x80', generated.stdout)
-            self.assertTrue(generated.stdout.endswith(b'END\n'))
+            self.assertTrue(generated.stdout.endswith(b'END'+newline))
             unicode_mapping = mapping.with_name('карта.map')
             unicode_mapping.write_bytes(mapping.read_bytes())
             self.assertEqual(self.run_cli('CP866','UTF-8',unicode_mapping).stdout,generated.stdout)

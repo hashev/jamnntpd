@@ -64,3 +64,11 @@ are pointers. Portable value/position lookups now replace that assumption (R33).
 Windows dependencies were installed cleanly and their pinned binary cache is saved;
 corrected native executable and coverage results are still required. CTest starts
 Python explicitly in UTF-8 mode, and executable tests verify Unicode config/map paths.
+
+Native MSVC now builds and links all targets. Real server e2e, 100 contested
+shutdown rounds, native control notification, process locking, quarantine and
+native timezone tests pass. Two remaining test expectations incorrectly assumed
+LF for native Windows text output: makechs emits CRT CRLF and spdlog uses its
+native record delimiter. Tests now assert the exact platform delimiter before
+checking unchanged payload bytes; no production behavior or assertion is disabled.
+A complete native rerun, including coverage evidence, is pending.

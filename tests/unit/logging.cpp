@@ -45,6 +45,10 @@ TEST_CASE("Thread-safe logger keeps long records complete and prevents line inje
     std::string line;
     int count{};
     while (std::getline(records, line)) {
+#ifdef _WIN32
+        REQUIRE(line.ends_with('\r'));
+        line.pop_back();
+#endif
         if (count < 80) {
             CHECK(line.ends_with(payload));
         } else {
