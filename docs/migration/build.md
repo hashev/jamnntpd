@@ -18,7 +18,7 @@ ctest --preset debug
 Installed CMake packages can also be selected with `CMAKE_PREFIX_PATH`.
 Validated local compilers: LLVM 23.1.3, AppleClang 21.0.0, Linux GCC 14.2.0.
 Native CI includes Linux GCC/Clang, macOS AppleClang and Windows MSVC.
-CI results, sanitizer acceptance and remaining gates are recorded separately in
+CI results and sanitizer/coverage acceptance are recorded separately in
 [verification.md](verification.md); defining a job does not establish a pass.
 
 Presets: debug, release, asan-ubsan, tsan, coverage. Use separate build directories
@@ -32,8 +32,9 @@ python3 tools/check_coverage.py --build build/coverage
 
 The gate merges all five test/production executables, checks every production
 C++ translation unit is represented, includes own headers and error paths, and
-requires 90% lines and 85% branches. It does not claim coverage of inactive native
-platform branches. Native Windows evidence is an additional acceptance requirement.
+requires 90% lines and 85% branches. Linux and native Windows each enforce these
+aggregate gates. Native Windows additionally requires its adapter functions to
+execute; POSIX coverage does not substitute for those branches.
 
 Static analysis: LLVM/clang-tidy 23.1.3,
 `cmake --build build/debug --target clang-tidy`. The profile enables all agreed

@@ -37,10 +37,10 @@ The server now uses this storage layer for indices, reads, posting, replies and
 cancellation. All legacy production C sources and Makefiles have been removed;
 JAM binary layout, CRC and required storage operations are implemented in C++23.
 Original notices are preserved in `src/jamlib/NOTICE` and the LGPL text in
-`src/jamlib/LICENSE`. Linux native process-lock and ASan/UBSan suites pass.
+`src/jamlib/LICENSE`. Linux and Windows native process-lock and executable suites pass; Linux
+ASan/UBSan and TSan also pass.
 See [rehearsal.md](rehearsal.md) for independent tosser and complete backup restore
-verification. Native Windows validation and final quality acceptance are recorded
-in verification.md, superseding the earlier component-stage status above.
+verification. Final native acceptance is recorded in verification.md.
 
 On Windows, `_wfsopen(..., _SH_DENYNO)` opens native wide paths with read/write
 sharing, while the first-byte record lock coordinates mutations. `_wfopen_s` is

@@ -41,6 +41,8 @@ TEST_CASE("Socket ownership and cancellation release native resources") {
     auto duplicate = Socket::listen(*port);
     CHECK_FALSE(duplicate);
     CHECK_FALSE(Socket::adopt(invalid_socket));
+    CHECK_FALSE(Socket::adopt(static_cast<NativeSocket>(invalid_socket - 1)));
+    CHECK_FALSE(listener->peer());
     std::stop_source stopped;
     stopped.request_stop();
     CHECK_FALSE(listener->accept(stopped.get_token()));

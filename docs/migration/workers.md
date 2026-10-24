@@ -29,12 +29,12 @@ the original mask. Only one signal owner is permitted.
 
 Windows uses a console callback with native interlocked flags and a watcher;
 close/logoff/shutdown callbacks allow a bounded interval for orderly completion.
-The Windows implementation has not yet been run on a native host. An independent
-macOS process test sends real SIGINT and SIGTERM while a worker waits, checks
-exit within five seconds, and verifies that no active reservation remains.
+Native Windows MSVC/clang-cl tests send real CTRL_BREAK; POSIX tests send SIGINT
+and SIGTERM while a worker waits. They check exit within five seconds and verify
+that no active reservation remains.
 The full service stress scenario additionally checks termination under storage contention.
 
 The production server now uses these workers and signals. Actual executable
 stress tests repeat shutdown 100 times with concurrent POST/read/cancel and an
 external JAM lock. Stop-aware registry acquisition prevents queued workers from
-multiplying the native lock timeout. Native Windows validation remains required.
+multiplying the native lock timeout. Native Windows validation also passes.

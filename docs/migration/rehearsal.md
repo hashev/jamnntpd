@@ -12,7 +12,7 @@ message, and an independent decoder verifies the resulting storage bytes.
 The test then stops the server, restores all four backup files together, restarts,
 checks original GROUP bounds and absence of newer articles, and compares every
 restored file with the backup. The scenario passes in local Debug, AppleClang and
-Linux ASan/UBSan executable runs. Native Windows acceptance is tracked separately.
+Linux ASan/UBSan executable runs, and in native Windows MSVC/clang-cl CI.
 The independent process-lock test and 100-round contested shutdown suite additionally
 verify native lock conflicts and rejection of blocked mutations during shutdown.
 

@@ -59,7 +59,7 @@
 
 ## 8. Платформы и интеграционная приемка
 
-- [ ] 8.1 Подключить native Linux GCC/Clang, macOS AppleClang и Windows MSVC build/unit/e2e CI; проверить warnings-as-errors на всех targets и документированные toolchain minima.
+- [x] 8.1 Подключить native Linux GCC/Clang, macOS AppleClang и Windows MSVC build/unit/e2e CI; проверить warnings-as-errors на всех targets и документированные toolchain minima.
 - [x] 8.2 Удалить OS/2 и оставшийся старый production C build, обновить README/HOWTO/examples и переход с Makefile; проверить отсутствие ссылок на поддерживаемую OS/2 и сборку обоих executable targets.
 - [x] 8.3 Запустить полный unit/e2e с ASan/UBSan и отдельный TSan unit+concurrency suite; проверить ноль errors/leaks/races, 100 stress повторений и отсутствие зависших процессов.
 - [ ] 8.4 Включить coverage gates >=90% lines и >=85% branches для всего собственного production code; проверить отчет unit+e2e, список denominators, module gaps и native Windows adapter evidence без скрытия error branches.

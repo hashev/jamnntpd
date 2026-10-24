@@ -41,21 +41,21 @@ Every finding remains **open** until its regression passes against the migrated 
 
 The historical source paths above refer to the recorded baseline revision. The old
 production C has now been removed. The earlier component-stage open status is
-superseded by the evidence below. Native Windows acceptance remains outstanding;
-no platform-independent closure is claimed for R03/R19/R20 until it passes.
+superseded by the evidence below. Native Windows MSVC/clang-cl acceptance now passes alongside the POSIX matrix;
+R01–R37 are closed by the recorded source changes and regression evidence.
 
 | Findings | Current replacement and regression evidence |
 | --- | --- |
 | R01, R18 | text/config checked parsing, empty/whitespace/long/quoted and numeric-boundary unit tests; executable CLI create/help/error and connection config rejection tests |
 | R02 | value-owned Identity/session state, long realname config tests and actual authenticated/netmail read/post/cancel permissions |
-| R03–R05 | SignalStop/WorkerPool/admission RAII, startup-failure barriers, actual idle/load/external-lock shutdown repeated 100 times; Linux TSan passes; Windows native gate pending |
+| R03–R05 | SignalStop/WorkerPool/admission RAII, startup-failure barriers, actual idle/load/external-lock shutdown repeated 100 times; Linux TSan passes; Windows native gate passes |
 | R06–R07 | deterministic short/zero/error writes, bounded fragmented line reader, timeout/closed socket tests; executable overlong-command injection and incomplete/aggregate oversized POST refusal |
 | R08–R09 | spdlog concurrent long records and sink errors; actual AUTHINFO success/failure sentinel checks across log/stdout/stderr; bounded `/dev/full` fallback on Linux |
 | R10–R11 | fixed little-endian format constants, independent binary decoder and high-bit field fixtures; Linux ASan/UBSan passes |
 | R12–R13 | shared file-identity registry, native separate locker, alias/timeout tests, injected reads/writes/flushes/rollback and persistent quarantine; real backend/session failure never returns 240 |
 | R14 | native timezone/DST process, negative offsets and concurrent date/address unit tests; numeric peer formatting avoids DNS/static-buffer lifetime |
 | R15–R17 | exhaustive independently mapped standard code pages, UTF-8 malformed corpus, encoded-word boundaries; actual all-ten-encoding read/post/reply, CHS forward/reverse and byte-pass-through e2e; NBSP at index zero and CP866 0x8D tests |
-| R19–R20 | all own targets C++23 with warnings as errors; native owners, failure cleanup and separate expected/jthread/stop_token probe; native Windows MSVC/clang-cl evidence pending |
+| R19–R20 | all own targets C++23 with warnings as errors; native owners, failure cleanup and separate expected/jthread/stop_token probe; native Windows MSVC/clang-cl evidence passes |
 | R21 | value-owned subfields, independent bases concurrently append/read different markers under TSan rather than sharing a function-static cursor |
 | R22 | 32,000-byte receiver storage regression verifies full bytes without a fixed C buffer, plus malformed subfield corpus |
 | R23 | real JamBackend + Session POST with injected write/flush failures verifies 441, unchanged parent header and no published index slot; 240 follows storage commit |
@@ -93,7 +93,7 @@ verification.md and OpenSpec tasks.
   search result as `auto*` was non-portable. FTN labels now use a value lookup;
   configuration/dispatch/makechs lookups obtain bounded positions with standard
   iterator distance and checked array access. Existing command/CLI/map regressions
-  cover successful and absent matches; native Windows rerun is required.
+  cover successful and absent matches; native Windows MSVC/clang-cl builds and all ten test groups pass.
 
 - R34: non-ASCII PID/NOTE and other X-JAM textual headers bypassed the selected
   read conversion. The read model now owns converted extra headers, rendering
@@ -104,12 +104,12 @@ verification.md and OpenSpec tasks.
   Native storage now adopts `_wfsopen` with explicit `_SH_DENYNO`, retaining wide
   paths and external tosser sharing. The secure `_wfopen_s` alternative is not used
   because its non-sharing semantics would break that contract. Native lock/tosser
-  e2e must pass before acceptance; no CRT diagnostic is disabled.
+  e2e passes; no CRT diagnostic is disabled.
 
 - R36: Windows static vcpkg dependencies and CMake's default dynamic CRT disagreed.
   CI now selects the matching CMAKE_MSVC_RUNTIME_LIBRARY for all own targets;
   Debug/Release presets also choose the actual multi-config build/test configuration.
-  Native linking and complete CTest must pass; no mismatch or duplicate-symbol check
+  Native linking and all ten CTest groups pass; no mismatch or duplicate-symbol check
   is bypassed.
 
 - R37: debug records escaped CR/LF/NUL but could still send raw terminal ESC and

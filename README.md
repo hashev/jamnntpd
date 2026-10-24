@@ -27,7 +27,7 @@ I/O failure quarantines the base when rollback cannot complete. No recovery jour
 or power-loss transaction guarantee is provided. See [storage](docs/migration/storage.md).
 
 Migration acceptance status: [verification](docs/migration/verification.md).
-The presence of the new server does not establish that unfinished quality gates passed.
+The completed native/sanitizer/coverage matrix and documented limitations are recorded there.
 
 ## Historical project documentation and changelog
 

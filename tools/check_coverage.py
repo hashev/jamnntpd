@@ -8,7 +8,7 @@ import sys
 parser = argparse.ArgumentParser()
 parser.add_argument('--build', type=Path, required=True)
 parser.add_argument('--native-windows-evidence', action='store_true',
-                    help='Export native Windows adapter evidence; aggregate gates run on Linux')
+                    help='Require native Windows adapters in addition to aggregate coverage gates')
 parser.add_argument('--llvm-cov', default='llvm-cov')
 parser.add_argument('--llvm-profdata', default='llvm-profdata')
 args = parser.parse_args()
@@ -57,5 +57,10 @@ if args.native_windows_evidence:
     adapters = {'network.cpp', 'storage.cpp', 'signals.cpp'}
     covered = {Path(entry['filename']).name for entry in files
                if entry['summary']['lines']['covered'] > 0}
-    sys.exit(0 if adapters <= covered else 'Missing native adapter execution')
+    if not adapters <= covered:
+        sys.exit('Missing native adapter execution')
+    functions = [function for data in report['data'] for function in data['functions']]
+    for name in ['console_control', 'native_lock_code', 'identify_open_file', '?create@NetworkRuntime']:
+        if not any(name in function['name'] and function['count'] > 0 for function in functions):
+            sys.exit('Missing native adapter function execution: ' + name)
 sys.exit(0 if passed else 1)
