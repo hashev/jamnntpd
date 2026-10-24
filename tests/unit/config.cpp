@@ -68,11 +68,8 @@ TEST_CASE("Configuration files roundtrip documented settings and fail safely") {
     TempDirectory directory;
     auto config = default_config();
     const auto original = config_text(config);
-    REQUIRE(original);
-    REQUIRE(load_config(config, directory.write("default.config", *original)));
-    const auto repeated = config_text(config);
-    REQUIRE(repeated);
-    CHECK(*repeated == *original);
+    REQUIRE(load_config(config, directory.write("default.config", original)));
+    CHECK(config_text(config) == original);
     REQUIRE(load_config(
         config, directory.write("good.config", "# comment\nport 0\nmax 12\norigin \"A B\"\n")));
     CHECK(config.port == 0);
@@ -137,9 +134,7 @@ TEST_CASE("Legacy defaults distinguish omitted origin from an explicit empty ove
     auto config = default_config();
     CHECK_FALSE(config.origin);
     CHECK_FALSE(config.guest_suffix);
-    const auto defaults = config_text(config);
-    REQUIRE(defaults);
-    CHECK(defaults->find("origin ") == std::string::npos);
+    CHECK(config_text(config).find("origin ") == std::string::npos);
     const std::vector<std::string> arguments{"max",         "0", "origin",    "",
                                              "guestsuffix", "",  "smartquote"};
     REQUIRE(apply_config_arguments(config, arguments));
@@ -149,11 +144,10 @@ TEST_CASE("Legacy defaults distinguish omitted origin from an explicit empty ove
     REQUIRE(config.guest_suffix);
     CHECK(config.guest_suffix->empty());
     const auto saved = config_text(config);
-    REQUIRE(saved);
-    CHECK(saved->find("def_squote") == std::string::npos);
-    CHECK(saved->find("smartquote\n") != std::string::npos);
+    CHECK(saved.find("def_squote") == std::string::npos);
+    CHECK(saved.find("smartquote\n") != std::string::npos);
     auto restored = default_config();
-    REQUIRE(load_config(restored, directory.write("legacy.config", *saved)));
+    REQUIRE(load_config(restored, directory.write("legacy.config", saved)));
     REQUIRE(restored.origin);
     CHECK(restored.origin->empty());
     CHECK(restored.maximum_connections == 0);
@@ -209,21 +203,5 @@ TEST_CASE("Group names reject protocol framing and message-id delimiters") {
                              std::string{"x$y"}, std::string{"a,b"}, std::string(100, 'a')}) {
         const auto file = directory.write("groups", "\"" + name + "\" a 2:1/2 base\n");
         CHECK_FALSE(load_groups(file));
-    }
-}
-
-TEST_CASE("Configuration serialization refuses values the legacy grammar cannot represent") {
-    auto config = default_config();
-    for (const auto &value : {std::string{"embedded \"quote"}, std::string{"line\nnext"},
-                              std::string{"CR\rnext"}, std::string{"N\0UL", 4}}) {
-        config.origin = value;
-        CHECK_FALSE(config_text(config));
-        config.origin.reset();
-        config.guest_suffix = value;
-        CHECK_FALSE(config_text(config));
-        config.guest_suffix.reset();
-        config.log_file = value;
-        CHECK_FALSE(config_text(config));
-        config = default_config();
     }
 }

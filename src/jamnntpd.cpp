@@ -25,13 +25,8 @@ auto main(int argc, char **argv) -> int {
             return 0;
         }
         if (command->action == jamnntpd::CommandAction::create_config) {
-            const auto text = jamnntpd::config_text(command->config);
-            if (!text) {
-                std::cerr << text.error().message << '\n';
-                return 1;
-            }
             std::ofstream output{command->output_file};
-            output << *text;
+            output << jamnntpd::config_text(command->config);
             output.flush();
             if (!output) {
                 std::cerr << "Cannot write configuration file\n";

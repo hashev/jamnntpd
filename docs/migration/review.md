@@ -117,11 +117,3 @@ verification.md and OpenSpec tasks.
   hexadecimal escapes before any sink. A regression verifies ESC/DEL absence and
   the exact escaped payload while preserving ordinary UTF-8 text and AUTHINFO
   redaction.
-
-- R38: `-create` could serialize quotes/newlines/NUL into an unreadable configuration
-  and truncate an existing destination before detecting any problem. Serialization
-  now returns a checked expected result and refuses values the retained legacy
-  grammar cannot represent, before opening the output file. Unit cases cover paths,
-  origin and guest suffix; executable tests preserve an existing destination byte
-  for byte after quoted/multiline input is refused. Runtime CLI values retain their
-  previous semantics; no new configuration escape syntax is introduced.

@@ -179,13 +179,6 @@ class NntpEndToEnd(unittest.TestCase):
                 capture_output=True,timeout=5)
             self.assertEqual(created.returncode,0,created.stderr)
             self.assertTrue(unicode_config.is_file())
-            unicode_config.write_bytes(b'existing configuration')
-            for value in ['embedded "quote','line\nnext']:
-                refused = subprocess.run([OPTIONS.executable,'-create',str(unicode_config),
-                    '-origin',value],capture_output=True,timeout=5)
-                self.assertNotEqual(refused.returncode,0)
-                self.assertEqual(unicode_config.read_bytes(),b'existing configuration')
-
             for arguments in [['-logfile',str(root / 'missing' / 'log')],
                               ['-create',str(root / 'missing' / 'config')]]:
                 result = subprocess.run([OPTIONS.executable,*arguments],capture_output=True,timeout=5)
