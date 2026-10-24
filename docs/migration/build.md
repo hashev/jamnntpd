@@ -50,3 +50,12 @@ AppleClang also needs a libc++ with `std::jthread` and `std::stop_token` enabled
 Xcode 16.4 on the older macOS 15 runner does not satisfy that requirement. Native
 CI selects macOS 26 (AppleClang 21). Configure probes all three library facilities
 and rejects an incomplete standard library before compiling the application.
+
+With the CI `x64-windows-static` vcpkg triplet, configure the matching CRT explicitly:
+`-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>` (quote the whole
+argument in your shell). The default CMake dynamic CRT cannot be mixed with the
+triplet's static-CRT libraries. Other triplets must select their corresponding CRT.
+Build/test presets explicitly select Debug or Release for multi-configuration
+Visual Studio generators; CI also passes `--config Debug` and `ctest -C Debug`.
+Linux Clang/Ninja CI installs `clang-tools-19` as well as the compiler because CMake's
+C++23 dependency scanning invokes `clang-scan-deps` during the configure probe.

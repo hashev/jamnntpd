@@ -54,7 +54,7 @@ jobs:
         shell: pwsh
         run: |
           $toolset = if ('${{ matrix.compiler }}' -eq 'clang-cl') { @('-T','ClangCL') } else { @() }
-          cmake -S . -B build/ci -A x64 @toolset -DJAM_COVERAGE=${{ matrix.coverage || 'OFF' }} -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+          cmake -S . -B build/ci -A x64 @toolset '-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>' -DJAM_COVERAGE=${{ matrix.coverage || 'OFF' }} -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
       - run: cmake --build build/ci --config Debug --parallel 4
       - name: Run complete native suite
         shell: bash

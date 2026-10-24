@@ -105,3 +105,9 @@ verification.md and OpenSpec tasks.
   paths and external tosser sharing. The secure `_wfopen_s` alternative is not used
   because its non-sharing semantics would break that contract. Native lock/tosser
   e2e must pass before acceptance; no CRT diagnostic is disabled.
+
+- R36: Windows static vcpkg dependencies and CMake's default dynamic CRT disagreed.
+  CI now selects the matching CMAKE_MSVC_RUNTIME_LIBRARY for all own targets;
+  Debug/Release presets also choose the actual multi-config build/test configuration.
+  Native linking and complete CTest must pass; no mismatch or duplicate-symbol check
+  is bypassed.
