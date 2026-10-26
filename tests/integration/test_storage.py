@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import time
 import unittest
 
 
@@ -30,6 +31,30 @@ def byte_lock(stream):
 
 
 class StorageLocks(unittest.TestCase):
+    def test_companion_hardlink_alias_respects_lock_deadline_without_mutation(self):
+        with tempfile.TemporaryDirectory(prefix='jam-alias-lock-') as temporary:
+            base, alias = Path(temporary)/'base', Path(temporary)/'alias'
+            before = {}
+            for suffix in ['.jhr', '.jdt', '.jdx', '.jlr']:
+                path = base.with_suffix(suffix)
+                shutil.copyfile(OPTIONS.fixtures/('sample'+suffix), path)
+                os.link(path, alias.with_suffix(suffix))
+                before[suffix] = path.read_bytes()
+            with base.with_suffix('.jhr').open('r+b', buffering=0) as header:
+                with byte_lock(header):
+                    start = time.monotonic()
+                    result = subprocess.run([OPTIONS.probe, str(alias)], capture_output=True,
+                                            text=True, timeout=4)
+                    self.assertEqual(result.returncode, 3, result.stderr)
+                    self.assertLess(time.monotonic()-start, 3)
+                    self.assertIn('timeout', result.stderr)
+            released = subprocess.run([OPTIONS.probe, str(alias)], capture_output=True,
+                                      text=True, timeout=4)
+            self.assertEqual(released.returncode, 0, released.stderr)
+            for suffix, expected in before.items():
+                self.assertEqual(base.with_suffix(suffix).read_bytes(), expected)
+                self.assertEqual(alias.with_suffix(suffix).read_bytes(), expected)
+
     def test_first_byte_lock_conflicts_with_native_process(self):
         with tempfile.TemporaryDirectory(prefix='jamnntpd-lock-') as temporary:
             base = Path(temporary) / 'base'

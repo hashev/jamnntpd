@@ -1,0 +1,20 @@
+{
+  "revision": "005f267fd012a602a53738a39dce1e1e5f0277ef",
+  "platform": "Windows-2025Server-10.0.26100-SP0",
+  "platform_key": "windows",
+  "compiler": {
+    "CMAKE_CXX_COMPILER": "C:/Program Files/Microsoft Visual Studio/18/Enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe",
+    "CMAKE_CXX_COMPILER_ID": "Clang",
+    "CMAKE_CXX_COMPILER_VERSION": "22.1.3"
+  },
+  "scope": "Native lifecycle and shutdown only; full Windows job failed separate unit/baseline checks",
+  "job": "https://github.com/hashev/jamnntpd/actions/runs/40305056837/job/121512013768",
+  "ctest": {
+    "lifecycle-native": "passed"
+  },
+  "case_results": {
+    "server-e2e": {
+      "test_native_shutdown_in_connection_read_post_and_external_lock_phases": "passed"
+    }
+  }
+}

@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(CTest)
 option(JAM_ASAN_UBSAN "Enable address and undefined behavior sanitizers" OFF)
 option(JAM_TSAN "Enable thread sanitizer" OFF)
+option(JAM_EXTENDED_TESTS "Enable long-running native acceptance tests" OFF)
 option(JAM_COVERAGE "Enable Clang source coverage" OFF)
 if((JAM_ASAN_UBSAN AND JAM_TSAN) OR (JAM_TSAN AND JAM_COVERAGE))
   message(FATAL_ERROR "ASan, TSan and coverage require compatible separate profiles")
@@ -95,7 +96,18 @@ endif()
 if(BUILD_TESTING)
   find_package(Catch2 3 CONFIG REQUIRED)
   find_package(Python3 3.10 REQUIRED COMPONENTS Interpreter)
-  add_executable(jam_unit tests/unit/ftn.cpp tests/unit/backend.cpp tests/unit/session.cpp tests/unit/workers.cpp tests/unit/message_values.cpp tests/unit/formatting.cpp tests/unit/charset_rules.cpp tests/unit/text.cpp tests/unit/jam_format.cpp tests/unit/codec.cpp tests/unit/config.cpp tests/unit/storage.cpp tests/unit/network.cpp tests/unit/map_generator.cpp tests/unit/mime.cpp tests/unit/logging.cpp tests/unit/corpus.cpp)
+  file(GLOB JAM_CORE_HEADERS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/core/*.hpp")
+  set(JAM_HEADER_CHECK_SOURCES)
+  foreach(JAM_HEADER IN LISTS JAM_CORE_HEADERS)
+    get_filename_component(JAM_HEADER_NAME "${JAM_HEADER}" NAME)
+    set(JAM_HEADER_CHECK "${CMAKE_CURRENT_BINARY_DIR}/header-check/${JAM_HEADER_NAME}.cpp")
+    file(GENERATE OUTPUT "${JAM_HEADER_CHECK}" CONTENT "#include \"core/${JAM_HEADER_NAME}\"\n")
+    list(APPEND JAM_HEADER_CHECK_SOURCES "${JAM_HEADER_CHECK}")
+  endforeach()
+  add_library(jam_header_checks OBJECT EXCLUDE_FROM_ALL ${JAM_HEADER_CHECK_SOURCES})
+  target_link_libraries(jam_header_checks PRIVATE jam_core)
+  add_custom_target(check-headers DEPENDS jam_header_checks)
+  add_executable(jam_unit tests/unit/generated.cpp tests/unit/ftn.cpp tests/unit/backend.cpp tests/unit/session.cpp tests/unit/workers.cpp tests/unit/message_values.cpp tests/unit/formatting.cpp tests/unit/charset_rules.cpp tests/unit/text.cpp tests/unit/jam_format.cpp tests/unit/codec.cpp tests/unit/config.cpp tests/unit/storage.cpp tests/unit/network.cpp tests/unit/map_generator.cpp tests/unit/mime.cpp tests/unit/logging.cpp tests/unit/corpus.cpp)
   target_link_libraries(jam_unit PRIVATE jam_core Catch2::Catch2WithMain)
   target_compile_definitions(jam_unit PRIVATE JAM_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures")
   add_executable(jam_lifecycle_probe tests/integration/lifecycle_probe.cpp)
@@ -106,8 +118,29 @@ if(BUILD_TESTING)
   set_tests_properties(server-stress PROPERTIES TIMEOUT 240)
   add_test(NAME server-e2e COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_server.py --executable $<TARGET_FILE:jamnntpd>
-    --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures)
+    --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures --junit ${CMAKE_BINARY_DIR}/server-e2e-junit.xml)
   set_tests_properties(server-e2e PROPERTIES TIMEOUT 90)
+  add_test(NAME server-generated COMMAND ${Python3_EXECUTABLE} -X utf8
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_generated_sessions.py
+    --executable $<TARGET_FILE:jamnntpd> --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures)
+  set_tests_properties(server-generated PROPERTIES TIMEOUT 90)
+  add_test(NAME server-load-smoke COMMAND ${Python3_EXECUTABLE} -X utf8
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_extended.py
+    --executable $<TARGET_FILE:jamnntpd> --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures
+    --mode load --duration 3 --messages 50 --artifacts ${CMAKE_BINARY_DIR}/acceptance-extended)
+  set_tests_properties(server-load-smoke PROPERTIES TIMEOUT 90 LABELS "smoke;resources")
+  if(JAM_EXTENDED_TESTS)
+    add_test(NAME server-load-extended COMMAND ${Python3_EXECUTABLE} -X utf8
+      ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_extended.py
+      --executable $<TARGET_FILE:jamnntpd> --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures
+      --mode load --duration 1800 --messages 10000 --artifacts ${CMAKE_BINARY_DIR}/acceptance-extended)
+    set_tests_properties(server-load-extended PROPERTIES TIMEOUT 2100 LABELS "extended;load")
+    add_test(NAME server-idle-extended COMMAND ${Python3_EXECUTABLE} -X utf8
+      ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_extended.py
+      --executable $<TARGET_FILE:jamnntpd> --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures
+      --mode idle --artifacts ${CMAKE_BINARY_DIR}/acceptance-extended)
+    set_tests_properties(server-idle-extended PROPERTIES TIMEOUT 330 LABELS "extended;idle")
+  endif()
   add_test(NAME lifecycle-native COMMAND ${Python3_EXECUTABLE} -X utf8
     ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_lifecycle.py --probe $<TARGET_FILE:jam_lifecycle_probe>)
   set_tests_properties(lifecycle-native PROPERTIES TIMEOUT 20)
@@ -119,17 +152,19 @@ if(BUILD_TESTING)
     --fixtures ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/jam)
   set_tests_properties(storage-process-lock PROPERTIES TIMEOUT 15)
   add_test(NAME makechs-cli COMMAND ${Python3_EXECUTABLE} -X utf8
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_makechs.py --executable $<TARGET_FILE:makechs>)
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/test_makechs.py --executable $<TARGET_FILE:makechs> --junit ${CMAKE_BINARY_DIR}/makechs-cli-junit.xml)
   set_tests_properties(makechs-cli PROPERTIES TIMEOUT 15)
-  add_test(NAME unit COMMAND jam_unit "~[native-tz]~[quarantine]")
+  add_test(NAME unit COMMAND jam_unit "~[native-tz]~[quarantine]" --reporter junit --out ${CMAKE_BINARY_DIR}/unit-junit.xml)
   # Quarantine intentionally lasts for a process lifetime, including recycled inodes.
   # Isolate destructive fault cases so filesystem inode reuse cannot poison other tests.
   add_test(NAME storage-quarantine COMMAND jam_unit
-    "Permanent I/O failure disables the base instead of claiming successful rollback")
+    "Permanent I/O failure disables the base instead of claiming successful rollback" --reporter junit --out ${CMAKE_BINARY_DIR}/storage-quarantine-junit.xml)
   add_test(NAME storage-quarantine-reopen COMMAND jam_unit
-    "An unrecoverable base cannot be reopened after its last handle closes")
-  set_tests_properties(storage-quarantine storage-quarantine-reopen PROPERTIES TIMEOUT 15)
-  add_test(NAME timezone-native COMMAND jam_unit "[native-tz]")
+    "An unrecoverable base cannot be reopened after its last handle closes" --reporter junit --out ${CMAKE_BINARY_DIR}/storage-quarantine-reopen-junit.xml)
+  add_test(NAME storage-quarantine-resize COMMAND jam_unit
+    "Rollback resize failure quarantines the base before any further append" --reporter junit --out ${CMAKE_BINARY_DIR}/storage-quarantine-resize-junit.xml)
+  set_tests_properties(storage-quarantine storage-quarantine-reopen storage-quarantine-resize PROPERTIES TIMEOUT 15)
+  add_test(NAME timezone-native COMMAND jam_unit "[native-tz]" --reporter junit --out ${CMAKE_BINARY_DIR}/timezone-native-junit.xml)
   set_tests_properties(timezone-native PROPERTIES ENVIRONMENT "TZ=EST5EDT" TIMEOUT 15)
   set_tests_properties(unit PROPERTIES TIMEOUT 60)
   add_test(NAME baseline COMMAND ${Python3_EXECUTABLE} -X utf8 -m unittest discover -s tests/baseline -v)

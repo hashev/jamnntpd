@@ -186,7 +186,7 @@ TEST_CASE("Real backend never acknowledges a post after injected write or flush 
                 "charset=UTF-8\r\nReferences: <1$test@JamNNTPd>\r\n\r\nBody\r\n");
             armed = false;
             if (attempts > fail_index) {
-                CHECK(reply.bytes.starts_with("441"));
+                CHECK(reply.bytes == "503 Local error: Could not access messagebase\r\n");
                 CHECK(storage->info()->slots == 2);
                 const auto after = storage->read(1);
                 REQUIRE(after);

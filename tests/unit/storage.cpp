@@ -1,4 +1,5 @@
 #include "core/storage.hpp"
+#include "core/storage_mutex.hpp"
 #include "temp_directory.hpp"
 #include <array>
 #include <atomic>
@@ -562,4 +563,268 @@ TEST_CASE("Independent bases keep concurrent subfields and long receivers value 
     const auto stored = first->read(*number);
     REQUIRE(stored);
     CHECK(jam::text_from(stored->fields.at(1).data) == receiver);
+}
+
+TEST_CASE("Append refuses dangling published extents before changing any companion file") {
+    for (const auto *extension : {".jdt", ".jhr"}) {
+        for (const bool partial : {false, true}) {
+            TempDirectory directory;
+            const auto base = copy_base(directory);
+            const auto storage = jam::Storage::open(base);
+            REQUIRE(storage);
+            const auto path = directory.file(std::string{"base"} + extension);
+            const auto length = std::filesystem::file_size(path);
+            std::filesystem::resize_file(
+                path, partial ? length - 1
+                              : (std::string_view{extension} == ".jhr" ? jam::base_size : 0));
+            std::vector<std::string> before;
+            for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                before.push_back(contents(directory, suffix));
+            }
+            CHECK_FALSE(storage->read(1));
+            const auto appended = storage->append(message());
+            REQUIRE_FALSE(appended);
+            CHECK(appended.error().kind == ErrorKind::corrupt);
+            std::size_t index = 0;
+            for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                CHECK(contents(directory, suffix) == before.at(index++));
+            }
+            CHECK_FALSE(storage->read(1));
+        }
+    }
+}
+
+TEST_CASE("Append accepts empty and deleted-only bases without reviving removed articles") {
+    for (const bool empty : {false, true}) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        if (empty) {
+            directory.write("base.jhr", jam::text_from(jam::encode_base(jam::BaseHeader{})));
+            std::filesystem::resize_file(directory.file("base.jdx"), 0);
+            std::filesystem::resize_file(directory.file("base.jdt"), 0);
+        }
+        const auto storage = jam::Storage::open(base);
+        REQUIRE(storage);
+        if (!empty) {
+            REQUIRE(storage->cancel(1));
+            std::filesystem::resize_file(directory.file("base.jdt"), 0);
+        }
+        const auto expected = empty ? 1U : 3U;
+        REQUIRE(storage->append(message()) == expected);
+        if (!empty) {
+            CHECK_FALSE(storage->read(1));
+            CHECK_FALSE(storage->read(2));
+        }
+        CHECK(storage->read(expected)->text == "New text\r");
+        CHECK(storage->info()->header.active == 1);
+    }
+}
+
+TEST_CASE("Published extent validation observes stop between records before any mutation") {
+    TempDirectory directory;
+    const auto base = copy_base(directory);
+    bool armed = false;
+    std::size_t reads{};
+    std::stop_source stop;
+    const auto storage =
+        jam::Storage::open(base, {.fail_io = [&](jam::IoEvent event) -> bool {
+                               if (armed && event == jam::IoEvent::read && ++reads == 3) {
+                                   stop.request_stop();
+                               }
+                               return false;
+                           }});
+    REQUIRE(storage);
+    std::vector<std::string> before;
+    for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        before.push_back(contents(directory, suffix));
+    }
+    armed = true;
+    const auto result = storage->append(message(), stop.get_token());
+    REQUIRE_FALSE(result);
+    CHECK(result.error().kind == ErrorKind::stopped);
+    std::size_t index = 0;
+    for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        CHECK(contents(directory, suffix) == before.at(index++));
+    }
+}
+
+TEST_CASE("Truncated companion records fail their readers without altering any JAM file") {
+    for (const auto *extension : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        const std::string_view suffix{extension};
+        std::filesystem::resize_file(directory.file(std::string{"base"} + extension),
+                                     suffix == ".jhr" ? jam::base_size - 1 : 1);
+        std::vector<std::string> before;
+        for (const auto *part : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+            before.push_back(contents(directory, part));
+        }
+        const auto storage = jam::Storage::open(base);
+        if (suffix == ".jhr" || suffix == ".jdx") {
+            CHECK_FALSE(storage);
+        } else {
+            REQUIRE(storage);
+            if (suffix == ".jlr") {
+                CHECK_FALSE(storage->lastread(0xffffffffU));
+            } else {
+                CHECK_FALSE(storage->read(1));
+            }
+        }
+        std::size_t index = 0;
+        for (const auto *part : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+            CHECK(contents(directory, part) == before.at(index++));
+        }
+    }
+}
+
+TEST_CASE("Rollback resize failure quarantines the base before any further append",
+          "[quarantine]") {
+    // Retain the directories so quarantined filesystem identities cannot be recycled mid-test.
+    std::vector<std::unique_ptr<TempDirectory>> directories;
+    for (std::size_t failure_index = 1; failure_index <= 3; ++failure_index) {
+        directories.push_back(std::make_unique<TempDirectory>());
+        const auto base = copy_base(*directories.back());
+        bool armed = false;
+        std::size_t writes{}, resizes{};
+        const auto storage = jam::Storage::open(base, {.fail_io = [&](jam::IoEvent event) -> bool {
+                                                    if (!armed) {
+                                                        return false;
+                                                    }
+                                                    if (event == jam::IoEvent::write) {
+                                                        return ++writes == 2;
+                                                    }
+                                                    if (event == jam::IoEvent::resize) {
+                                                        return ++resizes == failure_index;
+                                                    }
+                                                    return false;
+                                                }});
+        REQUIRE(storage);
+        armed = true;
+        const auto result = storage->append(message());
+        REQUIRE_FALSE(result);
+        CHECK(result.error().kind == ErrorKind::corrupt);
+        CHECK(resizes == 3);
+        armed = false;
+        CHECK_FALSE(storage->append(message()));
+        CHECK_FALSE(jam::Storage::open(base));
+    }
+}
+
+TEST_CASE("Published header corruption is rejected before append can conceal it") {
+    for (int kind = 0; kind < 9; ++kind) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        const auto storage = jam::Storage::open(base);
+        REQUIRE(storage);
+        auto headers = contents(directory, ".jhr");
+        auto indices = contents(directory, ".jdx");
+        if (kind == 0) {
+            headers.at(1024) = 'X';
+        } else if (kind == 1) {
+            headers.at(1028) = 2;
+        } else if (kind == 2) {
+            headers.at(1072) = 9;
+        } else if (kind < 6) {
+            const auto offset = kind == 3 ? 1032U : (kind == 4 ? 1084U : 1088U);
+            headers.replace(offset, 4, std::string(4, '\xff'));
+        } else {
+            const auto offset =
+                kind == 6
+                    ? 10U
+                    : (kind == 7 ? 0xffffffffU : static_cast<std::uint32_t>(headers.size() - 1));
+            if (kind == 7) {
+                indices.replace(0, 4, std::string(4, '\0'));
+            }
+            for (unsigned int byte = 0; byte < 4; ++byte) {
+                indices.at(4 + byte) = static_cast<char>((offset >> (byte * 8U)) & 255U);
+            }
+        }
+        directory.write("base.jhr", headers);
+        directory.write("base.jdx", indices);
+        const auto old_text = contents(directory, ".jdt");
+        const auto old_lastread = contents(directory, ".jlr");
+        const auto result = storage->append(message());
+        REQUIRE_FALSE(result);
+        CHECK(result.error().kind == ErrorKind::corrupt);
+        CHECK(contents(directory, ".jhr") == headers);
+        CHECK(contents(directory, ".jdx") == indices);
+        CHECK(contents(directory, ".jdt") == old_text);
+        CHECK(contents(directory, ".jlr") == old_lastread);
+    }
+}
+
+TEST_CASE("An indexed deleted header does not prevent later valid publication") {
+    TempDirectory directory;
+    const auto storage = jam::Storage::open(copy_base(directory));
+    REQUIRE(storage);
+    auto tombstone = message();
+    tombstone.header.attributes |= jam::deleted;
+    REQUIRE(storage->append(tombstone) == 3);
+    REQUIRE(storage->append(message()) == 4);
+    CHECK_FALSE(storage->read(3));
+    CHECK(storage->read(4)->text == "New text\r");
+    CHECK(storage->info()->header.active == 2);
+}
+
+TEST_CASE("Storage registry queues closes and cleans cancelled or expired waiters") {
+    jam::StorageMutex mutex;
+    const auto deadline = []() {
+        return std::chrono::steady_clock::now() + std::chrono::seconds{2};
+    };
+    mutex.lock();
+    REQUIRE(mutex.acquire(deadline(), {}));
+    mutex.unlock();
+    std::atomic<bool> expired{};
+    std::jthread timeout{[&]() {
+        expired =
+            !mutex.acquire(std::chrono::steady_clock::now() + std::chrono::milliseconds{20}, {});
+    }};
+    timeout.join();
+    CHECK(expired);
+    std::atomic<bool> cancelled{};
+    std::jthread cancellation{
+        [&](const std::stop_token &stop) { cancelled = !mutex.acquire(deadline(), stop); }};
+    std::this_thread::sleep_for(std::chrono::milliseconds{20});
+    cancellation.request_stop();
+    cancellation.join();
+    CHECK(cancelled);
+    std::atomic<bool> entered{};
+    std::jthread close{[&]() {
+        const std::scoped_lock guard{mutex};
+        entered = true;
+    }};
+    mutex.unlock();
+    close.join();
+    CHECK(entered);
+    std::stop_source stopped;
+    stopped.request_stop();
+    CHECK_FALSE(mutex.acquire(deadline(), stopped.get_token()));
+}
+
+TEST_CASE("Storage registry admits every waiting owner during continuous contention") {
+    jam::StorageMutex mutex;
+    constexpr std::size_t workers = 16;
+    std::array<std::atomic<unsigned>, workers> completed{};
+    std::barrier started{static_cast<std::ptrdiff_t>(workers)};
+    std::vector<std::jthread> threads;
+    threads.reserve(workers);
+    for (std::size_t worker = 0; worker < workers; ++worker) {
+        threads.emplace_back([&, worker](const std::stop_token &stop) {
+            started.arrive_and_wait();
+            for (unsigned iteration = 0; iteration < 100; ++iteration) {
+                if (!mutex.acquire(std::chrono::steady_clock::now() + std::chrono::seconds{2},
+                                   stop)) {
+                    return;
+                }
+                ++completed.at(worker);
+                mutex.unlock();
+            }
+        });
+    }
+    for (auto &thread : threads) {
+        thread.join();
+    }
+    for (const auto &count : completed) {
+        CHECK(count == 100);
+    }
 }

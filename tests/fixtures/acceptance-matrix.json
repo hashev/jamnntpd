@@ -1,0 +1,3511 @@
+{
+  "version": 1,
+  "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+  "scenarios": [
+    {
+      "id": "TRACE-001",
+      "features": [
+        "alias:a"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-002",
+      "features": [
+        "alias:g"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-003",
+      "features": [
+        "alias:l"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-004",
+      "features": [
+        "alias:m"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-005",
+      "features": [
+        "alias:p"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-006",
+      "features": [
+        "alias:u"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-007",
+      "features": [
+        "alias:x"
+      ],
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-008",
+      "features": [
+        "command:ARTICLE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-009",
+      "features": [
+        "command:AUTHINFO"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-010",
+      "features": [
+        "command:BODY"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-011",
+      "features": [
+        "command:GROUP"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-012",
+      "features": [
+        "command:HEAD"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-013",
+      "features": [
+        "command:HELP"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-014",
+      "features": [
+        "command:IHAVE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-015",
+      "features": [
+        "command:LAST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-016",
+      "features": [
+        "command:LIST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-017",
+      "features": [
+        "command:MODE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-018",
+      "features": [
+        "command:NEWGROUPS"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-019",
+      "features": [
+        "command:NEWNEWS"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-020",
+      "features": [
+        "command:NEXT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-021",
+      "features": [
+        "command:POST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-022",
+      "features": [
+        "command:QUIT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-023",
+      "features": [
+        "command:SLAVE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-024",
+      "features": [
+        "command:STAT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-025",
+      "features": [
+        "command:XOVER"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-026",
+      "features": [
+        "option:addcr"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-027",
+      "features": [
+        "option:allow"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_guest_read_and_post_permissions_are_independent_and_first_match_wins"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-028",
+      "features": [
+        "option:config"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-029",
+      "features": [
+        "option:conversion_errors"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post",
+        "tests/integration/test_server.py::NntpEndToEnd.test_strict_failures_never_mutate_and_debug_never_contains_credentials"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-030",
+      "features": [
+        "option:create"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-031",
+      "features": [
+        "option:debug"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-032",
+      "features": [
+        "option:def_addcr"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-033",
+      "features": [
+        "option:def_delssq"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-034",
+      "features": [
+        "option:def_flowed"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-035",
+      "features": [
+        "option:def_nonbsp"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-036",
+      "features": [
+        "option:def_showto"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-038",
+      "features": [
+        "option:delssq"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-039",
+      "features": [
+        "option:echomailjam"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-040",
+      "features": [
+        "option:flowed"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-041",
+      "features": [
+        "option:groups"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-042",
+      "features": [
+        "option:guestsuffix"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_readorigin_guest_suffix_and_local_nochrs_group_flags"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-043",
+      "features": [
+        "option:help"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-044",
+      "features": [
+        "option:logfile"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-045",
+      "features": [
+        "option:loggroups"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-046",
+      "features": [
+        "option:max"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-047",
+      "features": [
+        "option:nocancel"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-048",
+      "features": [
+        "option:noecholog"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-049",
+      "features": [
+        "option:noencode"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-050",
+      "features": [
+        "option:nonbsp"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-051",
+      "features": [
+        "option:noreplyaddr"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-052",
+      "features": [
+        "option:nostripre"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-053",
+      "features": [
+        "option:note"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-054",
+      "features": [
+        "option:notearline"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-055",
+      "features": [
+        "option:notzutc"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-056",
+      "features": [
+        "option:origin"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-057",
+      "features": [
+        "option:port"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-058",
+      "features": [
+        "option:readorigin"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_readorigin_guest_suffix_and_local_nochrs_group_flags"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-059",
+      "features": [
+        "option:showto"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-060",
+      "features": [
+        "option:smartquote"
+      ],
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-061",
+      "features": [
+        "option:squote"
+      ],
+      "variant": "default on/off and authenticated override; exact output/storage effect",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-062",
+      "features": [
+        "option:strictnetmail"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_netmail_matrix_for_sender_recipient_and_unrelated_user"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-063",
+      "features": [
+        "option:users"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_reauthentication_losing_permissions_invalidates_current_group"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-064",
+      "features": [
+        "option:xlat"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules",
+        "tests/integration/test_server.py::NntpEndToEnd.test_alias_automatic_conversion_and_forced_group_precedence_over_tcp"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-065",
+      "features": [
+        "requirement:jam-storage/Coordinated base access"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Contended appends retain unique records across repeated worker starts",
+        "tests/unit/storage.cpp::Registry validates complete file identity through hard-link aliases",
+        "tests/integration/test_server.py::NntpEndToEnd.test_parallel_writes_to_one_and_two_bases_keep_records_and_values_distinct"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-066",
+      "features": [
+        "requirement:jam-storage/Portable JAM format"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes",
+        "tests/unit/storage.cpp::Last-read uses sixteen-byte records and updates by user id",
+        "tests/integration/test_server.py::NntpEndToEnd.test_independent_corpus_variants_over_real_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_independent_tosser_and_consistent_backup_restore"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-067",
+      "features": [
+        "requirement:jam-storage/Validate data and report write failures"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Short writes and flush errors rollback every modified JAM file",
+        "tests/unit/storage.cpp::Permanent I/O failure disables the base instead of claiming successful rollback",
+        "tests/unit/storage.cpp::Published header corruption is rejected before append can conceal it",
+        "tests/unit/storage.cpp::Rollback resize failure quarantines the base before any further append",
+        "tests/integration/test_server.py::NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_storage_failure_is_503_and_rejected_article_is_441",
+        "tests/unit/session.cpp::Article and overview storage timeouts remain local errors without partial success",
+        "tests/integration/test_server.py::NntpEndToEnd.test_storage_lock_timeout_is_503_and_article_recovers_without_mutation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "reason": "JAM-01 fixed in 2e068aa; local regression passes, full native acceptance pending",
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-068",
+      "features": [
+        "requirement:nntp-service/Authorization and netmail privacy"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_netmail_matrix_for_sender_recipient_and_unrelated_user",
+        "tests/integration/test_server.py::NntpEndToEnd.test_reauthentication_losing_permissions_invalidates_current_group",
+        "tests/integration/test_server.py::NntpEndToEnd.test_guest_read_and_post_permissions_are_independent_and_first_match_wins",
+        "tests/integration/test_server.py::NntpEndToEnd.test_cancel_attribute_policy_and_repeated_cancel"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-069",
+      "features": [
+        "requirement:nntp-service/Coordinated service lifetime"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_native_shutdown_in_connection_read_post_and_external_lock_phases",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one",
+        "tests/unit/storage.cpp::Storage registry queues closes and cleans cancelled or expired waiters",
+        "tests/unit/storage.cpp::Storage registry admits every waiting owner during continuous contention"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-070",
+      "features": [
+        "requirement:nntp-service/Existing client contracts"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_protocol_characterization_transcripts",
+        "tests/integration/test_server.py::NntpEndToEnd.test_reply_chain_cancel_middle_first_last_over_tcp"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-071",
+      "features": [
+        "requirement:nntp-service/Reliable bounded input and output"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_raw_command_boundaries_fragmentation_and_coalescing",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_aggregate_boundaries_and_exact_dot_unstuffing",
+        "tests/integration/test_server.py::NntpEndToEnd.test_eof_at_each_incomplete_post_phase_never_mutates",
+        "tests/unit/session.cpp::Article and overview storage timeouts remain local errors without partial success",
+        "tests/integration/test_server.py::NntpEndToEnd.test_storage_lock_timeout_is_503_and_article_recovers_without_mutation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-072",
+      "features": [
+        "requirement:service-logging/Concurrent diagnostic records"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Thread-safe logger keeps long records complete and prevents line injection",
+        "tests/unit/logging.cpp::Diagnostic records escape terminal controls as printable data"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-073",
+      "features": [
+        "requirement:service-logging/Credential redaction"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks",
+        "tests/integration/test_server.py::NntpEndToEnd.test_redaction_on_success_and_failure_in_file_and_console",
+        "tests/integration/test_server.py::NntpEndToEnd.test_harness_cleans_up_exception_and_redacts_fragmented_requests"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-074",
+      "features": [
+        "requirement:service-logging/Logging failure isolation"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Log destination failures do not recurse or escape workers",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_and_configuration_failures_are_bounded"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-075",
+      "features": [
+        "requirement:text-transcoding/Bidirectional standard encodings"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/codec.cpp::Standard legacy mappings match an independent Unicode reference",
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-076",
+      "features": [
+        "requirement:text-transcoding/Custom CHS compatibility"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/codec.cpp::Extended CHS tables retain all byte rows and explicit expansion deletion semantics",
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-077",
+      "features": [
+        "requirement:text-transcoding/Explicit conversion failures"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/codec.cpp::Strict conversion rejects malformed and unrepresentable text",
+        "tests/integration/test_server.py::NntpEndToEnd.test_strict_failures_never_mutate_and_debug_never_contains_credentials",
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-078",
+      "features": [
+        "requirement:text-transcoding/Explicit rule semantics"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules",
+        "tests/integration/test_server.py::NntpEndToEnd.test_alias_automatic_conversion_and_forced_group_precedence_over_tcp"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-079",
+      "features": [
+        "requirement:text-transcoding/Unicode-safe MIME and formatting"
+      ],
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_subject_final_byte_boundary_and_independent_mime_decode",
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_validation_and_transfer_encodings_preserve_storage_contract"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "UTIL-MAKECHS",
+      "features": [
+        "utility:makechs"
+      ],
+      "variant": "valid generation, supplementary Unicode, ASCII override, identity, fallback and invalid maps",
+      "preconditions": "Private temporary mapping files; native makechs executable",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
+      "oracle": "Independent CHS parser and known Unicode vectors",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_makechs.py::MakeChsCli.test_generated_tables_are_verified_by_independent_parser",
+        "tests/integration/test_makechs.py::MakeChsCli.test_utf8_generation_and_errors"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "normal"
+    },
+    {
+      "id": "LOG-FULL-RUNTIME",
+      "features": [
+        "requirement:service-logging/Logging failure isolation"
+      ],
+      "variant": "Linux /dev/full runtime sink exhaustion",
+      "preconditions": "Linux native /dev/full; disposable server and fixtures",
+      "input": "Use /dev/full as the active log destination and issue real NNTP commands",
+      "expected": "Bounded fallback diagnostic, continued serving and clean shutdown",
+      "oracle": "Real TCP responses and bounded stderr; no credentials",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_full_runtime_sink_has_bounded_fallback_and_keeps_serving"
+      ],
+      "platforms": [
+        "linux"
+      ],
+      "mandatory": true,
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        }
+      ],
+      "risk": "critical",
+      "reason": "/dev/full is Linux-specific; portable throwing-sink unit checks cover all three operating systems"
+    }
+  ]
+}

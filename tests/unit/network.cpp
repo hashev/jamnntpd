@@ -116,3 +116,109 @@ TEST_CASE("Closed sockets fail promptly and native accept waits honor explicit d
     CHECK_FALSE(listener->receive());
     CHECK_FALSE(listener->send("x"));
 }
+
+TEST_CASE("Backpressured native writes time out and observe stop after making progress") {
+    auto runtime = NetworkRuntime::create();
+    REQUIRE(runtime);
+    const std::string payload(32U * 1024U * 1024U, 'x');
+    for (const int mode : {0, 1, 2}) {
+        auto listener = Socket::listen(0);
+        REQUIRE(listener);
+        auto client = Socket::adopt(::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP));
+        REQUIRE(client);
+        const int receive_buffer = 1024;
+#ifdef _WIN32
+        REQUIRE(setsockopt(client->native_handle(), SOL_SOCKET, SO_RCVBUF,
+                           reinterpret_cast<const char *>(&receive_buffer),
+                           sizeof(receive_buffer)) == 0);
+#else
+        REQUIRE(setsockopt(client->native_handle(), SOL_SOCKET, SO_RCVBUF, &receive_buffer,
+                           sizeof(receive_buffer)) == 0);
+#endif
+        sockaddr_in address{};
+        address.sin_family = AF_INET;
+        address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+        const auto port = listener->local_port();
+        REQUIRE(port);
+        address.sin_port = htons(*port);
+        // Nonblocking connect completion is established by accepting the local peer below.
+        static_cast<void>(::connect(client->native_handle(),
+                                    reinterpret_cast<const sockaddr *>(&address), sizeof(address)));
+        auto server = listener->accept({}, std::chrono::seconds{2});
+        REQUIRE(server);
+        // Bound both queues: Winsock can otherwise buffer this entire payload locally.
+        const int send_buffer = 1024;
+#ifdef _WIN32
+        REQUIRE(setsockopt(server->native_handle(), SOL_SOCKET, SO_SNDBUF,
+                           reinterpret_cast<const char *>(&send_buffer), sizeof(send_buffer)) == 0);
+#else
+        REQUIRE(setsockopt(server->native_handle(), SOL_SOCKET, SO_SNDBUF, &send_buffer,
+                           sizeof(send_buffer)) == 0);
+#endif
+        if (mode != 2) {
+            // Establish actual backpressure instead of assuming one large send must block.
+            const auto chunk = std::string_view{payload}.substr(0, 64U * 1024U);
+            Result<void> primed;
+            std::size_t primed_bytes{};
+            const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds{2};
+            while (primed_bytes < 64U * 1024U * 1024U &&
+                   std::chrono::steady_clock::now() < deadline) {
+                primed = server->send(chunk, {}, std::chrono::milliseconds{20});
+                if (!primed) {
+                    break;
+                }
+                primed_bytes += chunk.size();
+            }
+            INFO("Primed bytes: " << primed_bytes);
+            REQUIRE_FALSE(primed);
+            REQUIRE(primed.error().kind == ErrorKind::timeout);
+        }
+        if (mode == 1) {
+            std::stop_source stop;
+            Result<void> written;
+            std::jthread writer{[&] {
+                written = write_all(
+                    payload,
+                    [&](std::string_view remaining) -> Result<std::size_t> {
+                        const auto part = remaining.substr(0, 4096);
+                        auto result = server->send(part, stop.get_token(), std::chrono::seconds{2});
+                        if (!result) {
+                            return std::unexpected{result.error()};
+                        }
+                        return part.size();
+                    },
+                    stop.get_token());
+            }};
+            const auto progress = client->receive({}, std::chrono::seconds{2});
+            REQUIRE(progress);
+            CHECK_FALSE(progress->empty());
+            const auto beginning = std::chrono::steady_clock::now();
+            stop.request_stop();
+            writer.join();
+            REQUIRE_FALSE(written);
+            CHECK(written.error().kind == ErrorKind::stopped);
+            CHECK(std::chrono::steady_clock::now() - beginning < std::chrono::seconds{1});
+        } else if (mode == 2) {
+            const auto small = std::string_view{payload}.substr(0, 64U * 1024U);
+            Result<void> written;
+            std::jthread writer{
+                [&] { written = server->send(small, {}, std::chrono::seconds{2}); }};
+            std::string received;
+            while (received.size() < small.size()) {
+                auto chunk = client->receive({}, std::chrono::seconds{2});
+                REQUIRE(chunk);
+                received += *chunk;
+                std::this_thread::sleep_for(std::chrono::milliseconds{1});
+            }
+            writer.join();
+            REQUIRE(written);
+            CHECK(received == small);
+        } else {
+            const auto beginning = std::chrono::steady_clock::now();
+            const auto result = server->send(payload, {}, std::chrono::milliseconds{20});
+            REQUIRE_FALSE(result);
+            CHECK(result.error().kind == ErrorKind::timeout);
+            CHECK(std::chrono::steady_clock::now() - beginning < std::chrono::seconds{2});
+        }
+    }
+}

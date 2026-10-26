@@ -1,0 +1,49 @@
+Successful static-analysis job: https://github.com/hashev/jamnntpd/actions/runs/40305039854/job/121511951194
+Branch source: 005f267fd012a602a53738a39dce1e1e5f0277ef (PR merge checkout). Final dispatch confirmation remains required for task 10.1.
+2026-10-26T10:09:45.7282702Z   LLVM version 23.1.3
+2026-10-26T10:09:45.7300009Z clang-format version 23.1.3 (https://github.com/llvm/llvm-project 0d261d1ca552c95a8f007e061c787ac7132fbcbc)
+2026-10-26T10:11:14.2605871Z [21/21] Processing file /home/runner/work/jamnntpd/jamnntpd/src/jamnntpd.cpp.
+2026-10-26T10:11:14.3291781Z [1/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/codec.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3303451Z [2/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/charset_rules.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3310888Z [3/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/config.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3446064Z [4/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/backend.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3765701Z [5/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/error.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3854866Z [6/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/jam_format.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3905481Z [7/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/formatting.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.3965523Z [8/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/ftn.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.4245761Z [9/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/makechs_fallbacks.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.4461510Z [10/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/logging.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.4485629Z [11/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/map_generator.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.4502818Z [12/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/message_values.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.4836358Z [13/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/mime.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5046198Z [14/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/server.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5125848Z [15/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/network.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5165941Z [16/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/post_builder.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5525302Z [17/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/session.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5575746Z [18/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/text.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5626609Z [19/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/signals.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.5750648Z [20/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/storage.hpp.cpp for CXX dependencies
+2026-10-26T10:11:14.6024624Z [21/44] Scanning /home/runner/work/jamnntpd/jamnntpd/build/static/header-check/workers.hpp.cpp for CXX dependencies
+2026-10-26T10:11:15.7655969Z [23/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/codec.hpp.cpp.o
+2026-10-26T10:11:15.8395853Z [24/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/config.hpp.cpp.o
+2026-10-26T10:11:15.8435813Z [25/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/charset_rules.hpp.cpp.o
+2026-10-26T10:11:16.1085563Z [26/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/error.hpp.cpp.o
+2026-10-26T10:11:16.3585401Z [27/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/backend.hpp.cpp.o
+2026-10-26T10:11:16.5425749Z [28/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/jam_format.hpp.cpp.o
+2026-10-26T10:11:16.7715821Z [29/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/makechs_fallbacks.hpp.cpp.o
+2026-10-26T10:11:17.1041263Z [30/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/formatting.hpp.cpp.o
+2026-10-26T10:11:17.5836556Z [31/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/ftn.hpp.cpp.o
+2026-10-26T10:11:18.0049146Z [32/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/map_generator.hpp.cpp.o
+2026-10-26T10:11:18.3125834Z [33/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/logging.hpp.cpp.o
+2026-10-26T10:11:18.4808435Z [34/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/message_values.hpp.cpp.o
+2026-10-26T10:11:18.9725947Z [35/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/mime.hpp.cpp.o
+2026-10-26T10:11:19.6296272Z [36/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/network.hpp.cpp.o
+2026-10-26T10:11:19.7646096Z [37/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/server.hpp.cpp.o
+2026-10-26T10:11:20.1384750Z [38/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/post_builder.hpp.cpp.o
+2026-10-26T10:11:20.4506667Z [39/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/session.hpp.cpp.o
+2026-10-26T10:11:20.5325200Z [40/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/text.hpp.cpp.o
+2026-10-26T10:11:20.8143594Z [41/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/signals.hpp.cpp.o
+2026-10-26T10:11:21.2060755Z [42/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/storage.hpp.cpp.o
+2026-10-26T10:11:21.3012989Z [43/44] Building CXX object CMakeFiles/jam_header_checks.dir/header-check/workers.hpp.cpp.o
+2026-10-26T10:11:21.6421350Z 63 owned C++ files pass formatting
+2026-10-26T10:11:21.7066621Z Acceptance matrix is valid; this is structural validation, not acceptance

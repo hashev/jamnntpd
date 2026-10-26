@@ -1,0 +1,16 @@
+F
+======================================================================
+FAIL: test_storage_lock_timeout_is_503_and_article_recovers_without_mutation (__main__.NntpEndToEnd.test_storage_lock_timeout_is_503_and_article_recovers_without_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/yurik/Projects/jamnntpd/tests/integration/test_server.py", line 738, in test_storage_lock_timeout_is_503_and_article_recovers_without_mutation
+    self.assertEqual(client.reply(503), b'503 Local error: Could not access messagebase\r\n')
+                     ~~~~~~~~~~~~^^^^^
+  File "/Users/yurik/Projects/jamnntpd/tests/integration/raw_client.py", line 60, in reply
+    raise AssertionError(f'Expected {code}, received {first!r}')
+AssertionError: Expected 503, received b'430 No such article found\r\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 5.061s
+
+FAILED (failures=1)

@@ -1,0 +1,39 @@
+test_duplicate_ids_are_rejected (test_acceptance_matrix.AcceptanceMatrix.test_duplicate_ids_are_rejected) ... ok
+test_failed_result_and_outside_artifact_are_rejected (test_acceptance_matrix.AcceptanceMatrix.test_failed_result_and_outside_artifact_are_rejected) ... ok
+test_malformed_schema_and_scenario_fail_safely (test_acceptance_matrix.AcceptanceMatrix.test_malformed_schema_and_scenario_fail_safely) ... ok
+test_mandatory_skip_is_rejected (test_acceptance_matrix.AcceptanceMatrix.test_mandatory_skip_is_rejected) ... ok
+test_mismatched_revision_and_missing_artifact_are_rejected (test_acceptance_matrix.AcceptanceMatrix.test_mismatched_revision_and_missing_artifact_are_rejected) ... ok
+test_pass_requires_every_platform_evidence (test_acceptance_matrix.AcceptanceMatrix.test_pass_requires_every_platform_evidence) ... ok
+test_structural_inventory_is_complete_but_not_final_acceptance (test_acceptance_matrix.AcceptanceMatrix.test_structural_inventory_is_complete_but_not_final_acceptance) ... ok
+test_unknown_selector_is_rejected (test_acceptance_matrix.AcceptanceMatrix.test_unknown_selector_is_rejected) ... ok
+test_unmapped_feature_is_rejected (test_acceptance_matrix.AcceptanceMatrix.test_unmapped_feature_is_rejected) ... ok
+test_directional_expansion_deletion_and_escapes (test_chs_fixtures.ChsFixtures.test_directional_expansion_deletion_and_escapes) ... ok
+test_invalid_tables (test_chs_fixtures.ChsFixtures.test_invalid_tables) ... ok
+test_level_one_preserves_upper_half (test_chs_fixtures.ChsFixtures.test_level_one_preserves_upper_half) ... ok
+test_post_selection_precedence (test_chs_fixtures.ChsFixtures.test_post_selection_precedence) ... ok
+test_real_legacy_table (test_chs_fixtures.ChsFixtures.test_real_legacy_table) ... ok
+test_real_unicode_table_preserves_letters_and_box_drawing (test_chs_fixtures.ChsFixtures.test_real_unicode_table_preserves_letters_and_box_drawing) ... ok
+test_selection_precedence (test_chs_fixtures.ChsFixtures.test_selection_precedence) ... ok
+test_large_corpus_and_no_overwrite_contract (test_jam_corpus.IndependentJamCorpus.test_large_corpus_and_no_overwrite_contract) ... ok
+test_recipes_have_independently_valid_records (test_jam_corpus.IndependentJamCorpus.test_recipes_have_independently_valid_records) ... ok
+test_complete_base (test_jam_fixtures.JamFixtures.test_complete_base) ... ok
+test_crc_vectors (test_jam_fixtures.JamFixtures.test_crc_vectors) ... ok
+test_fixed_base_header (test_jam_fixtures.JamFixtures.test_fixed_base_header) ... ok
+test_index_deleted_sentinel (test_jam_fixtures.JamFixtures.test_index_deleted_sentinel) ... ok
+test_invalid_records_rejected (test_jam_fixtures.JamFixtures.test_invalid_records_rejected) ... ok
+test_lastread_layout (test_jam_fixtures.JamFixtures.test_lastread_layout) ... ok
+test_message_high_bits (test_jam_fixtures.JamFixtures.test_message_high_bits) ... ok
+test_help_is_complete_multiline_fixture (test_protocol_fixtures.ProtocolFixtures.test_help_is_complete_multiline_fixture) ... ok
+test_transcripts_have_exact_wire_framing (test_protocol_fixtures.ProtocolFixtures.test_transcripts_have_exact_wire_framing) ... ok
+test_bare_lf_is_not_normalized (test_raw_client.RawProtocolHarness.test_bare_lf_is_not_normalized) ... ok
+test_deadline_and_line_bound_are_enforced (test_raw_client.RawProtocolHarness.test_deadline_and_line_bound_are_enforced) ... ok
+test_exact_multiline_preserves_stuffing_and_transcript (test_raw_client.RawProtocolHarness.test_exact_multiline_preserves_stuffing_and_transcript) ... ok
+test_extra_bytes_are_detected (test_raw_client.RawProtocolHarness.test_extra_bytes_are_detected) ... ok
+test_missing_terminator_and_partial_eof_fail (test_raw_client.RawProtocolHarness.test_missing_terminator_and_partial_eof_fail) ... ok
+test_response_bound_and_reply_code_are_enforced (test_raw_client.RawProtocolHarness.test_response_bound_and_reply_code_are_enforced) ... ok
+test_unstuffed_dot_is_rejected (test_raw_client.RawProtocolHarness.test_unstuffed_dot_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.308s
+
+OK

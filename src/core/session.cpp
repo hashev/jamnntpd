@@ -165,7 +165,8 @@ auto Session::article(ArticlePart part, std::string_view argument, const std::st
     const auto &group = groups_.at(selection->group);
     const auto article = services_.article(group, selection->number, identity_, options_, stop);
     if (!article) {
-        if (article.error().kind == ErrorKind::io || article.error().kind == ErrorKind::corrupt) {
+        if (article.error().kind == ErrorKind::io || article.error().kind == ErrorKind::corrupt ||
+            article.error().kind == ErrorKind::timeout) {
             return local_error();
         }
         return response(selection->by_id ? "430 No such article found"
@@ -265,7 +266,8 @@ auto Session::overview(std::string_view argument, const std::stop_token &stop) -
         if (article) {
             output += std::to_string(number) + "\t" + article->overview + "\r\n";
         } else if (article.error().kind == ErrorKind::io ||
-                   article.error().kind == ErrorKind::corrupt) {
+                   article.error().kind == ErrorKind::corrupt ||
+                   article.error().kind == ErrorKind::timeout) {
             return local_error();
         }
     }
@@ -316,7 +318,14 @@ auto Session::post(std::string_view article, const std::stop_token &stop) -> Pro
         return response("440 Posting not permitted");
     }
     const auto result = services_.submit(article, identity_, options_, stop);
-    return result ? response("240 " + *result) : response("441 Posting failed");
+    if (result) {
+        return response("240 " + *result);
+    }
+    const auto kind = result.error().kind;
+    if (kind == ErrorKind::io || kind == ErrorKind::corrupt || kind == ErrorKind::timeout) {
+        return local_error();
+    }
+    return response("441 Posting failed");
 }
 auto Session::command(std::string_view line, const std::stop_token &stop) -> ProtocolReply {
     if (stop.stop_requested()) {

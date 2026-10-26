@@ -1,0 +1,53 @@
+{
+  "source_revision": "40628b2fa09256ffabe28215c755b011313a895e",
+  "checkout_note": "pull_request jobs check out a synthetic merge commit; exact-source dispatch evidence is separate",
+  "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "instrumented (tsan)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557134622"
+    },
+    {
+      "name": "instrumented (asan-ubsan)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557134872"
+    },
+    {
+      "name": "native (macos-26, /usr/bin/clang++, arm64-osx)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557134918"
+    },
+    {
+      "name": "native (windows-2025, clang-cl, x64-windows-static, ON)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135009"
+    },
+    {
+      "name": "instrumented (coverage)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135077"
+    },
+    {
+      "name": "native (ubuntu-24.04, g++-14, x64-linux)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135087"
+    },
+    {
+      "name": "native (ubuntu-24.04, clang++-19, x64-linux, --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135093"
+    },
+    {
+      "name": "static-analysis",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135123"
+    },
+    {
+      "name": "native (windows-2025, cl, x64-windows-static)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40318518507/job/121557135139"
+    }
+  ]
+}

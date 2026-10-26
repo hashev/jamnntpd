@@ -96,6 +96,12 @@ TEST_CASE("Standard legacy mappings match an independent Unicode reference") {
         INFO(encoding << " byte " << value);
         REQUIRE(converted);
         CHECK(converted->bytes == expected);
+        const auto restored = transcode(expected, {"UTF-8"}, {encoding});
+        REQUIRE(restored);
+        CHECK(restored->bytes == std::string(1, static_cast<char>(value)));
+        const auto embedded = transcode("A" + expected + "Z", {"UTF-8"}, {encoding});
+        REQUIRE(embedded);
+        CHECK(embedded->bytes == "A" + std::string(1, static_cast<char>(value)) + "Z");
     }
 }
 
@@ -126,4 +132,36 @@ TEST_CASE("Undefined Windows bytes fail strictly and require explicit replacemen
         REQUIRE(control);
         CHECK_FALSE(transcode(control->bytes, {"UTF-8"}, {encoding}));
     }
+}
+
+TEST_CASE("Extended CHS tables retain all byte rows and explicit expansion deletion semantics") {
+    std::string text = "100000\n0\n2\nCUSTOM\nUTF-8\n";
+    for (unsigned int byte = 0; byte < 256; ++byte) {
+        if (byte == 'A') {
+            text += "\\x78\t\\x79\n";
+        } else if (byte == 'B') {
+            text += "\\0\n";
+        } else if (byte == 128) {
+            text += "\\xF0\t\\x9F\t\\x98\t\\x80\n";
+        } else {
+            text += "\\d" + std::to_string(byte) + "\n";
+        }
+    }
+    text += "END\n";
+    const auto table = parse_chs(text, "extended.chs");
+    REQUIRE(table);
+    CHECK(table->apply(std::string{"\0ABC\x80\xff", 6}) == "xyC😀\xff");
+    CHECK(table->entries.at(255) == "\xff");
+    CHECK(table->entries.at(0).empty());
+    auto invalid = text;
+    invalid.replace(invalid.find("\\x78\t\\x79"), std::string{"\\x78\t\\x79"}.size(),
+                    "\\x01 \\x02 \\x03 \\x04 \\x05");
+    const auto bad_expansion = parse_chs(invalid, "bad.chs");
+    REQUIRE_FALSE(bad_expansion);
+    CHECK(bad_expansion.error().message.starts_with("bad.chs:"));
+    CHECK_FALSE(parse_chs(text + "unexpected\n", "trailer.chs"));
+    CHECK_FALSE(parse_chs(text.substr(0, text.rfind("\\d255")), "truncated.chs"));
+    invalid = text;
+    invalid.replace(invalid.find("\\d255"), 5, "\\d256");
+    CHECK_FALSE(parse_chs(invalid, "range.chs"));
 }

@@ -48,3 +48,19 @@ unsuitable because its non-sharing behavior would exclude compatible tossers;
 see [Microsoft CRT sharing documentation](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/fsopen-wfsopen?view=msvc-170).
 The native process-lock and independent tosser tests verify that sharing and locking
 remain separate requirements.
+
+Before appending, the writer checks the fixed header and content extents of all
+published live records against the current header/text file sizes under the JAM
+lock. This prevents an append to a truncated file from reviving an old article
+with unrelated newly appended bytes. The scan uses fixed-size reads and checks
+stop between records; deleted index sentinels and valid empty bases remain usable.
+An invalid extent rejects the append before any mutation. No automatic repair of
+corrupt bases or crash-durability guarantee is implied. The validation is linear
+in published slots per append, a deliberate integrity cost to measure under load.
+
+The in-process registry now queues open/close and guarded operations in arrival
+order. Timed/cancelled waiters leave the queue; recursive ownership is retained.
+This prevents the final file close from starving behind repeated new operations
+under contention. The queue uses borrowed stack waiter links and performs no
+allocation while admitting a close. It does not impose a deadline on physical
+filesystem I/O or change the external first-byte JAM lock protocol.

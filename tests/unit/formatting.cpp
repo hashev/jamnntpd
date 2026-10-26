@@ -106,3 +106,36 @@ TEST_CASE("Tearline options and final encoded post limits never silently truncat
     CHECK_FALSE(encode_post_text(std::string{"a\0", 2}, {"UTF-8"}, 2));
     CHECK_FALSE(format_read_text(std::string(1024 * 1024 + 1, 'x'), {"UTF-8"}, true));
 }
+
+TEST_CASE("Post field limits are enforced on final bytes at minus equal and plus one") {
+    for (const std::size_t limit : {35U, 71U, 75U, 100U, 20000U}) {
+        for (const auto size : {limit - 1, limit, limit + 1}) {
+            std::string unicode;
+            for (std::size_t index = 0; index < size; ++index) {
+                unicode += "Н";
+            }
+            const auto legacy = encode_post_text(unicode, {"CP866"}, limit);
+            if (size <= limit) {
+                REQUIRE(legacy);
+                CHECK(legacy->bytes == std::string(size, '\x8d'));
+            } else {
+                CHECK_FALSE(legacy);
+            }
+            std::string utf8;
+            for (std::size_t index = 0; index < size / 2; ++index) {
+                utf8 += "Н";
+            }
+            if (size % 2 != 0) {
+                utf8 += 'x';
+            }
+            REQUIRE(utf8.size() == size);
+            const auto encoded = encode_post_text(utf8, {"UTF-8"}, limit);
+            if (size <= limit) {
+                REQUIRE(encoded);
+                CHECK(encoded->bytes == utf8);
+            } else {
+                CHECK_FALSE(encoded);
+            }
+        }
+    }
+}

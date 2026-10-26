@@ -1,0 +1,655 @@
+{
+  "revision": "deae699ec72e1dd945dc1e9fe60fb44a9b4e215e",
+  "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "static-analysis",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653020",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 autoconf automake libtool zstd libxml2 libtinfo6 libz3-4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore LLVM 23.1.3 analysis tools",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify and extract pinned official LLVM tools",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure pinned C++23 dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Static checks without diagnostic exclusions",
+          "conclusion": "success"
+        },
+        {
+          "name": "Cache verified LLVM tools",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Cache dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "native (macos-26, /usr/bin/clang++, arm64-osx)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653044",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux compiler and build dependencies",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependency manager",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (Windows)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure (MSVC)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run cmake --build build/ci --config Debug --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run complete native suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact source and toolchain evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native Windows coverage evidence",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "native (windows-2025, cl, x64-windows-static)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653109",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux compiler and build dependencies",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependency manager",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (POSIX)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Bootstrap dependencies (Windows)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure (POSIX)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure (MSVC)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cmake --build build/ci --config Debug --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run complete native suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact source and toolchain evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native Windows coverage evidence",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "instrumented (tsan)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653133",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 llvm-19 libclang-rt-19-dev autoconf automake libtool",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependencies and instrumentation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cmake --build --preset 'tsan' --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full unit, executable and 100-round concurrency suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact instrumented source evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Whole production coverage gates",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "native (ubuntu-24.04, g++-14, x64-linux)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653195",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux compiler and build dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependency manager",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (Windows)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure (MSVC)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run cmake --build build/ci --config Debug --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run complete native suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact source and toolchain evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native Windows coverage evidence",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "instrumented (asan-ubsan)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653282",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 llvm-19 libclang-rt-19-dev autoconf automake libtool",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependencies and instrumentation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cmake --build --preset 'asan-ubsan' --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full unit, executable and 100-round concurrency suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact instrumented source evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Whole production coverage gates",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "instrumented (coverage)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653283",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 llvm-19 libclang-rt-19-dev autoconf automake libtool",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependencies and instrumentation",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cmake --build --preset 'coverage' --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Full unit, executable and 100-round concurrency suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact instrumented source evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Whole production coverage gates",
+          "conclusion": "success"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "native (windows-2025, clang-cl, x64-windows-static, ON)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653356",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux compiler and build dependencies",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependency manager",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (POSIX)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Bootstrap dependencies (Windows)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure (POSIX)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure (MSVC)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cmake --build build/ci --config Debug --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run complete native suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact source and toolchain evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native Windows coverage evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "native (ubuntu-24.04, clang++-19, x64-linux, --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14)",
+      "conclusion": "success",
+      "url": "https://github.com/hashev/jamnntpd/actions/runs/40311236300/job/121532653414",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux compiler and build dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Restore pinned dependency binaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pinned dependency manager",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap dependencies (Windows)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Configure (POSIX)",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure (MSVC)",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run cmake --build build/ci --config Debug --parallel 4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run complete native suite",
+          "conclusion": "success"
+        },
+        {
+          "name": "Collect exact source and toolchain evidence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Native Windows coverage evidence",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Save pinned dependency binaries",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

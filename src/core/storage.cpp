@@ -1,6 +1,7 @@
 // JAM storage based on JAMLIB by Bjorn Stenberg and Johan Billing.
 // LGPL-2.1-or-later; original notices and license retained in src/jamlib/.
 #include "storage.hpp"
+#include "storage_mutex.hpp"
 #include <algorithm>
 #include <array>
 #include <cerrno>
@@ -42,7 +43,7 @@ struct RegistryRecord {
 struct Registry {
     // POSIX record locks are process-owned: even a second close can release them.
     // Serialize open/close as well as operations, across every registered handle.
-    std::recursive_timed_mutex mutex;
+    StorageMutex mutex;
     std::map<FileIdentity, RegistryRecord> states;
 };
 auto registry() -> Registry & {
@@ -261,17 +262,12 @@ struct BaseState {
 };
 namespace {
 auto acquire_registry(std::chrono::steady_clock::time_point deadline, const std::stop_token &stop)
-    -> Result<std::unique_lock<std::recursive_timed_mutex>> {
-    std::unique_lock lock{registry().mutex, std::defer_lock};
-    while (!stop.stop_requested()) {
-        if (lock.try_lock_for(lock_retry_interval)) {
-            return lock;
-        }
-        if (std::chrono::steady_clock::now() >= deadline) {
-            return failure(ErrorKind::timeout, "JAM lock timeout");
-        }
+    -> Result<std::unique_lock<StorageMutex>> {
+    if (registry().mutex.acquire(deadline, stop)) {
+        return std::unique_lock{registry().mutex, std::adopt_lock};
     }
-    return failure(ErrorKind::stopped, "JAM operation stopped");
+    return stop.stop_requested() ? failure(ErrorKind::stopped, "JAM operation stopped")
+                                 : failure(ErrorKind::timeout, "JAM lock timeout");
 }
 class Guard {
   public:
@@ -315,9 +311,9 @@ class Guard {
     auto operator=(Guard &&) -> Guard & = delete;
 
   private:
-    Guard(std::unique_lock<std::recursive_timed_mutex> lock, BaseState &state)
+    Guard(std::unique_lock<StorageMutex> lock, BaseState &state)
         : lock_(std::move(lock)), state_(&state) {}
-    std::unique_lock<std::recursive_timed_mutex> lock_;
+    std::unique_lock<StorageMutex> lock_;
     BaseState *state_;
 };
 auto read_info(const BaseState &state) -> Result<BaseInfo> {
@@ -338,6 +334,51 @@ auto read_info(const BaseState &state) -> Result<BaseInfo> {
         return failure(ErrorKind::corrupt, "Invalid JAM index size or number range");
     }
     return BaseInfo{.header = *header, .slots = static_cast<std::uint32_t>(*size / index_size)};
+}
+// Validate before extending either file: new bytes must not revive a dangling old record.
+auto validate_published_extents(const BaseState &state, const BaseInfo &info,
+                                std::uint64_t header_size, std::uint64_t text_size,
+                                const std::stop_token &stop) -> Result<void> {
+    for (std::uint32_t slot = 0; slot < info.slots; ++slot) {
+        if (stop.stop_requested()) {
+            return failure(ErrorKind::stopped, "JAM validation stopped");
+        }
+        auto bytes = state.index.read(static_cast<std::uint64_t>(slot) * index_size, index_size);
+        if (!bytes) {
+            return std::unexpected{bytes.error()};
+        }
+        const auto index = decode_index(*bytes);
+        if (!index) {
+            return std::unexpected{index.error()};
+        }
+        if (index->header_offset == no_crc && index->user_crc == no_crc) {
+            continue;
+        }
+        const std::uint64_t offset = index->header_offset;
+        if (offset < base_size || offset > header_size || message_size > header_size - offset) {
+            return failure(ErrorKind::corrupt, "Published JAM header exceeds file extent");
+        }
+        auto fixed = state.header.read(offset, message_size);
+        if (!fixed) {
+            return std::unexpected{fixed.error()};
+        }
+        const auto header = decode_message(*fixed);
+        if (!header) {
+            return std::unexpected{header.error()};
+        }
+        if (header->number != info.header.first_number + slot) {
+            return failure(ErrorKind::corrupt, "Published JAM article number mismatch");
+        }
+        if ((header->attributes & deleted) != 0) {
+            continue;
+        }
+        if (header->subfield_length > header_size - offset - message_size ||
+            header->text_offset > text_size ||
+            header->text_length > text_size - header->text_offset) {
+            return failure(ErrorKind::corrupt, "Published JAM content exceeds file extent");
+        }
+    }
+    return {};
 }
 struct LocatedMessage {
     Message message;
@@ -752,6 +793,10 @@ auto Storage::append(Message message, const std::stop_token &stop) const -> Resu
         message.text.size() > no_crc - *text_size ||
         info->slots > no_crc - info->header.first_number || info->header.active == no_crc) {
         return failure(ErrorKind::input, "JAM format capacity exceeded");
+    }
+    if (auto validated = validate_published_extents(*state_, *info, *header_size, *text_size, stop);
+        !validated) {
+        return std::unexpected{validated.error()};
     }
     message.header.number = info->header.first_number + info->slots;
     message.header.subfield_length = static_cast<std::uint32_t>(fields->size());

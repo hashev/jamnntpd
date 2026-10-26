@@ -1,0 +1,8 @@
+[ 43%] Built target jam_core
+[ 52%] Built target jam_lifecycle_probe
+[ 56%] Built target makechs
+[ 56%] Built target jamnntpd
+[ 60%] Built target jam_storage_probe
+[ 63%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/storage.cpp.o
+[ 65%] Linking CXX executable jam_unit
+[100%] Built target jam_unit
