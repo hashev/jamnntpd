@@ -563,3 +563,86 @@ TEST_CASE("Independent bases keep concurrent subfields and long receivers value 
     REQUIRE(stored);
     CHECK(jam::text_from(stored->fields.at(1).data) == receiver);
 }
+
+TEST_CASE("Append refuses dangling published extents before changing any companion file") {
+    for (const auto *extension : {".jdt", ".jhr"}) {
+        for (const bool partial : {false, true}) {
+            TempDirectory directory;
+            const auto base = copy_base(directory);
+            const auto storage = jam::Storage::open(base);
+            REQUIRE(storage);
+            const auto path = directory.file(std::string{"base"} + extension);
+            const auto length = std::filesystem::file_size(path);
+            std::filesystem::resize_file(
+                path, partial ? length - 1
+                              : (std::string_view{extension} == ".jhr" ? jam::base_size : 0));
+            std::vector<std::string> before;
+            for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                before.push_back(contents(directory, suffix));
+            }
+            CHECK_FALSE(storage->read(1));
+            const auto appended = storage->append(message());
+            REQUIRE_FALSE(appended);
+            CHECK(appended.error().kind == ErrorKind::corrupt);
+            std::size_t index = 0;
+            for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+                CHECK(contents(directory, suffix) == before.at(index++));
+            }
+            CHECK_FALSE(storage->read(1));
+        }
+    }
+}
+
+TEST_CASE("Append accepts empty and deleted-only bases without reviving removed articles") {
+    for (const bool empty : {false, true}) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        if (empty) {
+            directory.write("base.jhr", jam::text_from(jam::encode_base(jam::BaseHeader{})));
+            std::filesystem::resize_file(directory.file("base.jdx"), 0);
+            std::filesystem::resize_file(directory.file("base.jdt"), 0);
+        }
+        const auto storage = jam::Storage::open(base);
+        REQUIRE(storage);
+        if (!empty) {
+            REQUIRE(storage->cancel(1));
+            std::filesystem::resize_file(directory.file("base.jdt"), 0);
+        }
+        const auto expected = empty ? 1U : 3U;
+        REQUIRE(storage->append(message()) == expected);
+        if (!empty) {
+            CHECK_FALSE(storage->read(1));
+            CHECK_FALSE(storage->read(2));
+        }
+        CHECK(storage->read(expected)->text == "New text\r");
+        CHECK(storage->info()->header.active == 1);
+    }
+}
+
+TEST_CASE("Published extent validation observes stop between records before any mutation") {
+    TempDirectory directory;
+    const auto base = copy_base(directory);
+    bool armed = false;
+    std::size_t reads{};
+    std::stop_source stop;
+    const auto storage =
+        jam::Storage::open(base, {.fail_io = [&](jam::IoEvent event) -> bool {
+                               if (armed && event == jam::IoEvent::read && ++reads == 3) {
+                                   stop.request_stop();
+                               }
+                               return false;
+                           }});
+    REQUIRE(storage);
+    std::vector<std::string> before;
+    for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        before.push_back(contents(directory, suffix));
+    }
+    armed = true;
+    const auto result = storage->append(message(), stop.get_token());
+    REQUIRE_FALSE(result);
+    CHECK(result.error().kind == ErrorKind::stopped);
+    std::size_t index = 0;
+    for (const auto *suffix : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        CHECK(contents(directory, suffix) == before.at(index++));
+    }
+}

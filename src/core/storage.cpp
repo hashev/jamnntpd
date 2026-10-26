@@ -339,6 +339,51 @@ auto read_info(const BaseState &state) -> Result<BaseInfo> {
     }
     return BaseInfo{.header = *header, .slots = static_cast<std::uint32_t>(*size / index_size)};
 }
+// Validate before extending either file: new bytes must not revive a dangling old record.
+auto validate_published_extents(const BaseState &state, const BaseInfo &info,
+                                std::uint64_t header_size, std::uint64_t text_size,
+                                const std::stop_token &stop) -> Result<void> {
+    for (std::uint32_t slot = 0; slot < info.slots; ++slot) {
+        if (stop.stop_requested()) {
+            return failure(ErrorKind::stopped, "JAM validation stopped");
+        }
+        auto bytes = state.index.read(static_cast<std::uint64_t>(slot) * index_size, index_size);
+        if (!bytes) {
+            return std::unexpected{bytes.error()};
+        }
+        const auto index = decode_index(*bytes);
+        if (!index) {
+            return std::unexpected{index.error()};
+        }
+        if (index->header_offset == no_crc && index->user_crc == no_crc) {
+            continue;
+        }
+        const std::uint64_t offset = index->header_offset;
+        if (offset < base_size || offset > header_size || message_size > header_size - offset) {
+            return failure(ErrorKind::corrupt, "Published JAM header exceeds file extent");
+        }
+        auto fixed = state.header.read(offset, message_size);
+        if (!fixed) {
+            return std::unexpected{fixed.error()};
+        }
+        const auto header = decode_message(*fixed);
+        if (!header) {
+            return std::unexpected{header.error()};
+        }
+        if (header->number != info.header.first_number + slot) {
+            return failure(ErrorKind::corrupt, "Published JAM article number mismatch");
+        }
+        if ((header->attributes & deleted) != 0) {
+            continue;
+        }
+        if (header->subfield_length > header_size - offset - message_size ||
+            header->text_offset > text_size ||
+            header->text_length > text_size - header->text_offset) {
+            return failure(ErrorKind::corrupt, "Published JAM content exceeds file extent");
+        }
+    }
+    return {};
+}
 struct LocatedMessage {
     Message message;
     std::uint64_t index_offset{};
@@ -752,6 +797,10 @@ auto Storage::append(Message message, const std::stop_token &stop) const -> Resu
         message.text.size() > no_crc - *text_size ||
         info->slots > no_crc - info->header.first_number || info->header.active == no_crc) {
         return failure(ErrorKind::input, "JAM format capacity exceeded");
+    }
+    if (auto validated = validate_published_extents(*state_, *info, *header_size, *text_size, stop);
+        !validated) {
+        return std::unexpected{validated.error()};
     }
     message.header.number = info->header.first_number + info->slots;
     message.header.subfield_length = static_cast<std::uint32_t>(fields->size());
