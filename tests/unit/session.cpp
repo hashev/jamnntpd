@@ -240,3 +240,36 @@ TEST_CASE("POST distinguishes local storage failures from article rejection") {
                      : "441 Posting failed\r\n"));
     }
 }
+
+TEST_CASE("Article and overview storage timeouts remain local errors without partial success") {
+    for (const auto kind : {ErrorKind::io, ErrorKind::corrupt, ErrorKind::timeout}) {
+        auto backend = services();
+        const auto original = backend.article;
+        backend.article = [original, kind](const Group &group, std::uint32_t number,
+                                           const Identity &identity, const UserOptions &options,
+                                           const std::stop_token &stop) -> Result<ProtocolArticle> {
+            if (number == 3) {
+                return failure(kind, "Unavailable storage");
+            }
+            return original(group, number, identity, options, stop);
+        };
+        Session session{
+            {{.name = "test",
+              .access = 'a',
+              .address = "2:1/2",
+              .base = "unused",
+              .default_charset = "CP866"}},
+            {.username = "", .permissions = {.read = "a", .post = "a"}, .realnames = ""},
+            {},
+            backend};
+        REQUIRE(session.command("GROUP test").bytes.starts_with("211"));
+        for (const auto *command : {"ARTICLE 3", "ARTICLE <3$test@JamNNTPd>", "HEAD 3",
+                                    "HEAD <3$test@JamNNTPd>", "BODY 3", "BODY <3$test@JamNNTPd>",
+                                    "STAT 3", "STAT <3$test@JamNNTPd>", "XOVER 1-3"}) {
+            INFO(command);
+            CHECK(session.command(command).bytes ==
+                  "503 Local error: Could not access messagebase\r\n");
+            CHECK(session.command("STAT").bytes == "223 1 <1$test@JamNNTPd> Article retrieved\r\n");
+        }
+    }
+}

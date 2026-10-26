@@ -53,3 +53,12 @@ rejections retain `441`; posting without permission remains `440`. Diagnostics
 from the backend are never copied into the wire response. Regression checks cover
 all error categories, injected real-backend write/flush failures and a real TCP
 POST with a missing companion file, followed by successful service recovery.
+
+Storage lock timeouts during ARTICLE/HEAD/BODY/STAT are reported as local error
+503, matching other unavailable-storage failures. They must not masquerade as
+missing articles (423/430). XOVER likewise discards its accumulated response on
+a storage timeout instead of returning a successful but incomplete overview.
+Focused service tests cover numeric/id selection and a failure after one valid
+overview record; a real TCP regression holds the native JAM byte lock past the
+five-second storage timeout, verifies 503 and byte preservation, then verifies
+the same article is accessible after the lock is released.

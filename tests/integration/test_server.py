@@ -728,6 +728,20 @@ class NntpEndToEnd(unittest.TestCase):
                     for word in re.findall(rb'=\?[^?]+\?[BQ]\?[^?]*\?=', headers):
                         self.assertLessEqual(len(word), 75)
 
+    def test_storage_lock_timeout_is_503_and_article_recovers_without_mutation(self):
+        with Server() as server, server.raw_client() as client:
+            before = server.snapshot()
+            client.timeout = 8
+            with (server.root/'test.jhr').open('r+b', buffering=0) as header, byte_lock(header):
+                began = time.monotonic()
+                client.send(b'STAT <1$test@JamNNTPd>\r\n')
+                self.assertEqual(client.reply(503), b'503 Local error: Could not access messagebase\r\n')
+                self.assertGreaterEqual(time.monotonic()-began, 4.5)
+                self.assertLess(time.monotonic()-began, 8)
+            self.assertEqual(server.snapshot(), before)
+            client.send(b'STAT <1$test@JamNNTPd>\r\n')
+            self.assertEqual(client.reply(223), b'223 1 <1$test@JamNNTPd> Article retrieved\r\n')
+
     def test_truncated_text_base_rejects_post_without_reviving_old_article(self):
         with Server() as server, server.client() as client:
             self.assertTrue(client.login().startswith(b'281'))
