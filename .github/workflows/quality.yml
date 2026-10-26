@@ -1,5 +1,12 @@
 name: C++23 quality
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      extended:
+        description: Run the complete native load and five-minute idle acceptance
+        type: boolean
+        default: false
 permissions:
   contents: read
 env:
@@ -7,6 +14,7 @@ env:
   VCPKG_BINARY_SOURCES: "clear;files,${{ github.workspace }}/build/vcpkg-binary-cache,readwrite"
 jobs:
   native:
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -48,19 +56,27 @@ jobs:
       - name: Configure (POSIX)
         if: runner.os != 'Windows'
         shell: bash
-        run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_CXX_FLAGS="${{ matrix.flags }}" -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+        run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_CXX_FLAGS="${{ matrix.flags }}" -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} -DJAM_EXTENDED_TESTS=${{ github.event_name == 'workflow_dispatch' && inputs.extended && (matrix.compiler == 'g++-14' || matrix.os == 'macos-26' || matrix.compiler == 'cl') && 'ON' || 'OFF' }}
       - name: Configure (MSVC)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           $toolset = if ('${{ matrix.compiler }}' -eq 'clang-cl') { @('-T','ClangCL') } else { @() }
-          cmake -S . -B build/ci -A x64 @toolset '-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>' -DJAM_COVERAGE=${{ matrix.coverage || 'OFF' }} -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
+          cmake -S . -B build/ci -A x64 @toolset '-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$<$<CONFIG:Debug>:Debug>' -DJAM_COVERAGE=${{ matrix.coverage || 'OFF' }} -DCMAKE_TOOLCHAIN_FILE="$env:RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} -DJAM_EXTENDED_TESTS=${{ github.event_name == 'workflow_dispatch' && inputs.extended && (matrix.compiler == 'g++-14' || matrix.os == 'macos-26' || matrix.compiler == 'cl') && 'ON' || 'OFF' }}
       - run: cmake --build build/ci --config Debug --parallel 4
       - name: Run complete native suite
         shell: bash
         env:
           LLVM_PROFILE_FILE: ${{ github.workspace }}/build/ci/current-%p-%m.profraw
-        run: ctest --test-dir build/ci -C Debug --output-on-failure
+          JAM_TEST_CASES: ${{ inputs.extended && '10000' || '1000' }}
+          JAM_MODEL_SESSIONS: ${{ inputs.extended && '1000' || '100' }}
+          JAM_TEST_SEED: '20261026'
+          JAM_TEST_ARTIFACTS: ${{ github.workspace }}/build/ci/acceptance-failures
+        run: ctest --test-dir build/ci -C Debug --output-on-failure --output-junit "${{ github.workspace }}/build/ci/current-junit.xml" --no-tests=error
+      - name: Collect exact source and toolchain evidence
+        if: always()
+        shell: bash
+        run: python3 tools/collect_evidence.py --build build/ci --profile 'native-${{ matrix.os }}-${{ matrix.compiler }}' --require-vcpkg
       - name: Native Windows coverage evidence
         if: matrix.coverage == 'ON'
         shell: pwsh
@@ -81,6 +97,11 @@ jobs:
           path: |
             build/ci/Testing/Temporary/
             build/ci/CMakeFiles/CMakeConfigureLog.yaml
+            build/ci/*-junit.xml
+            build/ci/source-evidence.json
+            build/ci/current-junit.xml
+            build/ci/acceptance-extended/
+            build/ci/acceptance-failures/
             build/ci/current-summary.json
             build/ci/current-coverage.json
   instrumented:
@@ -118,7 +139,12 @@ jobs:
       - name: Full unit, executable and 100-round concurrency suite
         env:
           LLVM_PROFILE_FILE: ${{ github.workspace }}/build/${{ matrix.profile }}/current-%p-%m.profraw
-        run: ctest --test-dir 'build/${{ matrix.profile }}' --output-on-failure
+          JAM_TEST_ARTIFACTS: ${{ github.workspace }}/build/${{ matrix.profile }}/acceptance-failures
+          JAM_TEST_SEED: '20261026'
+        run: ctest --test-dir 'build/${{ matrix.profile }}' --output-on-failure --output-junit "${{ github.workspace }}/build/${{ matrix.profile }}/current-junit.xml" --no-tests=error
+      - name: Collect exact instrumented source evidence
+        if: always()
+        run: python3 tools/collect_evidence.py --build 'build/${{ matrix.profile }}' --profile '${{ matrix.profile }}' --require-vcpkg
       - name: Whole production coverage gates
         if: matrix.profile == 'coverage'
         run: python3 tools/check_coverage.py --build build/coverage --llvm-cov llvm-cov-19 --llvm-profdata llvm-profdata-19
@@ -135,5 +161,77 @@ jobs:
           path: |
             build/${{ matrix.profile }}/Testing/Temporary/
             build/${{ matrix.profile }}/CMakeFiles/CMakeConfigureLog.yaml
+            build/${{ matrix.profile }}/*-junit.xml
+            build/${{ matrix.profile }}/source-evidence.json
+            build/${{ matrix.profile }}/current-junit.xml
+            build/${{ matrix.profile }}/acceptance-failures/
             build/${{ matrix.profile }}/current-summary.json
             build/${{ matrix.profile }}/current-coverage.json
+
+  static-analysis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 autoconf automake libtool zstd libxml2 libtinfo6 libz3-4
+      - name: Restore pinned dependencies
+        id: dependencies
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: build/vcpkg-binary-cache
+          key: vcpkg-b42e8ed-Linux-X64-x64-linux-native
+      - name: Restore LLVM 23.1.3 analysis tools
+        id: llvm
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ${{ runner.temp }}/jam-llvm23
+          key: llvm23.1.3-Linux-X64-14d2f701-tools-v1
+      - name: Verify and extract pinned official LLVM tools
+        if: steps.llvm.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/llvm23.tar.zst" https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.3/LLVM-23.1.3-Linux-X64.tar.zst
+          printf '%s  %s\n' 14d2f701eb68fb799001bdea6231048f3990690fa2f406d563555ff8f744daba "$RUNNER_TEMP/llvm23.tar.zst" | sha256sum --check -
+          tar --zstd -tf "$RUNNER_TEMP/llvm23.tar.zst" > "$RUNNER_TEMP/llvm23-files.txt"
+          python3 - <<'PYTOOLS'
+          import os
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP'])
+          entries = (root/'llvm23-files.txt').read_text().splitlines()
+          selected = [entry for entry in entries if entry.endswith(('/bin/clang-tidy', '/bin/clang-format')) or
+                      ('/lib/' in entry and Path(entry).name.startswith(('libLLVM', 'libclang-cpp'))) or
+                      ('/lib/clang/' in entry and '/include/' in entry)]
+          assert sum(entry.endswith(('/bin/clang-tidy', '/bin/clang-format')) for entry in selected) == 2
+          (root/'llvm23-selected.txt').write_text('\n'.join(selected)+'\n')
+          PYTOOLS
+          mkdir -p "$RUNNER_TEMP/jam-llvm23"
+          tar --zstd -xf "$RUNNER_TEMP/llvm23.tar.zst" --strip-components=1 --no-recursion -C "$RUNNER_TEMP/jam-llvm23" -T "$RUNNER_TEMP/llvm23-selected.txt"
+          rm "$RUNNER_TEMP/llvm23.tar.zst"
+      - name: Configure pinned C++23 dependencies
+        shell: bash
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git "$RUNNER_TEMP/jam-vcpkg"
+          git -C "$RUNNER_TEMP/jam-vcpkg" checkout b42e8ed051d17a7f95b9d2a3140c1f9296423712
+          "$RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.sh" -disableMetrics
+          cmake -S . -B build/static -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++-19 -DCMAKE_CXX_FLAGS=--gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/14 -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-linux -DJAM_CLANG_TIDY="$RUNNER_TEMP/jam-llvm23/bin/clang-tidy"
+      - name: Static checks without diagnostic exclusions
+        shell: bash
+        run: |
+          "$RUNNER_TEMP/jam-llvm23/bin/clang-tidy" --version
+          "$RUNNER_TEMP/jam-llvm23/bin/clang-format" --version
+          cmake --build build/static --target clang-tidy --parallel 4
+          cmake --build build/static --target check-headers --parallel 4
+          python3 tools/check_format.py --formatter "$RUNNER_TEMP/jam-llvm23/bin/clang-format"
+          python3 tools/check_acceptance.py
+      - name: Cache verified LLVM tools
+        if: success() && steps.llvm.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: ${{ runner.temp }}/jam-llvm23
+          key: llvm23.1.3-Linux-X64-14d2f701-tools-v1
+      - name: Cache dependency binaries
+        if: always() && steps.dependencies.outputs.cache-hit != 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: build/vcpkg-binary-cache
+          key: vcpkg-b42e8ed-Linux-X64-x64-linux-native

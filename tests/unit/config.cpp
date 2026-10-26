@@ -205,3 +205,42 @@ TEST_CASE("Group names reject protocol framing and message-id delimiters") {
         CHECK_FALSE(load_groups(file));
     }
 }
+
+TEST_CASE("CLI aliases and numeric boundaries retain values before any run action") {
+    TempDirectory directory;
+    for (const auto &[name, member] : std::array{
+             std::pair{"a", &Config::allow_file}, std::pair{"g", &Config::groups_file},
+             std::pair{"u", &Config::users_file}, std::pair{"x", &Config::xlat_file},
+             std::pair{"l", &Config::log_file}, std::pair{"echomailjam", &Config::echomail_file}}) {
+        const auto value = directory.file("path with spaces").string();
+        const std::vector<std::string> arguments{"-" + std::string{name}, value};
+        const auto command = parse_command_line(arguments, directory.file("absent.cfg"));
+        REQUIRE(command);
+        CHECK(command->action == CommandAction::run);
+        CHECK(command->config.*member == std::filesystem::path{value});
+    }
+    for (const auto *port : {"0", "1", "65534", "65535"}) {
+        const std::vector<std::string> arguments{"-p", port};
+        const auto command = parse_command_line(arguments, directory.file("absent.cfg"));
+        REQUIRE(command);
+        CHECK(std::to_string(command->config.port) == port);
+    }
+    for (const auto *maximum : {"0", "1", "4294967294", "4294967295"}) {
+        const std::vector<std::string> arguments{"-m", maximum};
+        const auto command = parse_command_line(arguments, directory.file("absent.cfg"));
+        REQUIRE(command);
+        CHECK(std::to_string(command->config.maximum_connections) == maximum);
+    }
+    for (const auto &arguments : std::vector<std::vector<std::string>>{
+             {"-p", "65536"}, {"-m", "4294967296"}, {"-p", "-1"}, {"-m", "1junk"}}) {
+        CHECK_FALSE(parse_command_line(arguments, directory.file("absent.cfg")));
+    }
+    auto config = default_config();
+    REQUIRE(load_config(config,
+                        directory.write("quoted.cfg",
+                                        "# comment\nport 10\nport 20\n# override applied above\n"
+                                        "groups \"path with spaces\"\n")));
+    CHECK(config.port == 20);
+    CHECK(config.groups_file == "path with spaces");
+    CHECK_FALSE(load_config(config, directory.write("inline-comment.cfg", "port 20 ; comment\n")));
+}

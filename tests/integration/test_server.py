@@ -1,6 +1,9 @@
 """Real executable NNTP tests against disposable JAM bases; no production data."""
 import argparse
+import base64
+import quopri
 import contextlib
+from concurrent.futures import ThreadPoolExecutor
 import email
 import email.header
 import hashlib
@@ -15,10 +18,16 @@ import subprocess
 import sys
 import tempfile
 import time
+import threading
 import unittest
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'baseline'))
 import jam_oracle
+import jam_corpus
+from raw_client import RawClient
+from junit_result import JUnitResult
+from test_storage import byte_lock
 
 class Client:
     def __init__(self, port):
@@ -60,35 +69,61 @@ class Client:
     def __exit__(self, *_): self.close()
 
 class Server:
-    def __init__(self, extra='', xlat=None, allow='127.0.0.1 ac ac\n', charset='CP866', console=False):
+    def __init__(self, extra='', xlat=None, allow='127.0.0.1 ac ac\n', charset='CP866', console=False, recipe=None, force_charset=True, startup_timeout=10, strict_netmail=True, flags=None):
         self.temporary = tempfile.TemporaryDirectory(prefix='jamnntpd-e2e-')
         self.root = Path(self.temporary.name)
-        for name in ['test', 'private', 'local', 'hidden']:
-            for suffix in ['.jhr', '.jdt', '.jdx', '.jlr']:
-                shutil.copyfile(OPTIONS.fixtures / 'jam' / ('sample' + suffix), self.root / (name + suffix))
-        (self.root / 'groups').write_text(''.join(f'{prefix}{name} {access} 2:1/2 "{self.root / name}" !{charset}\n'
-            for prefix,name,access in [('', 'test', 'a'), ('!', 'private', 'b'), ('$', 'local', 'c'), ('', 'hidden', 'd')]))
-        (self.root / 'allow').write_text(allow)
-        (self.root / 'users').write_text('alice secret abc abc Alice\nbob password abc abc Bob\n')
-        (self.root / 'xlat').write_text(xlat if xlat is not None else f'defaultpost UTF-8\nread {charset} UTF-8 -builtin\npost UTF-8 {charset} -builtin\n')
-        self.config = self.root / 'config'
-        self.config.write_text('port 0\nmax 8\ndebug\nloggroups\nstrictnetmail\n' + ('' if console else 'noecholog\n') +
-            ''.join(f'{option} "{self.root / value}"\n' for option,value in [('groups','groups'),('allow','allow'),('users','users'),('xlat','xlat'),('logfile','log')]) + extra)
-        self.stdout = (self.root / 'stdout').open('wb')
-        self.stderr = (self.root / 'stderr').open('wb')
-        options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {}
-        self.process = subprocess.Popen([OPTIONS.executable, '-config', str(self.config)], stdout=self.stdout, stderr=self.stderr, **options)
-        deadline = time.monotonic() + 10
-        while time.monotonic() < deadline:
-            if self.process.poll() is not None: raise RuntimeError((self.root / 'stderr').read_text())
-            log = (self.root / 'log').read_text() if (self.root / 'log').exists() else ''
-            log += (self.root / 'stdout').read_text(errors='replace')
-            ready = re.search(r'Listening on port (\d+)', log)
-            if ready:
-                self.port = int(ready.group(1)); break
-            time.sleep(.02)
-        else: self.stop(); raise TimeoutError('server did not become ready')
+        self.clients = []
+        try:
+            for name in ['test', 'private', 'local', 'hidden']:
+                if recipe is not None:
+                    jam_corpus.write(self.root / name, jam_corpus.generate(recipe))
+                else:
+                    for suffix in ['.jhr', '.jdt', '.jdx', '.jlr']:
+                        shutil.copyfile(OPTIONS.fixtures / 'jam' / ('sample' + suffix), self.root / (name + suffix))
+            (self.root / 'groups').write_text(''.join(f'{prefix}{name} {access} 2:1/2 "{self.root / name}" {("!" if force_charset else "")}{charset}\n'
+                for prefix,name,access in [('', 'test', 'a'), ('!', 'private', 'b'), ('$', 'local', 'c'), ('', 'hidden', 'd')]))
+            (self.root / 'allow').write_text(allow)
+            (self.root / 'users').write_text('alice secret abc abc Alice\nbob password abc abc Bob\n')
+            (self.root / 'xlat').write_text(xlat if xlat is not None else f'defaultpost UTF-8\nread {charset} UTF-8 -builtin\npost UTF-8 {charset} -builtin\n')
+            self.config = self.root / 'config'
+            selected_flags = (['debug', 'loggroups'] + (['strictnetmail'] if strict_netmail else []) +
+                              ([] if console else ['noecholog'])) if flags is None else flags
+            self.config.write_text('port 0\nmax 8\n' + ''.join(flag+'\n' for flag in selected_flags) +
+                ''.join(f'{option} "{self.root / value}"\n' for option,value in [('groups','groups'),('allow','allow'),('users','users'),('xlat','xlat'),('logfile','log')]) +
+                (extra(self.root) if callable(extra) else extra))
+            self.stdout = (self.root / 'stdout').open('wb')
+            self.stderr = (self.root / 'stderr').open('wb')
+            options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {}
+            self.process = subprocess.Popen([OPTIONS.executable, '-config', str(self.config)], stdout=self.stdout, stderr=self.stderr, **options)
+            deadline = time.monotonic() + startup_timeout
+            while time.monotonic() < deadline:
+                if self.process.poll() is not None: raise RuntimeError((self.root / 'stderr').read_text())
+                log = (self.root / 'log').read_text() if (self.root / 'log').exists() else ''
+                log += (self.root / 'stdout').read_text(errors='replace')
+                ready = re.search(r'Listening on port (\d+)', log)
+                if ready:
+                    self.port = int(ready.group(1)); break
+                time.sleep(.02)
+            else: raise TimeoutError('server did not become ready')
+        except BaseException:
+            try:
+                self.save_failure('startup')
+            finally:
+                try:
+                    self.abort()
+                finally:
+                    self.temporary.cleanup()
+            raise
     def client(self): return Client(self.port)
+    def raw_client(self):
+        client = RawClient(socket.create_connection(('127.0.0.1', self.port), timeout=4))
+        try:
+            client.reply(200)
+            self.clients.append(client)
+            return client
+        except BaseException:
+            client.close()
+            raise
     def snapshot(self, name='test'):
         return {suffix: (self.root / (name + suffix)).read_bytes() for suffix in ['.jhr','.jdt','.jdx','.jlr']}
     def message(self, number, name='test'):
@@ -100,23 +135,732 @@ class Server:
         fields = jam_oracle.subfields(headers[offset+76:offset+76+fixed[0]])
         body = jam_oracle.text_slice(fixed, (self.root / (name + '.jdt')).read_bytes())
         return fixed, {low: data for low,_,data in fields if low != 2000}, body, [data for low,_,data in fields if low == 2000]
+    def restart(self):
+        self.stop()
+        log_path = self.root / 'log'
+        previous = len(log_path.read_text()) if log_path.exists() else 0
+        self.stdout = (self.root / 'stdout').open('ab')
+        self.stderr = (self.root / 'stderr').open('ab')
+        options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {}
+        self.process = subprocess.Popen([OPTIONS.executable, '-config', str(self.config)],
+                                        stdout=self.stdout, stderr=self.stderr, **options)
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            if self.process.poll() is not None:
+                raise RuntimeError('Server exited during restart')
+            log = log_path.read_text()[previous:] if log_path.exists() else ''
+            ready = re.search(r'Listening on port (\d+)', log)
+            if ready:
+                self.port = int(ready.group(1))
+                return
+            time.sleep(.02)
+        raise TimeoutError('Server restart deadline')
+
+    def save_failure(self, phase):
+        destination = Path(os.environ.get('JAM_TEST_ARTIFACTS', 'build/acceptance-failures'))
+        destination.mkdir(parents=True, exist_ok=True)
+        target = Path(tempfile.mkdtemp(prefix='failure-', dir=destination))
+        # Only disposable JAM data and already-redacted server diagnostics. Never copy users/config.
+        for source in self.root.iterdir():
+            if source.suffix in ('.jhr', '.jdt', '.jdx', '.jlr') or source.name in ('log', 'stdout', 'stderr'):
+                shutil.copyfile(source, target / source.name)
+        (target / 'context.json').write_text(json.dumps({
+            'phase': phase, 'seed': os.environ.get('JAM_TEST_SEED', '0'),
+            'transcripts': [client.transcript for client in self.clients]}, indent=2))
+        return target
+    def abort(self):
+        process = getattr(self, 'process', None)
+        if process is not None and process.poll() is None:
+            process.kill()
+            process.wait(timeout=4)
+        for name in ('stdout', 'stderr'):
+            stream = getattr(self, name, None)
+            if stream is not None:
+                stream.close()
     def stop(self):
-        if self.process.poll() is None:
-            self.process.send_signal(signal.CTRL_BREAK_EVENT if os.name == 'nt' else signal.SIGTERM)
-            try: self.process.wait(timeout=8)
-            except subprocess.TimeoutExpired: self.process.kill(); self.process.wait(); raise
-        self.stdout.close(); self.stderr.close()
-        assert self.process.returncode == 0, (self.process.returncode, (self.root / 'stderr').read_text())
+        try:
+            if self.process.poll() is None:
+                self.process.send_signal(signal.CTRL_BREAK_EVENT if os.name == 'nt' else signal.SIGTERM)
+                try:
+                    self.process.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    self.save_failure('shutdown-timeout')
+                    raise
+            assert self.process.returncode == 0, (self.process.returncode, (self.root / 'stderr').read_text())
+        finally:
+            self.abort()
     def __enter__(self): return self
-    def __exit__(self, *_):
-        try: self.stop()
-        finally: self.temporary.cleanup()
+    def __exit__(self, kind, *_):
+        try:
+            if kind is not None:
+                self.save_failure('test')
+                self.abort()
+            else:
+                self.stop()
+        finally:
+            for client in self.clients:
+                client.close()
+            self.temporary.cleanup()
 
 def article(body='Н─│', group='test', subject='Re: Topic', extra=''):
     return (f'From: Alice <alice@example.org>\r\nNewsgroups: {group}\r\nSubject: {subject}\r\n'
             f'Content-Type: text/plain; charset=UTF-8\r\n{extra}\r\n{body}\r\n').encode('utf-8')
 
 class NntpEndToEnd(unittest.TestCase):
+    def test_harness_preserves_evidence_and_cleans_up_on_startup_timeout(self):
+        launched = []
+        original = subprocess.Popen
+        def launch(*args, **kwargs):
+            process = original(*args, **kwargs)
+            launched.append(process)
+            return process
+        with tempfile.TemporaryDirectory() as artifacts:
+            with mock.patch.dict(os.environ, JAM_TEST_ARTIFACTS=artifacts, JAM_TEST_SEED='123'), \
+                 mock.patch.object(subprocess, 'Popen', side_effect=launch), \
+                 mock.patch.object(re, 'search', return_value=None):
+                with self.assertRaises(TimeoutError):
+                    Server(startup_timeout=.05)
+            self.assertEqual(len(launched), 1)
+            self.assertIsNotNone(launched[0].poll())
+            saved = list(Path(artifacts).iterdir())
+            self.assertEqual(len(saved), 1)
+            self.assertTrue((saved[0] / 'test.jhr').is_file())
+            context = json.loads((saved[0] / 'context.json').read_text())
+            self.assertEqual(context['seed'], '123')
+            self.assertEqual(context['phase'], 'startup')
+            self.assertFalse((saved[0] / 'users').exists())
+            self.assertFalse((saved[0] / 'config').exists())
+
+    def test_harness_cleans_up_exception_and_redacts_fragmented_requests(self):
+        with tempfile.TemporaryDirectory() as artifacts:
+            with mock.patch.dict(os.environ, JAM_TEST_ARTIFACTS=artifacts, JAM_TEST_SEED='456'):
+                with self.assertRaisesRegex(RuntimeError, 'test failure'):
+                    with Server() as server:
+                        client = server.raw_client()
+                        client.send(b'AUTHINFO USER alice\r\nAUTHINFO PA')
+                        client.send(b'SS PRIVATE-HARNESS-SENTINEL\r\n')
+                        client.reply(381)
+                        client.reply(481)
+                        raise RuntimeError('test failure')
+            self.assertIsNotNone(server.process.poll())
+            self.assertFalse(server.root.exists())
+            with socket.socket() as connection:
+                self.assertNotEqual(connection.connect_ex(('127.0.0.1', server.port)), 0)
+            saved = next(Path(artifacts).iterdir())
+            context = json.loads((saved / 'context.json').read_text())
+            self.assertTrue(context['transcripts'])
+            self.assertEqual(context['phase'], 'test')
+            self.assertEqual(context['seed'], '456')
+            for path in saved.iterdir():
+                self.assertNotIn(b'PRIVATE-HARNESS-SENTINEL', path.read_bytes())
+
+    def test_all_commands_and_article_states_over_raw_tcp(self):
+        with Server() as server, server.raw_client() as client:
+            def single(command, code, exact=None):
+                client.send(command.encode() + b'\r\n')
+                value = client.reply(code)
+                if exact is not None:
+                    self.assertEqual(value, exact)
+                return value
+            for command in ['ARTICLE', 'HEAD', 'BODY', 'STAT', 'NEXT', 'LAST', 'XOVER']:
+                single(command, 412, b'412 No newsgroup selected\r\n')
+            single('GROUP', 501, b'501 No group specified\r\n')
+            single('GROUP unknown', 411, b'411 No such newsgroup\r\n')
+            single('gRoUp test', 211, b'211 2 1 2 test Group selected\r\n')
+            for command, code in [('ARTICLE', 220), ('HEAD', 221), ('BODY', 222)]:
+                for argument in ['', ' 1', ' <1$test@JamNNTPd>']:
+                    client.send((command+argument+'\r\n').encode())
+                    result = client.reply(code, multiline=True)
+                    if command != 'HEAD':
+                        self.assertIn(b'Hello\r\n..World\r\n', result)
+                    if command != 'BODY':
+                        self.assertIn(b'Subject: Fixture\r\n', result)
+            for argument in ['', ' 1', ' <1$test@JamNNTPd>']:
+                single('STAT'+argument, 223,
+                       b'223 1 <1$test@JamNNTPd> Article retrieved\r\n')
+            for command in ['ARTICLE', 'HEAD', 'BODY', 'STAT']:
+                for argument, code in [(' 2', 423), (' <2$test@JamNNTPd>', 430),
+                                       (' <1$hidden@JamNNTPd>', 430), (' -1', 501),
+                                       (' 4294967296', 501), (' 1x', 501)]:
+                    single(command+argument, code)
+            single('NEXT', 421)
+            single('LAST', 422)
+            for argument in ['', ' 1', ' 1-1', ' 1-', ' 1-2']:
+                client.send(('XOVER'+argument+'\r\n').encode())
+                overview = client.reply(224, multiline=True)
+                self.assertIn(b'1\tFixture\t', overview)
+                self.assertNotIn(b'\r\n2\t', overview)
+            single('XOVER 3-1', 420)
+            single('XOVER 4294967296-', 501)
+            for argument in ['', ' ACTIVE', ' NEWSGROUPS', ' OVERVIEW.FMT']:
+                client.send(('LIST'+argument+'\r\n').encode())
+                listing = client.reply(215, multiline=True)
+                self.assertNotIn(b'hidden', listing)
+                if argument != ' OVERVIEW.FMT':
+                    self.assertNotIn(b'private', listing)
+            single('LIST NEWSGROUPS *', 501)
+            single('LIST unknown', 501)
+            client.send(b'HELP\r\n')
+            self.assertEqual(client.reply(100, multiline=True),
+                             (OPTIONS.fixtures / 'protocol/help-response.txt').read_bytes())
+            for command, code, multiline in [('IHAVE <id>', 435, False),
+                                            ('NEWGROUPS', 231, True), ('NEWNEWS', 230, True),
+                                            ('SLAVE', 202, False), ('MODE READER', 200, False)]:
+                client.send((command+'\r\n').encode())
+                client.reply(code, multiline=multiline)
+            single('UNKNOWN', 500, b'500 Unknown command\r\n')
+            client.send(b' \r\n')
+            client.assert_quiet()
+            single('AUTHINFO PASS secret', 482)
+            single('AUTHINFO USER alice', 381)
+            single('AUTHINFO PASS wrong', 481)
+            single('AUTHINFO PASS secret', 281)
+            single('POST', 340)
+            client.send(article('..raw body') + b'.\r\n')
+            client.reply(240)
+            single('STAT 3', 223, b'223 3 <3$test@JamNNTPd> Article retrieved\r\n')
+            single('LAST', 223, b'223 1 <1$test@JamNNTPd> Article retrieved\r\n')
+            single('NEXT', 223, b'223 3 <3$test@JamNNTPd> Article retrieved\r\n')
+            single('QUIT', 205, b'205 Goodbye\r\n')
+            self.assertEqual(client.socket.recv(1), b'')
+
+    def test_empty_group_current_article_and_session_isolation(self):
+        with Server(recipe={'messages': 0}) as server, server.raw_client() as client:
+            client.send(b'GROUP test\r\n')
+            self.assertEqual(client.reply(211), b'211 0 0 0 test Group selected\r\n')
+            for command in ['ARTICLE', 'HEAD', 'BODY', 'STAT', 'NEXT', 'LAST', 'XOVER']:
+                client.send((command+'\r\n').encode())
+                client.reply(420)
+        with Server() as server, server.client() as first, server.client() as second:
+            self.assertTrue(first.command('GROUP test').startswith(b'211'))
+            self.assertEqual(second.command('STAT'), b'412 No newsgroup selected\r\n')
+            self.assertTrue(first.login().startswith(b'281'))
+            self.assertTrue(first.command('GROUP private').startswith(b'211'))
+            self.assertEqual(second.command('GROUP private'), b'411 No such newsgroup\r\n')
+            self.assertEqual(first.login(password='wrong'), b'481 Authentication rejected\r\n')
+            self.assertTrue(first.command('STAT <1$private@JamNNTPd>').startswith(b'223'))
+            self.assertTrue(first.login(name='/flowed=off').startswith(b'281'))
+            self.assertTrue(first.command('STAT <1$private@JamNNTPd>').startswith(b'223'))
+
+    def test_reauthentication_losing_permissions_invalidates_current_group(self):
+        with Server() as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            self.assertTrue(client.command('GROUP private').startswith(b'211'))
+            self.assertTrue(client.command('STAT').startswith(b'223'))
+            for name in ['/unknown=on', '/flowed=invalid']:
+                self.assertTrue(client.login(name=name).startswith(b'482'))
+                self.assertTrue(client.command('STAT').startswith(b'223'))
+            (server.root / 'users').write_text('alice secret a a Alice\n')
+            self.assertEqual(client.login(password='wrong'), b'481 Authentication rejected\r\n')
+            self.assertTrue(client.command('STAT').startswith(b'223'))
+            self.assertEqual(client.login(), b'281 Authentication accepted\r\n')
+            self.assertEqual(client.command('STAT'), b'412 No newsgroup selected\r\n')
+            self.assertEqual(client.command('GROUP private'), b'411 No such newsgroup\r\n')
+            self.assertEqual(client.command('STAT <1$private@JamNNTPd>'), b'430 No such article found\r\n')
+            before = server.snapshot('private')
+            self.assertEqual(client.post(article(group='private')), b'441 Posting failed\r\n')
+            self.assertEqual(server.snapshot('private'), before)
+            self.assertTrue(client.command('GROUP test').startswith(b'211'))
+            self.assertTrue(client.command('STAT').startswith(b'223'))
+
+    def test_guest_read_and_post_permissions_are_independent_and_first_match_wins(self):
+        for read, post in [('a', '-'), ('-', 'a'), ('-', '-'), ('a', 'a')]:
+            with self.subTest(read=read, post=post), \
+                 Server(allow=f'127.0.0.* {read} {post}\n* abc abc\n') as server, server.client() as client:
+                before = server.snapshot()
+                code = b'211' if read == 'a' else b'411'
+                self.assertTrue(client.command('GROUP test').startswith(code))
+                first, listing = client.multiline('LIST')
+                self.assertTrue(first.startswith(b'215'))
+                self.assertEqual(b'test ' in listing, read == 'a')
+                if read == '-':
+                    for command in ['ARTICLE', 'HEAD', 'BODY', 'STAT']:
+                        self.assertEqual(client.command(command+' <1$test@JamNNTPd>'),
+                                         b'430 No such article found\r\n')
+                result = client.post(article())
+                self.assertTrue(result.startswith(b'240' if post == 'a' else b'440'))
+                if post == '-':
+                    self.assertEqual(server.snapshot(), before)
+
+    def test_raw_command_boundaries_fragmentation_and_coalescing(self):
+        for length in [997, 998, 999]:
+            with self.subTest(length=length), Server() as server, server.raw_client() as client:
+                client.send(b'X'*length + b'\r\n')
+                if length <= 998:
+                    self.assertEqual(client.reply(500), b'500 Unknown command\r\n')
+                    client.send(b'MODE READER\r\n')
+                    client.reply(200)
+                else:
+                    self.assertEqual(client.socket.recv(1), b'')
+        with Server() as server, server.raw_client() as client:
+            for fragment in [b'G', b'RO', b'UP te', b'st\r', b'\n']:
+                client.send(fragment)
+            client.reply(211)
+            client.send(b'STAT\r\nLAST\r\nNEXT\r\nMODE READER\r\n')
+            for code in [223, 422, 421, 200]:
+                client.reply(code)
+            client.assert_quiet()
+            client.send(b'MODE READER\n')
+            client.reply(200)
+        for bad in [b'MODE\x00 READER\r\n', b'X'*999+b'\r\nPOST\r\n']:
+            with self.subTest(bad=bad[:20]), Server() as server, server.raw_client() as client:
+                before = server.snapshot()
+                client.send(bad)
+                if b'\x00' in bad:
+                    self.assertEqual(client.reply(500), b'500 Invalid command line\r\n')
+                self.assertEqual(client.socket.recv(1), b'')
+                self.assertEqual(server.snapshot(), before)
+
+    def test_post_aggregate_boundaries_and_exact_dot_unstuffing(self):
+        headers = article('').split(b'\r\n\r\n', 1)[0] + b'\r\n\r\n'
+        for size in [19999, 20000, 20001]:
+            body = bytearray()
+            remaining = size-len(headers)
+            while remaining:
+                width = min(remaining, 902)
+                if remaining-width == 1:
+                    width -= 1
+                body.extend(b'x'*(width-2)+b'\r\n')
+                remaining -= width
+            raw = headers + bytes(body)
+            self.assertEqual(len(raw), size)
+            with self.subTest(size=size), Server() as server, server.client() as client:
+                self.assertTrue(client.login().startswith(b'281'))
+                before = server.snapshot()
+                response = client.post(raw)
+                self.assertTrue(response.startswith(b'240' if size <= 20000 else b'441'))
+                if size > 20000:
+                    self.assertEqual(server.snapshot(), before)
+        with Server() as server, server.raw_client() as client:
+            client.send(b'POST\r\n')
+            client.reply(340)
+            client.send(headers + b'..one\r\n...two\r\n.\r\n')
+            client.reply(240)
+            self.assertIn(b'.one\r..two\r', server.message(3)[2])
+            client.send(b'BODY <3$test@JamNNTPd>\r\n')
+            response = client.reply(222, multiline=True)
+            self.assertIn(b'..one\r\n...two\r\n', response)
+
+    def test_eof_at_each_incomplete_post_phase_never_mutates(self):
+        headers = article('').split(b'\r\n\r\n', 1)[0] + b'\r\n\r\n'
+        for partial in [b'', b'From: Al', headers, headers+b'body\r\n', headers+b'.']:
+            with self.subTest(partial=partial[-10:]), Server() as server:
+                before = server.snapshot()
+                with server.raw_client() as client:
+                    client.send(b'POST\r\n')
+                    client.reply(340)
+                    client.send(partial)
+                    client.socket.shutdown(socket.SHUT_WR)
+                    self.assertEqual(client.socket.recv(1), b'')
+                server.stop()
+                self.assertEqual(server.snapshot(), before)
+
+    def test_netmail_matrix_for_sender_recipient_and_unrelated_user(self):
+        for strict in [False, True]:
+            with self.subTest(strict=strict), Server(strict_netmail=strict) as server:
+                with (server.root / 'users').open('a') as users:
+                    users.write('eve password abc abc Eve\n')
+                with server.client() as alice:
+                    self.assertTrue(alice.login().startswith(b'281'))
+                    self.assertEqual(alice.post(article('To: Bob, 2:1/3\r\n\r\nprivate sentinel',
+                                                        group='private')), b'240 Article posted\r\n')
+                before = server.snapshot('private')
+                for name, password, visible in [('alice', 'secret', [1, 3]),
+                                                 ('bob', 'password', [3]), ('eve', 'password', [])]:
+                    with self.subTest(user=name), server.client() as client:
+                        self.assertTrue(client.login(name, password).startswith(b'281'))
+                        group = client.command('GROUP private')
+                        count, low, high = (len(visible), min(visible, default=0), max(visible, default=0)) if strict else (3, 1, 3)
+                        self.assertEqual(group, f'211 {count} {low} {high} private Group selected\r\n'.encode())
+                        for number in [1, 2, 3]:
+                            for command, code in [('ARTICLE', 220), ('HEAD', 221), ('BODY', 222), ('STAT', 223)]:
+                                for selector in [str(number), f'<{number}$private@JamNNTPd>']:
+                                    request = command+' '+selector
+                                    if number in visible:
+                                        if command == 'STAT':
+                                            response = client.command(request)
+                                        else:
+                                            response, _ = client.multiline(request)
+                                        self.assertTrue(response.startswith(str(code).encode()))
+                                    else:
+                                        expected = b'430' if selector.startswith('<') else b'423'
+                                        self.assertTrue(client.command(request).startswith(expected))
+                        first, overview = client.multiline('XOVER 1-3')
+                        self.assertTrue(first.startswith(b'420' if strict and not visible else b'224'))
+                        self.assertEqual([int(line.split(b'\t', 1)[0]) for line in overview.splitlines()], visible)
+                        _, listing = client.multiline('LIST ACTIVE')
+                        self.assertIn(f'private {high} {low} y\r\n'.encode(), listing)
+                        if name != 'alice':
+                            self.assertEqual(client.post(article('', group='private',
+                                extra='Control: cancel <3$private@JamNNTPd>\r\n')),
+                                b'441 Posting failed\r\n')
+                self.assertEqual(server.snapshot('private'), before)
+
+    def test_post_validation_and_transfer_encodings_preserve_storage_contract(self):
+        with Server() as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            valid = article()
+            rejected = [valid.replace(b'From: Alice <alice@example.org>\r\n', b''),
+                        valid.replace(b'Newsgroups: test\r\n', b''),
+                        valid.replace(b'Newsgroups: test', b'Newsgroups: test,local'),
+                        valid.replace(b'text/plain', b'text/html'),
+                        valid.replace(b'text/plain', b'multipart/mixed'),
+                        article(extra='Control: unsupported\r\n'),
+                        article(extra='References: <999$test@JamNNTPd>\r\n')]
+            headers = article('').split(b'\r\n\r\n', 1)[0]
+            rejected += [headers+b'\r\nContent-Transfer-Encoding: base64\r\n\r\n%%%\r\n',
+                         headers+b'\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n=QZ\r\n']
+            before = server.snapshot()
+            for raw in rejected:
+                with self.subTest(raw=raw[:70]):
+                    self.assertEqual(client.post(raw), b'441 Posting failed\r\n')
+                    self.assertEqual(server.snapshot(), before)
+            for index, (transfer, encoded) in enumerate([
+                    ('8bit', 'Н─│'.encode()), ('base64', base64.b64encode('Н─│'.encode())),
+                    ('quoted-printable', quopri.encodestring('Н─│'.encode())), ('7bit', b'ASCII')], 3):
+                wire = headers + f'\r\nContent-Transfer-Encoding: {transfer}\r\n\r\n'.encode() + encoded + b'\r\n'
+                self.assertEqual(client.post(wire), b'240 Article posted\r\n')
+                _, body = client.multiline(f'BODY <{index}$test@JamNNTPd>')
+                expected = b'ASCII' if transfer == '7bit' else 'Н─│'.encode()
+                self.assertIn(expected, body)
+                stored = server.message(index)[2]
+                self.assertIn(b'ASCII' if transfer == '7bit' else 'Н─│'.encode('cp866'), stored)
+                info = jam_oracle.base_header(server.snapshot()['.jhr'][:1024])
+                self.assertEqual(info[2], index-1)
+            client.close()
+            accepted = server.snapshot()
+            server.restart()
+            with server.client() as reopened:
+                for number in range(3, 7):
+                    self.assertTrue(reopened.command(f'STAT <{number}$test@JamNNTPd>').startswith(b'223'))
+            self.assertEqual(server.snapshot(), accepted)
+
+    def test_executable_cli_aliases_boundaries_and_immediate_create(self):
+        with tempfile.TemporaryDirectory(prefix='jam-cli-') as folder:
+            root = Path(folder)
+            output = root / 'конфигурация with spaces.cfg'
+            def run(*args):
+                return subprocess.run([OPTIONS.executable, *map(str, args)], cwd=root,
+                                      capture_output=True, timeout=4)
+            cases = [(alias, value) for alias, value in [('p', '0'), ('p', '65535'),
+                     ('m', '0'), ('m', '4294967295')]]
+            cases += [(alias, root / 'путь with spaces') for alias in ['a', 'g', 'u', 'x', 'l']]
+            for alias, value in cases:
+                with self.subTest(alias=alias, value=value):
+                    output.unlink(missing_ok=True)
+                    result = run('-'+alias, value, '-create', output, '-unknown-after-create')
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertIn('port 5000', output.read_text())
+            for args in [('-p', '65536'), ('-m', '4294967296'), ('-p', '-1'),
+                         ('-m', '1junk'), ('-unknown', 'x'), ('-p',), ('-config',), ('-create',)]:
+                with self.subTest(arguments=args):
+                    output.unlink(missing_ok=True)
+                    self.assertNotEqual(run(*args).returncode, 0)
+                    self.assertFalse(output.exists())
+            for help_option in ['?', '-h', '--help']:
+                self.assertEqual(run(help_option).returncode, 0)
+            self.assertNotEqual(run('-help').returncode, 0)
+            self.assertNotEqual(run('-config', root/'missing.cfg').returncode, 0)
+
+    def test_cancel_attribute_policy_and_repeated_cancel(self):
+        for attributes, allowed in [(0x01000001, True), (0x01000011, False),
+                                    (0x41000001, False), (0x01000000, False)]:
+            with self.subTest(attributes=attributes), \
+                 Server(recipe={'messages': 1, 'attributes': attributes}) as server, server.client() as client:
+                self.assertTrue(client.login().startswith(b'281'))
+                before = server.snapshot()
+                control = article('', extra='Control: cancel <1$test@JamNNTPd>\r\n')
+                response = client.post(control)
+                self.assertEqual(response, b'240 Article cancelled\r\n' if allowed else b'441 Posting failed\r\n')
+                if allowed:
+                    self.assertEqual(jam_oracle.indices(server.snapshot()['.jdx'])[0][1], 0xffffffff)
+                    cancelled = server.snapshot()
+                    self.assertEqual(client.post(control), b'441 Posting failed\r\n')
+                    self.assertEqual(server.snapshot(), cancelled)
+                else:
+                    self.assertEqual(server.snapshot(), before)
+        with Server(extra='nocancel\n') as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            self.assertTrue(client.post(article()).startswith(b'240'))
+            before = server.snapshot()
+            self.assertEqual(client.post(article('', extra='Control: cancel <3$test@JamNNTPd>\r\n')),
+                             b'441 Posting failed\r\n')
+            self.assertEqual(server.snapshot(), before)
+
+    def test_reply_chain_cancel_middle_first_last_over_tcp(self):
+        with Server() as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            self.assertEqual(client.post(article('root')), b'240 Article posted\r\n')
+            for number in [4, 5, 6]:
+                self.assertEqual(client.post(article(f'reply {number}',
+                    extra='References: <3$test@JamNNTPd>\r\n')), b'240 Article posted\r\n')
+                self.assertEqual(server.message(number)[0][4], 3)
+            self.assertEqual(server.message(3)[0][5], 4)
+            self.assertEqual(server.message(4)[0][6], 5)
+            self.assertEqual(server.message(5)[0][6], 6)
+            for cancelled, first_reply in [(5, 4), (4, 6), (6, 0)]:
+                self.assertEqual(client.post(article('',
+                    extra=f'Control: cancel <{cancelled}$test@JamNNTPd>\r\n')),
+                    b'240 Article cancelled\r\n')
+                self.assertEqual(server.message(3)[0][5], first_reply)
+                self.assertEqual(jam_oracle.indices(server.snapshot()['.jdx'])[cancelled-1][1], 0xffffffff)
+            self.assertEqual(jam_oracle.base_header(server.snapshot()['.jhr'][:1024])[2], 2)
+
+    def test_every_user_option_default_and_login_override_changes_observable_output(self):
+        for option in ['flowed', 'showto', 'nonbsp', 'delssq', 'addcr', 'squote']:
+            for enabled in [False, True]:
+                for source in ['default', 'login']:
+                    setting = 'on' if enabled else 'off'
+                    extra = f'def_{option} {setting}\n' if source == 'default' else ''
+                    if source == 'default' and option == 'squote':
+                        extra = 'smartquote\n' if enabled else ''
+                    with self.subTest(option=option, setting=setting, source=source), \
+                         Server(extra=extra) as server, server.client() as client:
+                        username = 'alice' + (f'/{option}={setting}' if source == 'login' else '')
+                        self.assertTrue(client.login(username).startswith(b'281'))
+                        body = {'nonbsp': ' Н', 'delssq': '>  quoted', 'squote': '> text'}.get(option, 'Body')
+                        raw = article(body, extra='References: <1$test@JamNNTPd>\r\n' if option == 'squote' else '')
+                        if option == 'delssq':
+                            raw = raw.replace(b'charset=UTF-8', b'charset=UTF-8; format=flowed')
+                        self.assertEqual(client.post(raw), b'240 Article posted\r\n')
+                        stored = server.message(3)[2]
+                        _, headers = client.multiline('HEAD <3$test@JamNNTPd>')
+                        if option == 'flowed':
+                            self.assertIn(b'format=flowed' if enabled else b'format=fixed', headers)
+                        elif option == 'showto':
+                            from_line = next(line for line in headers.splitlines() if line.startswith(b'From:'))
+                            self.assertEqual(b' -> All' in from_line, enabled)
+                        elif option == 'nonbsp':
+                            self.assertTrue(stored.startswith(b' \x8d' if enabled else b'\xff\x8d'))
+                        elif option == 'delssq':
+                            self.assertTrue(stored.startswith(b'> quoted\r' if enabled else b'>  quoted\r'))
+                        elif option == 'addcr':
+                            self.assertTrue(stored.startswith(b'Body\r\r---' if enabled else b'Body\r---'))
+                        elif option == 'squote':
+                            self.assertTrue(stored.startswith(b' A> text\r' if enabled else b'> text\r'))
+
+    def test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects(self):
+        names = ['debug', 'noecholog', 'nostripre', 'notearline', 'nocancel',
+                 'strictnetmail', 'readorigin', 'noreplyaddr', 'noencode', 'notzutc',
+                 'loggroups', 'note', 'smartquote']
+        combinations = [tuple(bool((row & column).bit_count() % 2) for column in range(1, 14))
+                        for row in range(16)]
+        # The 16-row binary orthogonal array covers each pair's four settings.
+        for left in range(len(names)):
+            for right in range(left):
+                self.assertEqual({(row[left], row[right]) for row in combinations},
+                                 {(False, False), (False, True), (True, False), (True, True)})
+        for settings in combinations:
+            enabled = {name for name, state in zip(names, settings) if state}
+            with self.subTest(flags=sorted(enabled)), \
+                 Server(flags=sorted(enabled), extra=lambda root: f'origin "Test origin"\nechomailjam "{root / "notify"}"\n') as server, server.client() as client:
+                self.assertTrue(client.login().startswith(b'281'))
+                self.assertTrue(client.command('GROUP test').startswith(b'211'))
+                self.assertEqual(client.post(article(subject='Re: Тема', extra='User-Agent: TestReader\r\n')),
+                                 b'240 Article posted\r\n')
+                _, fields, stored, kludges = server.message(3)
+                subject = ('Re: Тема' if 'nostripre' in enabled else 'Тема').encode('cp866')
+                self.assertEqual(fields[6], subject)
+                self.assertEqual(any(line.startswith(b'REPLYADDR ') for line in kludges), 'noreplyaddr' not in enabled)
+                self.assertEqual(any(line.startswith(b'TZUTC: ') for line in kludges), 'notzutc' not in enabled)
+                self.assertEqual(b'NOTE: TestReader' in kludges, 'note' in enabled)
+                self.assertIn(b'---\r' if 'notearline' in enabled else b'--- TestReader\r', stored)
+                self.assertIn(b' * Origin: Test origin (2:1/2)\r', stored)
+                self.assertIn(b'CHRS: CP866 2', kludges)
+                self.assertTrue(fields[4])  # independent stored MSGID
+                self.assertEqual(client.post(article('> quoted', extra='References: <3$test@JamNNTPd>\r\n')),
+                                 b'240 Article posted\r\n')
+                self.assertTrue(server.message(4)[2].startswith(b' A> quoted\r' if 'smartquote' in enabled else b'> quoted\r'))
+                _, headers = client.multiline('HEAD <3$test@JamNNTPd>')
+                subject_line = next(line for line in headers.splitlines() if line.startswith(b'Subject:'))
+                self.assertEqual(b'=?' in subject_line, 'noencode' not in enabled)
+                self.assertEqual(client.post(article('', extra='Control: cancel <3$test@JamNNTPd>\r\n')),
+                                 b'441 Posting failed\r\n' if 'nocancel' in enabled else b'240 Article cancelled\r\n')
+                client.close()
+                server.stop()
+                self.assertIn('test 3', (server.root/'notify').read_text())
+                log = (server.root/'log').read_text()
+                self.assertEqual('AUTHINFO [redacted]' in log, 'debug' in enabled)
+                self.assertEqual('Group selected: test' in log, 'loggroups' in enabled)
+                self.assertEqual(bool((server.root/'stdout').read_bytes()), 'noecholog' not in enabled)
+
+    def test_readorigin_guest_suffix_and_local_nochrs_group_flags(self):
+        recipe = {'messages': 1, 'origin': '2:1/2',
+                  'body': 'Body\r * Origin: Named (2:9/9)\r'}
+        for enabled in [False, True]:
+            with self.subTest(readorigin=enabled), Server(recipe=recipe,
+                 extra='readorigin\n' if enabled else '') as server, server.client() as client:
+                _, headers = client.multiline('HEAD <1$test@JamNNTPd>')
+                from_line = next(line for line in headers.splitlines() if line.startswith(b'From:'))
+                self.assertIn(b'<0@9.9.2>' if enabled else b'<0@2.1.2>', from_line)
+        with Server(extra='guestsuffix " [Guest]"\n') as server, server.client() as client:
+            self.assertEqual(client.post(article()), b'240 Article posted\r\n')
+            self.assertEqual(server.message(3)[1][2], b'Alice [Guest]')
+        with Server() as server:
+            groups = server.root/'groups'
+            groups.write_text(groups.read_text().replace('!CP866', '!CP866 -nochrs'))
+            with server.client() as client:
+                self.assertTrue(client.login().startswith(b'281'))
+                self.assertEqual(client.post(article(group='local')), b'240 Article posted\r\n')
+                fixed, _, body, kludges = server.message(3, 'local')
+                self.assertTrue(fixed[11] & 0x00800000)
+                self.assertFalse(any(value.startswith(b'CHRS:') for value in kludges))
+                self.assertNotIn(b' * Origin:', body)
+
+    def test_subject_final_byte_boundary_and_independent_mime_decode(self):
+        for length in [70, 71, 72]:
+            with self.subTest(length=length), Server() as server, server.client() as client:
+                self.assertTrue(client.login().startswith(b'281'))
+                before = server.snapshot()
+                response = client.post(article(subject='Н'*length))
+                if length > 71:
+                    self.assertEqual(response, b'441 Posting failed\r\n')
+                    self.assertEqual(server.snapshot(), before)
+                else:
+                    self.assertEqual(response, b'240 Article posted\r\n')
+                    self.assertEqual(server.message(3)[1][6], b'\x8d'*length)
+                    _, headers = client.multiline('HEAD <3$test@JamNNTPd>')
+                    message = email.message_from_bytes(headers)
+                    parts = email.header.decode_header(message['Subject'])
+                    decoded = ''.join(data.decode(charset or 'ascii') if isinstance(data, bytes) else data
+                                      for data, charset in parts)
+                    self.assertEqual(decoded, 'Н'*length)
+                    for word in re.findall(rb'=\?[^?]+\?[BQ]\?[^?]*\?=', headers):
+                        self.assertLessEqual(len(word), 75)
+
+    def test_truncated_text_base_rejects_post_without_reviving_old_article(self):
+        with Server() as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            (server.root/'test.jdt').write_bytes(b'')
+            self.assertEqual(client.command('STAT <1$test@JamNNTPd>'),
+                             b'503 Local error: Could not access messagebase\r\n')
+            before = server.snapshot()
+            self.assertEqual(client.post(article('Replacement payload')),
+                             b'503 Local error: Could not access messagebase\r\n')
+            self.assertEqual(server.snapshot(), before)
+            self.assertEqual(client.command('STAT <1$test@JamNNTPd>'),
+                             b'503 Local error: Could not access messagebase\r\n')
+
+    def test_alias_automatic_conversion_and_forced_group_precedence_over_tcp(self):
+        recipe = {'messages': 1, 'encodings': ['cp1251'], 'labels': ['PRIVATE1251']}
+        for forced in [False, True]:
+            with self.subTest(forced=forced), Server(recipe=recipe, force_charset=forced,
+                 xlat='readalias PRIVATE1251 WINDOWS-1251\n') as server, server.client() as client:
+                before = server.snapshot()
+                first, body = client.multiline('BODY <1$test@JamNNTPd>')
+                self.assertTrue(first.startswith(b'222'))
+                expected = 'Привет' if not forced else 'Привет'.encode('cp1251').decode('cp866')
+                self.assertIn(expected.encode(), body)
+                self.assertEqual(server.snapshot(), before)
+        with Server(recipe=recipe, force_charset=False, xlat='') as server, server.client() as client:
+            before = server.snapshot()
+            self.assertEqual(client.command('BODY <1$test@JamNNTPd>'), b'430 No such article found\r\n')
+            self.assertEqual(server.snapshot(), before)
+
+    def test_admission_at_max_minus_one_max_and_max_plus_one(self):
+        for maximum in [0, 1, 2, 8]:
+            with self.subTest(maximum=maximum), Server(extra=f'max {maximum}\n') as server:
+                with contextlib.ExitStack() as stack:
+                    accepted = []
+                    for _ in range(maximum):
+                        client = stack.enter_context(server.client())
+                        self.assertTrue(client.greeting.startswith(b'200'))
+                        accepted.append(client)
+                    with server.client() as rejected:
+                        self.assertTrue(rejected.greeting.startswith(b'502'))
+                    for client in accepted:
+                        self.assertEqual(client.command('QUIT'), b'205 Goodbye\r\n')
+                if maximum:
+                    deadline = time.monotonic()+2
+                    while True:
+                        with server.client() as replacement:
+                            if replacement.greeting.startswith(b'200'):
+                                break
+                        self.assertLess(time.monotonic(), deadline, 'Session lease did not release')
+                        time.sleep(.01)
+
+    def test_parallel_writes_to_one_and_two_bases_keep_records_and_values_distinct(self):
+        for second_group in ['test', 'local']:
+            with self.subTest(second_group=second_group), Server() as server, \
+                 server.client() as first, server.client() as second:
+                self.assertTrue(first.login().startswith(b'281'))
+                self.assertTrue(second.login().startswith(b'281'))
+                gate = threading.Barrier(2)
+                def post(client, group, prefix):
+                    for index in range(4):
+                        gate.wait(timeout=4)
+                        result = client.post(article(f'{prefix}-{index}', group=group))
+                        if result != b'240 Article posted\r\n':
+                            raise AssertionError(result)
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    tasks = [pool.submit(post, first, 'test', 'first'),
+                             pool.submit(post, second, second_group, 'second')]
+                    for task in tasks:
+                        task.result(timeout=12)
+                messages, identifiers = [], []
+                for group, count in [('test', 8 if second_group == 'test' else 4),
+                                     ('local', 0 if second_group == 'test' else 4)]:
+                    snapshot = server.snapshot(group)
+                    self.assertEqual(len(jam_oracle.indices(snapshot['.jdx'])), 2+count)
+                    self.assertEqual(jam_oracle.base_header(snapshot['.jhr'][:1024])[2], 1+count)
+                    for number in range(3, 3+count):
+                        _, fields, body, _ = server.message(number, group)
+                        messages.append(body.split(b'\r', 1)[0])
+                        identifiers.append(fields[4])
+                self.assertEqual(set(messages), {f'{name}-{i}'.encode() for name in ['first', 'second'] for i in range(4)})
+                self.assertEqual(len(set(identifiers)), 8)
+
+    def test_native_shutdown_in_connection_read_post_and_external_lock_phases(self):
+        signals = [signal.CTRL_BREAK_EVENT] if os.name == 'nt' else [signal.SIGINT, signal.SIGTERM]
+        for termination in signals:
+            for phase in ['connection', 'read', 'post', 'lock']:
+                with self.subTest(signal=termination, phase=phase), Server() as server:
+                    before = server.snapshot()
+                    with (server.root/'test.jhr').open('r+b', buffering=0) as header:
+                        with byte_lock(header) if phase == 'lock' else contextlib.nullcontext():
+                            if phase == 'connection':
+                                connection = socket.create_connection(('127.0.0.1', server.port), timeout=4)
+                                client = RawClient(connection)
+                            else:
+                                client = server.raw_client()
+                            try:
+                                if phase == 'read':
+                                    client.send(b'GROUP test\r\nHEAD 1\r\n')
+                                elif phase in ['post', 'lock']:
+                                    client.send(b'POST\r\n')
+                                    client.reply(340)
+                                    client.send(article('uncommitted') + (b'.\r\n' if phase == 'lock' else b''))
+                                    if phase == 'lock':
+                                        client.assert_quiet(.05)
+                                beginning = time.monotonic()
+                                server.process.send_signal(termination)
+                                server.process.wait(timeout=8)
+                                self.assertLess(time.monotonic()-beginning, 8)
+                                server.stop()
+                            finally:
+                                client.close()
+                    self.assertEqual(server.snapshot(), before)
+                    self.assertIn('All workers joined; server stopped', (server.root/'log').read_text())
+
+    def test_independent_corpus_variants_over_real_tcp(self):
+        for name, recipe in json.loads(jam_corpus.RECIPES.read_text()).items():
+            with self.subTest(recipe=name), Server(recipe=recipe, force_charset=False) as server, server.raw_client() as client:
+                before = server.snapshot()
+                client.send(b'GROUP test\r\n')
+                client.reply(211)
+                for number in range(1, recipe['messages']+1):
+                    client.send(f'ARTICLE {number}\r\n'.encode())
+                    if number in recipe.get('deleted', []):
+                        client.reply(423)
+                    else:
+                        response = client.reply(220, multiline=True)
+                        self.assertIn(f'Corpus {number}: Привет'.encode(), response)
+                        self.assertIn(b'..line\r\n', response)
+                self.assertEqual(server.snapshot(), before)
+                client.send(b'QUIT\r\n')
+                client.reply(205)
+                self.assertEqual(client.socket.recv(1), b'')
+
     def test_independent_tosser_and_consistent_backup_restore(self):
         with Server() as server:
             server.stop()
@@ -124,24 +868,11 @@ class NntpEndToEnd(unittest.TestCase):
             subprocess.run([sys.executable, str(Path(__file__).with_name('fake_tosser.py')),
                             str(server.root / 'test')], check=True, timeout=5)
             self.assertIn('Н─│'.encode('cp866'), server.message(3)[2])
+            imported_lastread = backup['.jlr'] + b''.join(value.to_bytes(4, 'little')
+                for value in [0x12345678, 42, 3, 3])
+            (server.root/'test.jlr').write_bytes(imported_lastread)
             # Start the same executable/config against the independent imported files.
-            def restart():
-                (server.root / 'log').unlink(missing_ok=True)
-                server.stdout = (server.root / 'stdout').open('wb')
-                server.stderr = (server.root / 'stderr').open('wb')
-                options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {}
-                server.process = subprocess.Popen([OPTIONS.executable, '-config', str(server.config)],
-                    stdout=server.stdout, stderr=server.stderr, **options)
-                deadline = time.monotonic() + 10
-                while time.monotonic() < deadline:
-                    self.assertIsNone(server.process.poll())
-                    log = server.root / 'log'
-                    ready = re.search(r'Listening on port (\d+)', log.read_text() if log.exists() else '')
-                    if ready:
-                        server.port = int(ready.group(1))
-                        return
-                    time.sleep(.02)
-                self.fail('restart timed out')
+            restart = server.restart
             restart()
             with server.client() as client:
                 self.assertTrue(client.command('GROUP test').startswith(b'211 3 1 3'))
@@ -151,6 +882,9 @@ class NntpEndToEnd(unittest.TestCase):
                 self.assertTrue(client.login().startswith(b'281'))
                 self.assertTrue(client.post(article('after import')).startswith(b'240'))
                 self.assertIn(b'after import', server.message(4)[2])
+                self.assertEqual((server.root/'test.jlr').read_bytes(), imported_lastread)
+                self.assertEqual([jam_oracle.uint(imported_lastread[-16:], i, 4)
+                                  for i in range(0, 16, 4)], [0x12345678, 42, 3, 3])
             server.stop()
             for suffix, data in backup.items():
                 (server.root / ('test' + suffix)).write_bytes(data)
@@ -414,5 +1148,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--executable', required=True)
     parser.add_argument('--fixtures', required=True, type=Path)
+    parser.add_argument('--junit', type=Path)
     OPTIONS, rest = parser.parse_known_args()
-    unittest.main(argv=[__file__, *rest])
+    program = unittest.main(argv=[__file__, *rest], exit=False,
+                            testRunner=unittest.TextTestRunner(resultclass=JUnitResult))
+    if OPTIONS.junit is not None:
+        program.result.write(OPTIONS.junit)
+    sys.exit(0 if program.result.wasSuccessful() else 1)

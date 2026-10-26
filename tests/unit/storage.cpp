@@ -646,3 +646,121 @@ TEST_CASE("Published extent validation observes stop between records before any 
         CHECK(contents(directory, suffix) == before.at(index++));
     }
 }
+
+TEST_CASE("Truncated companion records fail their readers without altering any JAM file") {
+    for (const auto *extension : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        const std::string_view suffix{extension};
+        std::filesystem::resize_file(directory.file(std::string{"base"} + extension),
+                                     suffix == ".jhr" ? jam::base_size - 1 : 1);
+        std::vector<std::string> before;
+        for (const auto *part : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+            before.push_back(contents(directory, part));
+        }
+        const auto storage = jam::Storage::open(base);
+        if (suffix == ".jhr" || suffix == ".jdx") {
+            CHECK_FALSE(storage);
+        } else {
+            REQUIRE(storage);
+            if (suffix == ".jlr") {
+                CHECK_FALSE(storage->lastread(0xffffffffU));
+            } else {
+                CHECK_FALSE(storage->read(1));
+            }
+        }
+        std::size_t index = 0;
+        for (const auto *part : {".jhr", ".jdt", ".jdx", ".jlr"}) {
+            CHECK(contents(directory, part) == before.at(index++));
+        }
+    }
+}
+
+TEST_CASE("Rollback resize failure quarantines the base before any further append",
+          "[quarantine]") {
+    // Retain the directories so quarantined filesystem identities cannot be recycled mid-test.
+    std::vector<std::unique_ptr<TempDirectory>> directories;
+    for (std::size_t failure_index = 1; failure_index <= 3; ++failure_index) {
+        directories.push_back(std::make_unique<TempDirectory>());
+        const auto base = copy_base(*directories.back());
+        bool armed = false;
+        std::size_t writes{}, resizes{};
+        const auto storage = jam::Storage::open(base, {.fail_io = [&](jam::IoEvent event) -> bool {
+                                                    if (!armed) {
+                                                        return false;
+                                                    }
+                                                    if (event == jam::IoEvent::write) {
+                                                        return ++writes == 2;
+                                                    }
+                                                    if (event == jam::IoEvent::resize) {
+                                                        return ++resizes == failure_index;
+                                                    }
+                                                    return false;
+                                                }});
+        REQUIRE(storage);
+        armed = true;
+        const auto result = storage->append(message());
+        REQUIRE_FALSE(result);
+        CHECK(result.error().kind == ErrorKind::corrupt);
+        CHECK(resizes == 3);
+        armed = false;
+        CHECK_FALSE(storage->append(message()));
+        CHECK_FALSE(jam::Storage::open(base));
+    }
+}
+
+TEST_CASE("Published header corruption is rejected before append can conceal it") {
+    for (int kind = 0; kind < 9; ++kind) {
+        TempDirectory directory;
+        const auto base = copy_base(directory);
+        const auto storage = jam::Storage::open(base);
+        REQUIRE(storage);
+        auto headers = contents(directory, ".jhr");
+        auto indices = contents(directory, ".jdx");
+        if (kind == 0) {
+            headers.at(1024) = 'X';
+        } else if (kind == 1) {
+            headers.at(1028) = 2;
+        } else if (kind == 2) {
+            headers.at(1072) = 9;
+        } else if (kind < 6) {
+            const auto offset = kind == 3 ? 1032U : (kind == 4 ? 1084U : 1088U);
+            headers.replace(offset, 4, std::string(4, '\xff'));
+        } else {
+            const auto offset =
+                kind == 6
+                    ? 10U
+                    : (kind == 7 ? 0xffffffffU : static_cast<std::uint32_t>(headers.size() - 1));
+            if (kind == 7) {
+                indices.replace(0, 4, std::string(4, '\0'));
+            }
+            for (unsigned int byte = 0; byte < 4; ++byte) {
+                indices.at(4 + byte) = static_cast<char>((offset >> (byte * 8U)) & 255U);
+            }
+        }
+        directory.write("base.jhr", headers);
+        directory.write("base.jdx", indices);
+        const auto old_text = contents(directory, ".jdt");
+        const auto old_lastread = contents(directory, ".jlr");
+        const auto result = storage->append(message());
+        REQUIRE_FALSE(result);
+        CHECK(result.error().kind == ErrorKind::corrupt);
+        CHECK(contents(directory, ".jhr") == headers);
+        CHECK(contents(directory, ".jdx") == indices);
+        CHECK(contents(directory, ".jdt") == old_text);
+        CHECK(contents(directory, ".jlr") == old_lastread);
+    }
+}
+
+TEST_CASE("An indexed deleted header does not prevent later valid publication") {
+    TempDirectory directory;
+    const auto storage = jam::Storage::open(copy_base(directory));
+    REQUIRE(storage);
+    auto tombstone = message();
+    tombstone.header.attributes |= jam::deleted;
+    REQUIRE(storage->append(tombstone) == 3);
+    REQUIRE(storage->append(message()) == 4);
+    CHECK_FALSE(storage->read(3));
+    CHECK(storage->read(4)->text == "New text\r");
+    CHECK(storage->info()->header.active == 2);
+}

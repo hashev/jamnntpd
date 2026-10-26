@@ -1,0 +1,46 @@
+Test project /Users/yurik/Projects/jamnntpd/build/debug
+      Start  1: server-stress
+ 1/10 Test  #1: server-stress ....................   Passed   14.77 sec
+      Start  2: server-e2e
+ 2/10 Test  #2: server-e2e .......................***Failed   16.47 sec
+..........s.......................F
+======================================================================
+FAIL: test_truncated_text_base_rejects_post_without_reviving_old_article (__main__.NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/yurik/Projects/jamnntpd/tests/integration/test_server.py", line 734, in test_truncated_text_base_rejects_post_without_reviving_old_article
+    self.assertEqual(client.post(article('Replacement payload')),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     b'503 Local error: Could not access messagebase\r\n')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'240 Article posted\r\n' != b'503 Local error: Could not access messagebase\r\n'
+
+----------------------------------------------------------------------
+Ran 35 tests in 16.382s
+
+FAILED (failures=1, skipped=1)
+
+      Start  3: lifecycle-native
+ 3/10 Test  #3: lifecycle-native .................   Passed    0.06 sec
+      Start  4: storage-process-lock
+ 4/10 Test  #4: storage-process-lock .............   Passed    0.17 sec
+      Start  5: makechs-cli
+ 5/10 Test  #5: makechs-cli ......................   Passed    0.10 sec
+      Start  6: unit
+ 6/10 Test  #6: unit .............................   Passed    0.23 sec
+      Start  7: storage-quarantine
+ 7/10 Test  #7: storage-quarantine ...............   Passed    0.01 sec
+      Start  8: storage-quarantine-reopen
+ 8/10 Test  #8: storage-quarantine-reopen ........   Passed    0.01 sec
+      Start  9: timezone-native
+ 9/10 Test  #9: timezone-native ..................   Passed    0.01 sec
+      Start 10: baseline
+10/10 Test #10: baseline .........................   Passed    0.35 sec
+
+90% tests passed, 1 tests failed out of 10
+
+Total Test time (real) =  32.18 sec
+
+The following tests FAILED:
+	  2 - server-e2e (Failed)
+Errors while running CTest

@@ -29,6 +29,10 @@ or power-loss transaction guarantee is provided. See [storage](docs/migration/st
 Migration acceptance status: [verification](docs/migration/verification.md).
 The completed native/sanitizer/coverage matrix and documented limitations are recorded there.
 
+The ongoing [functional acceptance campaign](docs/testing/plan.md) adds traceability,
+independent raw TCP/JAM checks, seeded replay and opt-in native load/idle profiles.
+Its completion is tracked separately from the historical migration acceptance.
+
 ## Historical project documentation and changelog
 
 # JamNNTPd (updated version)

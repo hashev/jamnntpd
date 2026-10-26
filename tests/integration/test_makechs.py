@@ -2,14 +2,48 @@ import argparse
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'baseline'))
+import chs_oracle
+from junit_result import JUnitResult
 
 
 class MakeChsCli(unittest.TestCase):
     def run_cli(self, *arguments):
         return subprocess.run([OPTIONS.executable, *map(str, arguments)],
                               capture_output=True, timeout=10, check=False)
+
+    def test_generated_tables_are_verified_by_independent_parser(self):
+        with tempfile.TemporaryDirectory(prefix='jam-map-oracle-') as temporary:
+            root = Path(temporary)
+            source, target, table = root/'source.map', root/'target.map', root/'out.chs'
+            source.write_text('0x8D 0x041D\n0xFF 0x1F600\n')
+            generated = self.run_cli('CP866', 'UTF-8', source)
+            self.assertEqual(generated.returncode, 0, generated.stderr)
+            table.write_bytes(generated.stdout)
+            mapping = chs_oracle.read_table(table)
+            self.assertEqual(chs_oracle.translate(mapping, b'A\x8d\xff'), 'AН😀'.encode())
+            source.write_text('0x41 0x0041\n0x42 0x0042\n')
+            target.write_text('0x41 0x0042\n0x42 0x0041\n')
+            generated = self.run_cli('SOURCE', 'DEST', source, target)
+            self.assertEqual(generated.returncode, 0, generated.stderr)
+            table.write_bytes(generated.stdout)
+            self.assertEqual(chs_oracle.translate(chs_oracle.read_table(table), b'AB'), b'BA')
+            generated = self.run_cli('SOURCE', 'SOURCE', source, source)
+            self.assertEqual(generated.returncode, 0, generated.stderr)
+            table.write_bytes(generated.stdout)
+            self.assertEqual(chs_oracle.translate(chs_oracle.read_table(table), b'A\x80\xff'), b'A\x80\xff')
+            for invalid in ['0x100 0x0041\n', '0x80 0x110000\n',
+                            '0x80 0xD800\n', '0x80 garbage\n', 'incomplete\n']:
+                with self.subTest(invalid=invalid):
+                    source.write_text(invalid)
+                    result = self.run_cli('SOURCE', 'UTF-8', source)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(result.stdout, b'')
 
     def test_utf8_generation_and_errors(self):
         with tempfile.TemporaryDirectory(prefix='jamnntpd-map-') as temporary:
@@ -43,5 +77,10 @@ class MakeChsCli(unittest.TestCase):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--executable', required=True)
+    parser.add_argument('--junit', type=Path)
     OPTIONS, remainder = parser.parse_known_args()
-    unittest.main(argv=[__file__, *remainder])
+    program = unittest.main(argv=[__file__, *remainder], exit=False,
+                            testRunner=unittest.TextTestRunner(resultclass=JUnitResult))
+    if OPTIONS.junit is not None:
+        program.result.write(OPTIONS.junit)
+    sys.exit(0 if program.result.wasSuccessful() else 1)

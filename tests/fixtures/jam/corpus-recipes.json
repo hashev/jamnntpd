@@ -1,0 +1,8 @@
+{
+  "empty": {"messages": 0},
+  "single": {"messages": 1},
+  "deleted": {"messages": 2, "deleted": [1, 2]},
+  "gapped": {"messages": 5, "deleted": [2, 4]},
+  "mixed": {"messages": 4, "encodings": ["cp866", "cp1251", "koi8_r"], "unknown_subfield": true},
+  "lastread": {"messages": 3, "lastread": true}
+}

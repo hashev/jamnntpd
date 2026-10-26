@@ -1,0 +1,17 @@
+test_truncated_text_base_rejects_post_without_reviving_old_article (__main__.NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article) ... FAIL
+
+======================================================================
+FAIL: test_truncated_text_base_rejects_post_without_reviving_old_article (__main__.NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/yurik/Projects/jamnntpd/tests/integration/test_server.py", line 734, in test_truncated_text_base_rejects_post_without_reviving_old_article
+    self.assertEqual(client.post(article('Replacement payload')),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     b'503 Local error: Could not access messagebase\r\n')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'240 Article posted\r\n' != b'503 Local error: Could not access messagebase\r\n'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.037s
+
+FAILED (failures=1)

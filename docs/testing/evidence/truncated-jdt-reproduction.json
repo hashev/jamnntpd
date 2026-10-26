@@ -1,0 +1,12 @@
+{
+  "source_revision": "01d7bc266fddac4ed6c770a19361fb7d50c56b50",
+  "production_dirty": false,
+  "fixture": "disposable sample copy",
+  "stat_before": "503 Local error: Could not access messagebase\r\n",
+  "post_response": "240 Article posted\r\n",
+  "stat_after": "223 1 <1$test@JamNNTPd> Article retrieved\r\n",
+  "original_body_hex": "48656c6c6f0d2e576f726c640d",
+  "body_after_post_hex": "5265706c6163656d656e742070",
+  "wire_body_hex": "5265706c6163656d656e7420700d0a",
+  "test_changes": "uncommitted acceptance tests"
+}

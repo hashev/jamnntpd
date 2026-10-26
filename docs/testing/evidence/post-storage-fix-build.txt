@@ -1,0 +1,55 @@
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/yurik/Projects/jamnntpd/build/debug
+[  2%] Building CXX object CMakeFiles/jam_core.dir/src/core/server.cpp.o
+[  4%] Building CXX object CMakeFiles/jam_core.dir/src/core/backend.cpp.o
+[  6%] Building CXX object CMakeFiles/jam_core.dir/src/core/ftn.cpp.o
+[  8%] Building CXX object CMakeFiles/jam_core.dir/src/core/post_builder.cpp.o
+[ 10%] Building CXX object CMakeFiles/jam_core.dir/src/core/text.cpp.o
+[ 13%] Building CXX object CMakeFiles/jam_core.dir/src/core/jam_format.cpp.o
+[ 15%] Building CXX object CMakeFiles/jam_core.dir/src/core/session.cpp.o
+[ 17%] Building CXX object CMakeFiles/jam_core.dir/src/core/signals.cpp.o
+[ 19%] Building CXX object CMakeFiles/jam_core.dir/src/core/workers.cpp.o
+[ 21%] Building CXX object CMakeFiles/jam_core.dir/src/core/message_values.cpp.o
+[ 23%] Building CXX object CMakeFiles/jam_core.dir/src/core/formatting.cpp.o
+[ 26%] Building CXX object CMakeFiles/jam_core.dir/src/core/charset_rules.cpp.o
+[ 28%] Building CXX object CMakeFiles/jam_core.dir/src/core/codec.cpp.o
+[ 30%] Building CXX object CMakeFiles/jam_core.dir/src/core/config.cpp.o
+[ 32%] Building CXX object CMakeFiles/jam_core.dir/src/core/storage.cpp.o
+[ 34%] Building CXX object CMakeFiles/jam_core.dir/src/core/network.cpp.o
+[ 36%] Building CXX object CMakeFiles/jam_core.dir/src/core/map_generator.cpp.o
+[ 39%] Building CXX object CMakeFiles/jam_core.dir/src/core/mime.cpp.o
+[ 41%] Building CXX object CMakeFiles/jam_core.dir/src/core/logging.cpp.o
+[ 43%] Linking CXX static library libjam_core.a
+[ 43%] Built target jam_core
+[ 50%] Building CXX object CMakeFiles/jam_lifecycle_probe.dir/tests/integration/lifecycle_probe.cpp.o
+[ 50%] Building CXX object CMakeFiles/makechs.dir/src/makechs.cpp.o
+[ 50%] Building CXX object CMakeFiles/jamnntpd.dir/src/jamnntpd.cpp.o
+[ 52%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/ftn.cpp.o
+[ 54%] Linking CXX executable makechs
+[ 56%] Linking CXX executable jamnntpd
+[ 58%] Linking CXX executable jam_lifecycle_probe
+[ 58%] Built target makechs
+[ 58%] Built target jamnntpd
+[ 60%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/backend.cpp.o
+[ 63%] Building CXX object CMakeFiles/jam_storage_probe.dir/tests/integration/storage_probe.cpp.o
+[ 63%] Built target jam_lifecycle_probe
+[ 65%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/session.cpp.o
+[ 67%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/workers.cpp.o
+[ 69%] Linking CXX executable jam_storage_probe
+[ 69%] Built target jam_storage_probe
+[ 71%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/message_values.cpp.o
+[ 73%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/formatting.cpp.o
+[ 76%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/charset_rules.cpp.o
+[ 78%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/text.cpp.o
+[ 80%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/jam_format.cpp.o
+[ 82%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/codec.cpp.o
+[ 84%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/config.cpp.o
+[ 86%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/storage.cpp.o
+[ 89%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/network.cpp.o
+[ 91%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/map_generator.cpp.o
+[ 93%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/mime.cpp.o
+[ 95%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/logging.cpp.o
+[ 97%] Building CXX object CMakeFiles/jam_unit.dir/tests/unit/corpus.cpp.o
+[100%] Linking CXX executable jam_unit
+[100%] Built target jam_unit

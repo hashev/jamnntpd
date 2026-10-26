@@ -45,6 +45,14 @@
       "cacheVariables": {
         "JAM_COVERAGE": "ON"
       }
+    },
+    {
+      "name": "extended",
+      "inherits": "debug",
+      "binaryDir": "${sourceDir}/build/extended",
+      "cacheVariables": {
+        "JAM_EXTENDED_TESTS": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -71,6 +79,11 @@
     {
       "name": "coverage",
       "configurePreset": "coverage",
+      "configuration": "Debug"
+    },
+    {
+      "name": "extended",
+      "configurePreset": "extended",
       "configuration": "Debug"
     }
   ],
@@ -117,6 +130,19 @@
         "outputOnFailure": true
       },
       "configuration": "Debug"
+    },
+    {
+      "name": "extended",
+      "configurePreset": "extended",
+      "configuration": "Debug",
+      "environment": {
+        "JAM_TEST_CASES": "10000",
+        "JAM_MODEL_SESSIONS": "1000",
+        "JAM_TEST_SEED": "20261026"
+      },
+      "output": {
+        "outputOnFailure": true
+      }
     }
   ]
 }

@@ -1,0 +1,1923 @@
+{
+  "version": 1,
+  "revision": null,
+  "scenarios": [
+    {
+      "id": "TRACE-001",
+      "features": [
+        "alias:a"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:a at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-002",
+      "features": [
+        "alias:g"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:g at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-003",
+      "features": [
+        "alias:l"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:l at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-004",
+      "features": [
+        "alias:m"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:m at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-005",
+      "features": [
+        "alias:p"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:p at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-006",
+      "features": [
+        "alias:u"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:u at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-007",
+      "features": [
+        "alias:x"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise alias:x at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-008",
+      "features": [
+        "command:ARTICLE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue ARTICLE with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for ARTICLE",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-009",
+      "features": [
+        "command:AUTHINFO"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue AUTHINFO with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for AUTHINFO",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-010",
+      "features": [
+        "command:BODY"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue BODY with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for BODY",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-011",
+      "features": [
+        "command:GROUP"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue GROUP with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for GROUP",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-012",
+      "features": [
+        "command:HEAD"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue HEAD with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for HEAD",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-013",
+      "features": [
+        "command:HELP"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue HELP with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for HELP",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-014",
+      "features": [
+        "command:IHAVE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue IHAVE with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for IHAVE",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-015",
+      "features": [
+        "command:LAST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue LAST with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for LAST",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-016",
+      "features": [
+        "command:LIST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue LIST with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for LIST",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-017",
+      "features": [
+        "command:MODE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue MODE with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for MODE",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-018",
+      "features": [
+        "command:NEWGROUPS"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue NEWGROUPS with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEWGROUPS",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-019",
+      "features": [
+        "command:NEWNEWS"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue NEWNEWS with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEWNEWS",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-020",
+      "features": [
+        "command:NEXT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue NEXT with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEXT",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-021",
+      "features": [
+        "command:POST"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue POST with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for POST",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-022",
+      "features": [
+        "command:QUIT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue QUIT with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for QUIT",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-023",
+      "features": [
+        "command:SLAVE"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue SLAVE with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for SLAVE",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-024",
+      "features": [
+        "command:STAT"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue STAT with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for STAT",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-025",
+      "features": [
+        "command:XOVER"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Issue XOVER with valid, missing, invalid and boundary arguments in applicable states",
+      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for XOVER",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_empty_group_current_article_and_session_isolation"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-026",
+      "features": [
+        "option:addcr"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:addcr at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-027",
+      "features": [
+        "option:allow"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:allow at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-028",
+      "features": [
+        "option:config"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:config at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-029",
+      "features": [
+        "option:conversion_errors"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:conversion_errors at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-030",
+      "features": [
+        "option:create"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:create at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-031",
+      "features": [
+        "option:debug"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:debug at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-032",
+      "features": [
+        "option:def_addcr"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:def_addcr at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-033",
+      "features": [
+        "option:def_delssq"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:def_delssq at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-034",
+      "features": [
+        "option:def_flowed"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:def_flowed at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-035",
+      "features": [
+        "option:def_nonbsp"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:def_nonbsp at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-036",
+      "features": [
+        "option:def_showto"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:def_showto at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-038",
+      "features": [
+        "option:delssq"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:delssq at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-039",
+      "features": [
+        "option:echomailjam"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:echomailjam at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-040",
+      "features": [
+        "option:flowed"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:flowed at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-041",
+      "features": [
+        "option:groups"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:groups at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-042",
+      "features": [
+        "option:guestsuffix"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:guestsuffix at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-043",
+      "features": [
+        "option:help"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:help at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-044",
+      "features": [
+        "option:logfile"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:logfile at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-045",
+      "features": [
+        "option:loggroups"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:loggroups at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-046",
+      "features": [
+        "option:max"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:max at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-047",
+      "features": [
+        "option:nocancel"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:nocancel at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-048",
+      "features": [
+        "option:noecholog"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:noecholog at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-049",
+      "features": [
+        "option:noencode"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:noencode at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-050",
+      "features": [
+        "option:nonbsp"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:nonbsp at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-051",
+      "features": [
+        "option:noreplyaddr"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:noreplyaddr at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-052",
+      "features": [
+        "option:nostripre"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:nostripre at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-053",
+      "features": [
+        "option:note"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:note at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-054",
+      "features": [
+        "option:notearline"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:notearline at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-055",
+      "features": [
+        "option:notzutc"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:notzutc at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-056",
+      "features": [
+        "option:origin"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:origin at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-057",
+      "features": [
+        "option:port"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:port at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-058",
+      "features": [
+        "option:readorigin"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:readorigin at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-059",
+      "features": [
+        "option:showto"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:showto at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-060",
+      "features": [
+        "option:smartquote"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:smartquote at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-061",
+      "features": [
+        "option:squote"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:squote at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-062",
+      "features": [
+        "option:strictnetmail"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:strictnetmail at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-063",
+      "features": [
+        "option:users"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:users at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-064",
+      "features": [
+        "option:xlat"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Exercise option:xlat at default, enabled/disabled or valid/invalid values and applicable boundaries",
+      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-065",
+      "features": [
+        "requirement:jam-storage/Coordinated base access"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Coordinated base access; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-066",
+      "features": [
+        "requirement:jam-storage/Portable JAM format"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Portable JAM format; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-067",
+      "features": [
+        "requirement:jam-storage/Validate data and report write failures"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Validate data and report write failures; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes",
+        "tests/integration/test_server.py::NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "reason": "JAM-01 fixed in 2e068aa; local regression passes, full native acceptance pending",
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-068",
+      "features": [
+        "requirement:nntp-service/Authorization and netmail privacy"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Authorization and netmail privacy; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "critical"
+    },
+    {
+      "id": "TRACE-069",
+      "features": [
+        "requirement:nntp-service/Coordinated service lifetime"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Coordinated service lifetime; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-070",
+      "features": [
+        "requirement:nntp-service/Existing client contracts"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Existing client contracts; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-071",
+      "features": [
+        "requirement:nntp-service/Reliable bounded input and output"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Reliable bounded input and output; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-072",
+      "features": [
+        "requirement:service-logging/Concurrent diagnostic records"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Concurrent diagnostic records; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-073",
+      "features": [
+        "requirement:service-logging/Credential redaction"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Credential redaction; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-074",
+      "features": [
+        "requirement:service-logging/Logging failure isolation"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Logging failure isolation; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-075",
+      "features": [
+        "requirement:text-transcoding/Bidirectional standard encodings"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Bidirectional standard encodings; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-076",
+      "features": [
+        "requirement:text-transcoding/Custom CHS compatibility"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Custom CHS compatibility; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-077",
+      "features": [
+        "requirement:text-transcoding/Explicit conversion failures"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Explicit conversion failures; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-078",
+      "features": [
+        "requirement:text-transcoding/Explicit rule semantics"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Explicit rule semantics; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "TRACE-079",
+      "features": [
+        "requirement:text-transcoding/Unicode-safe MIME and formatting"
+      ],
+      "variant": "normal/rejection/boundary/state",
+      "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
+      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
+      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Unicode-safe MIME and formatting; independent oracle required",
+      "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "planned",
+      "evidence": [],
+      "risk": "normal"
+    },
+    {
+      "id": "UTIL-MAKECHS",
+      "features": [
+        "utility:makechs"
+      ],
+      "variant": "valid generation, supplementary Unicode, ASCII override, identity, fallback and invalid maps",
+      "preconditions": "Private temporary mapping files; native makechs executable",
+      "input": "Generate UTF-8 and custom tables; repeat with malformed and missing maps",
+      "expected": "Independent CHS interpreter sees exact mappings; invalid maps return nonzero with no table",
+      "oracle": "Independent CHS parser and known Unicode vectors",
+      "level": "unit+e2e",
+      "selectors": [
+        "tests/integration/test_makechs.py::MakeChsCli.test_generated_tables_are_verified_by_independent_parser",
+        "tests/integration/test_makechs.py::MakeChsCli.test_utf8_generation_and_errors"
+      ],
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "normal"
+    }
+  ]
+}

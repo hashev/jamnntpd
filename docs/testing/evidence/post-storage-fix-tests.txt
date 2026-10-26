@@ -1,0 +1,25 @@
+Test project /Users/yurik/Projects/jamnntpd/build/debug
+      Start  1: server-stress
+ 1/10 Test  #1: server-stress ....................   Passed   15.41 sec
+      Start  2: server-e2e
+ 2/10 Test  #2: server-e2e .......................   Passed    4.05 sec
+      Start  3: lifecycle-native
+ 3/10 Test  #3: lifecycle-native .................   Passed    0.38 sec
+      Start  4: storage-process-lock
+ 4/10 Test  #4: storage-process-lock .............   Passed    0.49 sec
+      Start  5: makechs-cli
+ 5/10 Test  #5: makechs-cli ......................   Passed    0.40 sec
+      Start  6: unit
+ 6/10 Test  #6: unit .............................   Passed    0.58 sec
+      Start  7: storage-quarantine
+ 7/10 Test  #7: storage-quarantine ...............   Passed    0.01 sec
+      Start  8: storage-quarantine-reopen
+ 8/10 Test  #8: storage-quarantine-reopen ........   Passed    0.01 sec
+      Start  9: timezone-native
+ 9/10 Test  #9: timezone-native ..................   Passed    0.01 sec
+      Start 10: baseline
+10/10 Test #10: baseline .........................   Passed    0.04 sec
+
+100% tests passed out of 10
+
+Total Test time (real) =  21.37 sec
