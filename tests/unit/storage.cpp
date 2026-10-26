@@ -1,4 +1,5 @@
 #include "core/storage.hpp"
+#include "core/storage_mutex.hpp"
 #include "temp_directory.hpp"
 #include <array>
 #include <atomic>
@@ -763,4 +764,67 @@ TEST_CASE("An indexed deleted header does not prevent later valid publication") 
     CHECK_FALSE(storage->read(3));
     CHECK(storage->read(4)->text == "New text\r");
     CHECK(storage->info()->header.active == 2);
+}
+
+TEST_CASE("Storage registry queues closes and cleans cancelled or expired waiters") {
+    jam::StorageMutex mutex;
+    const auto deadline = []() {
+        return std::chrono::steady_clock::now() + std::chrono::seconds{2};
+    };
+    mutex.lock();
+    REQUIRE(mutex.acquire(deadline(), {}));
+    mutex.unlock();
+    std::atomic<bool> expired{};
+    std::jthread timeout{[&]() {
+        expired =
+            !mutex.acquire(std::chrono::steady_clock::now() + std::chrono::milliseconds{20}, {});
+    }};
+    timeout.join();
+    CHECK(expired);
+    std::atomic<bool> cancelled{};
+    std::jthread cancellation{
+        [&](const std::stop_token &stop) { cancelled = !mutex.acquire(deadline(), stop); }};
+    std::this_thread::sleep_for(std::chrono::milliseconds{20});
+    cancellation.request_stop();
+    cancellation.join();
+    CHECK(cancelled);
+    std::atomic<bool> entered{};
+    std::jthread close{[&]() {
+        const std::scoped_lock guard{mutex};
+        entered = true;
+    }};
+    mutex.unlock();
+    close.join();
+    CHECK(entered);
+    std::stop_source stopped;
+    stopped.request_stop();
+    CHECK_FALSE(mutex.acquire(deadline(), stopped.get_token()));
+}
+
+TEST_CASE("Storage registry admits every waiting owner during continuous contention") {
+    jam::StorageMutex mutex;
+    constexpr std::size_t workers = 16;
+    std::array<std::atomic<unsigned>, workers> completed{};
+    std::barrier started{static_cast<std::ptrdiff_t>(workers)};
+    std::vector<std::jthread> threads;
+    threads.reserve(workers);
+    for (std::size_t worker = 0; worker < workers; ++worker) {
+        threads.emplace_back([&, worker](const std::stop_token &stop) {
+            started.arrive_and_wait();
+            for (unsigned iteration = 0; iteration < 100; ++iteration) {
+                if (!mutex.acquire(std::chrono::steady_clock::now() + std::chrono::seconds{2},
+                                   stop)) {
+                    return;
+                }
+                ++completed.at(worker);
+                mutex.unlock();
+            }
+        });
+    }
+    for (auto &thread : threads) {
+        thread.join();
+    }
+    for (const auto &count : completed) {
+        CHECK(count == 100);
+    }
 }

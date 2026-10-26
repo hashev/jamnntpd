@@ -1,6 +1,7 @@
 // JAM storage based on JAMLIB by Bjorn Stenberg and Johan Billing.
 // LGPL-2.1-or-later; original notices and license retained in src/jamlib/.
 #include "storage.hpp"
+#include "storage_mutex.hpp"
 #include <algorithm>
 #include <array>
 #include <cerrno>
@@ -42,7 +43,7 @@ struct RegistryRecord {
 struct Registry {
     // POSIX record locks are process-owned: even a second close can release them.
     // Serialize open/close as well as operations, across every registered handle.
-    std::recursive_timed_mutex mutex;
+    StorageMutex mutex;
     std::map<FileIdentity, RegistryRecord> states;
 };
 auto registry() -> Registry & {
@@ -261,17 +262,12 @@ struct BaseState {
 };
 namespace {
 auto acquire_registry(std::chrono::steady_clock::time_point deadline, const std::stop_token &stop)
-    -> Result<std::unique_lock<std::recursive_timed_mutex>> {
-    std::unique_lock lock{registry().mutex, std::defer_lock};
-    while (!stop.stop_requested()) {
-        if (lock.try_lock_for(lock_retry_interval)) {
-            return lock;
-        }
-        if (std::chrono::steady_clock::now() >= deadline) {
-            return failure(ErrorKind::timeout, "JAM lock timeout");
-        }
+    -> Result<std::unique_lock<StorageMutex>> {
+    if (registry().mutex.acquire(deadline, stop)) {
+        return std::unique_lock{registry().mutex, std::adopt_lock};
     }
-    return failure(ErrorKind::stopped, "JAM operation stopped");
+    return stop.stop_requested() ? failure(ErrorKind::stopped, "JAM operation stopped")
+                                 : failure(ErrorKind::timeout, "JAM lock timeout");
 }
 class Guard {
   public:
@@ -315,9 +311,9 @@ class Guard {
     auto operator=(Guard &&) -> Guard & = delete;
 
   private:
-    Guard(std::unique_lock<std::recursive_timed_mutex> lock, BaseState &state)
+    Guard(std::unique_lock<StorageMutex> lock, BaseState &state)
         : lock_(std::move(lock)), state_(&state) {}
-    std::unique_lock<std::recursive_timed_mutex> lock_;
+    std::unique_lock<StorageMutex> lock_;
     BaseState *state_;
 };
 auto read_info(const BaseState &state) -> Result<BaseInfo> {
