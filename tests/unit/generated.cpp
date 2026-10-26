@@ -10,6 +10,7 @@
 #include <iterator>
 #include <optional>
 #include <random>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -92,8 +93,7 @@ auto invariant(std::string_view family, const std::string &input) -> bool {
         }
         return true;
     }
-    FAIL("Unknown generated family");
-    return false;
+    throw std::invalid_argument{"Unknown generated family"};
 }
 } // namespace
 TEST_CASE("Generated parser JAM and codec families retain invariants with replayable seeds") {

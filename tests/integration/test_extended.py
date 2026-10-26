@@ -223,7 +223,7 @@ def load(args, report, destination):
                             client.socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 1024)
                             client.socket.sendall(f'XOVER 1-{args.messages}\r\n'.encode())
                             first = client.socket.recv(1)
-                            assert first, 'Slow reader received EOF before overview'
+                            assert first == b'2', 'Slow reader did not receive a successful XOVER response'
                             slow_bytes[index] += len(first)
                             client.socket.settimeout(.2)
                             slow_ready[index].set()

@@ -1,0 +1,53 @@
+{
+  "revision": "005f267fd012a602a53738a39dce1e1e5f0277ef",
+  "production_tree": "0e210e796b4a92562439eb0e69f402a5bdcab2ad",
+  "binary_sha256": "9c218d612e6f366672be709f7a4d91976a6280afe00987b53c62e83d1661d893",
+  "platform": "macOS 26.6.2 arm64",
+  "clients": {
+    "Thunderbird": "158.0.1 official Mozilla",
+    "slrn": "1.0.3 / S-Lang 2.3.3 Homebrew"
+  },
+  "setting": "def_showto off; private profiles; synthetic Alice only",
+  "observations": [
+    {
+      "number": 3,
+      "head_status": "430 No such article found",
+      "headers": "",
+      "body_status": "430 No such article found",
+      "body": ""
+    },
+    {
+      "number": 4,
+      "head_status": "430 No such article found",
+      "headers": "",
+      "body_status": "430 No such article found",
+      "body": ""
+    },
+    {
+      "number": 5,
+      "head_status": "221 5 <5$test@JamNNTPd> Article retrieved - Head follows",
+      "headers": "Path: JamNNTPd!not-for-mail\r\nFrom: Alice <alice@example.org>\r\nX-Comment-To: Alice\r\nNewsgroups: test\r\nSubject: Fixture\r\nDate: Mon, 26 Oct 2026 13:04:00 +0300\r\nMessage-ID: <5$test@JamNNTPd>\r\nReferences: <1$test@JamNNTPd>\r\nX-JAM-From: Alice <2:1/2>\r\nX-JAM-To: Alice\r\nX-JAM-MSGID: 2:1/2 6adf2590\r\nX-JAM-PID: JamNNTPd 2.0.0\r\nX-JAM-FTSKLUDGE: REPLYADDR alice@example.org\r\nX-JAM-FTSKLUDGE: CHRS: CP866 2\r\nX-JAM-FTSKLUDGE: TZUTC: +0300\r\nX-JAM-Attributes: Local TypeEcho\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=us-ascii; format=flowed\r\nContent-Transfer-Encoding: 7bit\r\n",
+      "body_status": "222 5 <5$test@JamNNTPd> Article retrieved - Body follows",
+      "body": "On 2038-01-19, Alice <unknown> wrote:\r\n> Hello\r\n> .World\r\nTerminal reply final\r\n\r\n--- slrn/1.0.3 (Darwin)\r\n  * Origin:  (2:1/2)\r\n"
+    },
+    {
+      "number": 6,
+      "head_status": "221 6 <6$test@JamNNTPd> Article retrieved - Head follows",
+      "headers": "Path: JamNNTPd!not-for-mail\r\nFrom: Alice <alice@example.org>\r\nX-Comment-To: Alice\r\nNewsgroups: test\r\nSubject: Fixture\r\nDate: Mon, 26 Oct 2026 13:07:12 +0300\r\nMessage-ID: <6$test@JamNNTPd>\r\nReferences: <1$test@JamNNTPd>\r\nX-JAM-From: Alice <2:1/2>\r\nX-JAM-To: Alice\r\nX-JAM-MSGID: 2:1/2 6adf264e\r\nX-JAM-PID: JamNNTPd 2.0.0\r\nX-JAM-FTSKLUDGE: REPLYADDR alice@example.org\r\nX-JAM-FTSKLUDGE: CHRS: CP866 2\r\nX-JAM-FTSKLUDGE: TZUTC: +0300\r\nX-JAM-Attributes: Local TypeEcho\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8; format=flowed\r\nContent-Transfer-Encoding: 8bit\r\n",
+      "body_status": "222 6 <6$test@JamNNTPd> Article retrieved - Body follows",
+      "body": "19.01.2038 06:14, Alice пишет:\r\n> Hello\r\n> .World\r\nThunderbird final reply Н─│\r\n\r\n\r\n--- Mozilla Thunderbird\r\n  * Origin:  (2:1/2)\r\n"
+    }
+  ],
+  "deleted_unicode_article_stored_cp866": true,
+  "status": "passed",
+  "platform_key": "macos",
+  "gui_reconnect": "Thunderbird restarted, authenticated again, expanded thread and displayed news://127.0.0.1:59420/6$test@JamNNTPd with Thunderbird final reply Н─│",
+  "terminal_reconnect": "slrn exited, restarted, authenticated again, read article 4 and successfully cancelled it",
+  "operations": [
+    "read",
+    "post",
+    "reply",
+    "cancel",
+    "reconnect"
+  ]
+}

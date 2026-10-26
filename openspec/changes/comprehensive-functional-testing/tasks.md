@@ -46,7 +46,7 @@
 - [x] 7.1 Проверить fragmented/coalesced/raw requests, dot stuffing, command 998/line 1000/POST 20000 границы, injection и EOF каждой фазы; verify отсутствие хвостовых команд и incomplete commits.
 - [x] 7.2 Проверить short/zero writes, backpressure, медленное чтение, deadline и остановку waits через existing socket APIs/probes; verify bounded outcomes без увеличения текущих deadlines.
 - [x] 7.3 Дополнить max-1/max/max+1 и thread startup failures, одну/две базы и external contention; verify уникальные номера/полную историю успешных операций и shutdown <8 s во всех 100 раундах.
-- [ ] 7.4 Покрыть SIGINT/SIGTERM/Windows CTRL_BREAK при idle/read/post/lock/startup, проверить flush после join и отсутствие leaked workers/handles; документировать непроверяемые console close/logoff ограничения.
+- [x] 7.4 Покрыть SIGINT/SIGTERM/Windows CTRL_BREAK при idle/read/post/lock/startup, проверить flush после join и отсутствие leaked workers/handles; документировать непроверяемые console close/logoff ограничения.
 - [x] 7.5 Дополнить LOG flags/parallel records/terminal controls/sink failures; verify отсутствие credential sentinel во всех sinks, ровные записи и bounded fallback, сохранить платформенные причины applicability.
 
 ## 8. Генеративные и длительные проверки
@@ -61,9 +61,9 @@
 
 - [ ] 9.1 Подключить новые CTest labels/матрицу к native Linux GCC/Clang, macOS AppleClang, Windows MSVC/clang-cl; verify все обязательные сценарии выполняются, прежние группы не удалены, skip не превращается в pass.
 - [ ] 9.2 Обеспечить отдельные ASan+UBSan/TSan и Linux/Windows whole-production coverage ≥90% lines/85% branches; проверить CI failures на недостигнутый gate, без исключений own files/error paths.
-- [ ] 9.3 Добавить CI запуск clang-tidy согласованного профиля, formatting и standalone header checks; verify warnings-as-errors и toolchain versions, не отключать семейства диагностики.
+- [x] 9.3 Добавить CI запуск clang-tidy согласованного профиля, formatting и standalone header checks; verify warnings-as-errors и toolchain versions, не отключать семейства диагностики.
 - [ ] 9.4 Добавить workflow_dispatch extended native jobs с 60-минутным budget/job и выгрузкой JUnit/CTest/transcripts/seeds/snapshots/metrics; выполнить по одному полному прогону каждой ОС и проверить артефакты.
-- [ ] 9.5 Провести Thunderbird и slrn (или эквивалентный терминальный клиент) read/post/reply/cancel/reconnect на disposable server; записать реальные версии/ОС/результаты и обезличенный transcript, отсутствие клиента учитывать как blocker соответствующей строки.
+- [x] 9.5 Провести Thunderbird и slrn (или эквивалентный терминальный клиент) read/post/reply/cancel/reconnect на disposable server; записать реальные версии/ОС/результаты и обезличенный transcript, отсутствие клиента учитывать как blocker соответствующей строки.
 
 ## 10. Итоговая приёмка
 

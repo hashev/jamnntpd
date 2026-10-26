@@ -7,14 +7,15 @@
       "features": [
         "alias:a"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:a at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -22,7 +23,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -31,14 +32,15 @@
       "features": [
         "alias:g"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:g at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -46,7 +48,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -55,14 +57,15 @@
       "features": [
         "alias:l"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:l at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -70,7 +73,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -79,14 +82,15 @@
       "features": [
         "alias:m"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:m at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -94,7 +98,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -103,14 +107,15 @@
       "features": [
         "alias:p"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:p at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -118,7 +123,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -127,14 +132,15 @@
       "features": [
         "alias:u"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:u at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -142,7 +148,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -151,14 +157,15 @@
       "features": [
         "alias:x"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "all seven aliases, Unicode paths, missing values and numeric endpoints",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise alias:x at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create"
       ],
       "platforms": [
         "linux",
@@ -166,7 +173,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -177,8 +184,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue ARTICLE with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for ARTICLE",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -202,8 +209,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue AUTHINFO with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for AUTHINFO",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -227,8 +234,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue BODY with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for BODY",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -252,8 +259,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue GROUP with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for GROUP",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -277,8 +284,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue HEAD with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for HEAD",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -302,8 +309,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue HELP with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for HELP",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -327,8 +334,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue IHAVE with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for IHAVE",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -352,8 +359,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue LAST with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for LAST",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -377,8 +384,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue LIST with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for LIST",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -402,8 +409,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue MODE with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for MODE",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -427,8 +434,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue NEWGROUPS with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEWGROUPS",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -452,8 +459,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue NEWNEWS with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEWNEWS",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -477,8 +484,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue NEXT with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for NEXT",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -502,8 +509,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue POST with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for POST",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -527,8 +534,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue QUIT with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for QUIT",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -552,8 +559,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue SLAVE with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for SLAVE",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -577,8 +584,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue STAT with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for STAT",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -602,8 +609,8 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Issue XOVER with valid, missing, invalid and boundary arguments in applicable states",
-      "expected": "Verify response codes, exact CRLF/multiline framing and session transition for XOVER",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "e2e",
       "selectors": [
@@ -625,14 +632,14 @@
       "features": [
         "option:addcr"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:addcr at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -640,7 +647,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -651,12 +658,12 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:allow at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_guest_read_and_post_permissions_are_independent_and_first_match_wins"
       ],
       "platforms": [
         "linux",
@@ -664,7 +671,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -675,12 +682,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:config at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -688,7 +697,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -699,12 +708,13 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:conversion_errors at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post",
+        "tests/integration/test_server.py::NntpEndToEnd.test_strict_failures_never_mutate_and_debug_never_contains_credentials"
       ],
       "platforms": [
         "linux",
@@ -712,7 +722,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -723,12 +733,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:create at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -736,7 +748,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -745,14 +757,14 @@
       "features": [
         "option:debug"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:debug at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -760,7 +772,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -769,14 +781,14 @@
       "features": [
         "option:def_addcr"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:def_addcr at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -784,7 +796,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -793,14 +805,14 @@
       "features": [
         "option:def_delssq"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:def_delssq at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -808,7 +820,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -817,14 +829,14 @@
       "features": [
         "option:def_flowed"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:def_flowed at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -832,7 +844,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -841,14 +853,14 @@
       "features": [
         "option:def_nonbsp"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:def_nonbsp at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -856,7 +868,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -865,14 +877,14 @@
       "features": [
         "option:def_showto"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:def_showto at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -880,7 +892,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -889,14 +901,14 @@
       "features": [
         "option:delssq"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:delssq at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -904,7 +916,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -913,14 +925,14 @@
       "features": [
         "option:echomailjam"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:echomailjam at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -928,7 +940,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -937,14 +949,14 @@
       "features": [
         "option:flowed"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:flowed at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -952,7 +964,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -963,12 +975,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:groups at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -976,7 +990,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -987,12 +1001,12 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:guestsuffix at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_readorigin_guest_suffix_and_local_nochrs_group_flags"
       ],
       "platforms": [
         "linux",
@@ -1000,7 +1014,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1011,12 +1025,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:help at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -1024,7 +1040,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1035,12 +1051,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:logfile at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -1048,7 +1066,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1057,14 +1075,14 @@
       "features": [
         "option:loggroups"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:loggroups at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1072,7 +1090,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1083,12 +1101,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:max at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one"
       ],
       "platforms": [
         "linux",
@@ -1096,7 +1116,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1105,14 +1125,14 @@
       "features": [
         "option:nocancel"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:nocancel at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1120,7 +1140,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1129,14 +1149,14 @@
       "features": [
         "option:noecholog"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:noecholog at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1144,7 +1164,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1153,14 +1173,14 @@
       "features": [
         "option:noencode"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:noencode at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1168,7 +1188,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1177,14 +1197,14 @@
       "features": [
         "option:nonbsp"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:nonbsp at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -1192,7 +1212,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1201,14 +1221,14 @@
       "features": [
         "option:noreplyaddr"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:noreplyaddr at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1216,7 +1236,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1225,14 +1245,14 @@
       "features": [
         "option:nostripre"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:nostripre at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1240,7 +1260,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1249,14 +1269,14 @@
       "features": [
         "option:note"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:note at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1264,7 +1284,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1273,14 +1293,14 @@
       "features": [
         "option:notearline"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:notearline at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1288,7 +1308,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1297,14 +1317,14 @@
       "features": [
         "option:notzutc"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:notzutc at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1312,7 +1332,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1321,14 +1341,14 @@
       "features": [
         "option:origin"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:origin at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1336,7 +1356,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1347,12 +1367,14 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:port at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/unit/config.cpp::CLI aliases and numeric boundaries retain values before any run action",
+        "tests/integration/test_server.py::NntpEndToEnd.test_executable_cli_aliases_boundaries_and_immediate_create",
+        "tests/unit/config.cpp::Configuration files roundtrip documented settings and fail safely"
       ],
       "platforms": [
         "linux",
@@ -1360,7 +1382,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1371,12 +1393,12 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:readorigin at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_readorigin_guest_suffix_and_local_nochrs_group_flags"
       ],
       "platforms": [
         "linux",
@@ -1384,7 +1406,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1393,14 +1415,14 @@
       "features": [
         "option:showto"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:showto at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -1408,7 +1430,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1417,14 +1439,14 @@
       "features": [
         "option:smartquote"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "on/off; 16-row covering array of all pairs across 13 flags; exact observable effects",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:smartquote at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_boolean_flags_pairwise_have_real_wire_storage_and_log_effects"
       ],
       "platforms": [
         "linux",
@@ -1432,7 +1454,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1441,14 +1463,14 @@
       "features": [
         "option:squote"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "default on/off and authenticated override; exact output/storage effect",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:squote at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_every_user_option_default_and_login_override_changes_observable_output"
       ],
       "platforms": [
         "linux",
@@ -1456,7 +1478,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1467,12 +1489,12 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:strictnetmail at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_netmail_matrix_for_sender_recipient_and_unrelated_user"
       ],
       "platforms": [
         "linux",
@@ -1480,7 +1502,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1491,12 +1513,12 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:users at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_reauthentication_losing_permissions_invalidates_current_group"
       ],
       "platforms": [
         "linux",
@@ -1504,7 +1526,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1515,12 +1537,13 @@
       ],
       "variant": "normal/rejection/boundary/state",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Exercise option:xlat at default, enabled/disabled or valid/invalid values and applicable boundaries",
-      "expected": "Verify parsing plus observable wire, file or diagnostic effect; rejected input has no partial application",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/config.cpp::Configuration preserves aliases and validates values atomically"
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules",
+        "tests/integration/test_server.py::NntpEndToEnd.test_alias_automatic_conversion_and_forced_group_precedence_over_tcp"
       ],
       "platforms": [
         "linux",
@@ -1528,7 +1551,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1537,14 +1560,16 @@
       "features": [
         "requirement:jam-storage/Coordinated base access"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Coordinated base access; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes"
+        "tests/unit/storage.cpp::Contended appends retain unique records across repeated worker starts",
+        "tests/unit/storage.cpp::Registry validates complete file identity through hard-link aliases",
+        "tests/integration/test_server.py::NntpEndToEnd.test_parallel_writes_to_one_and_two_bases_keep_records_and_values_distinct"
       ],
       "platforms": [
         "linux",
@@ -1552,7 +1577,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "critical"
     },
@@ -1561,14 +1586,17 @@
       "features": [
         "requirement:jam-storage/Portable JAM format"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Portable JAM format; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes"
+        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes",
+        "tests/unit/storage.cpp::Last-read uses sixteen-byte records and updates by user id",
+        "tests/integration/test_server.py::NntpEndToEnd.test_independent_corpus_variants_over_real_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_independent_tosser_and_consistent_backup_restore"
       ],
       "platforms": [
         "linux",
@@ -1576,7 +1604,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "critical"
     },
@@ -1585,15 +1613,19 @@
       "features": [
         "requirement:jam-storage/Validate data and report write failures"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:jam-storage/Validate data and report write failures; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/storage.cpp::Storage opens existing four-file JAM base without native structure sizes",
-        "tests/integration/test_server.py::NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article"
+        "tests/unit/storage.cpp::Short writes and flush errors rollback every modified JAM file",
+        "tests/unit/storage.cpp::Permanent I/O failure disables the base instead of claiming successful rollback",
+        "tests/unit/storage.cpp::Published header corruption is rejected before append can conceal it",
+        "tests/unit/storage.cpp::Rollback resize failure quarantines the base before any further append",
+        "tests/integration/test_server.py::NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_storage_failure_is_503_and_rejected_article_is_441"
       ],
       "platforms": [
         "linux",
@@ -1611,14 +1643,17 @@
       "features": [
         "requirement:nntp-service/Authorization and netmail privacy"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Authorization and netmail privacy; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+        "tests/integration/test_server.py::NntpEndToEnd.test_netmail_matrix_for_sender_recipient_and_unrelated_user",
+        "tests/integration/test_server.py::NntpEndToEnd.test_reauthentication_losing_permissions_invalidates_current_group",
+        "tests/integration/test_server.py::NntpEndToEnd.test_guest_read_and_post_permissions_are_independent_and_first_match_wins",
+        "tests/integration/test_server.py::NntpEndToEnd.test_cancel_attribute_policy_and_repeated_cancel"
       ],
       "platforms": [
         "linux",
@@ -1626,7 +1661,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "critical"
     },
@@ -1635,14 +1670,15 @@
       "features": [
         "requirement:nntp-service/Coordinated service lifetime"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Coordinated service lifetime; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+        "tests/integration/test_server.py::NntpEndToEnd.test_native_shutdown_in_connection_read_post_and_external_lock_phases",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one"
       ],
       "platforms": [
         "linux",
@@ -1650,7 +1686,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1659,14 +1695,16 @@
       "features": [
         "requirement:nntp-service/Existing client contracts"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Existing client contracts; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+        "tests/integration/test_server.py::NntpEndToEnd.test_all_commands_and_article_states_over_raw_tcp",
+        "tests/integration/test_server.py::NntpEndToEnd.test_protocol_characterization_transcripts",
+        "tests/integration/test_server.py::NntpEndToEnd.test_reply_chain_cancel_middle_first_last_over_tcp"
       ],
       "platforms": [
         "linux",
@@ -1674,7 +1712,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1683,14 +1721,16 @@
       "features": [
         "requirement:nntp-service/Reliable bounded input and output"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:nntp-service/Reliable bounded input and output; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/session.cpp::Session preserves basic transcripts and HELP content"
+        "tests/integration/test_server.py::NntpEndToEnd.test_raw_command_boundaries_fragmentation_and_coalescing",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_aggregate_boundaries_and_exact_dot_unstuffing",
+        "tests/integration/test_server.py::NntpEndToEnd.test_eof_at_each_incomplete_post_phase_never_mutates"
       ],
       "platforms": [
         "linux",
@@ -1698,7 +1738,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1707,14 +1747,15 @@
       "features": [
         "requirement:service-logging/Concurrent diagnostic records"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Concurrent diagnostic records; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+        "tests/unit/logging.cpp::Thread-safe logger keeps long records complete and prevents line injection",
+        "tests/unit/logging.cpp::Diagnostic records escape terminal controls as printable data"
       ],
       "platforms": [
         "linux",
@@ -1722,7 +1763,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1731,14 +1772,16 @@
       "features": [
         "requirement:service-logging/Credential redaction"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Credential redaction; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks",
+        "tests/integration/test_server.py::NntpEndToEnd.test_redaction_on_success_and_failure_in_file_and_console",
+        "tests/integration/test_server.py::NntpEndToEnd.test_harness_cleans_up_exception_and_redacts_fragmented_requests"
       ],
       "platforms": [
         "linux",
@@ -1746,7 +1789,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1755,14 +1798,15 @@
       "features": [
         "requirement:service-logging/Logging failure isolation"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:service-logging/Logging failure isolation; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/unit/logging.cpp::Protocol diagnostics redact every authentication command before reaching sinks"
+        "tests/unit/logging.cpp::Log destination failures do not recurse or escape workers",
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_and_configuration_failures_are_bounded"
       ],
       "platforms": [
         "linux",
@@ -1770,7 +1814,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1779,13 +1823,14 @@
       "features": [
         "requirement:text-transcoding/Bidirectional standard encodings"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Bidirectional standard encodings; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
+        "tests/unit/codec.cpp::Standard legacy mappings match an independent Unicode reference",
         "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
       ],
       "platforms": [
@@ -1794,7 +1839,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1803,14 +1848,15 @@
       "features": [
         "requirement:text-transcoding/Custom CHS compatibility"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Custom CHS compatibility; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+        "tests/unit/codec.cpp::Extended CHS tables retain all byte rows and explicit expansion deletion semantics",
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules"
       ],
       "platforms": [
         "linux",
@@ -1818,7 +1864,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1827,14 +1873,16 @@
       "features": [
         "requirement:text-transcoding/Explicit conversion failures"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Explicit conversion failures; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+        "tests/unit/codec.cpp::Strict conversion rejects malformed and unrepresentable text",
+        "tests/integration/test_server.py::NntpEndToEnd.test_strict_failures_never_mutate_and_debug_never_contains_credentials",
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post"
       ],
       "platforms": [
         "linux",
@@ -1842,7 +1890,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1851,14 +1899,15 @@
       "features": [
         "requirement:text-transcoding/Explicit rule semantics"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Explicit rule semantics; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+        "tests/integration/test_server.py::NntpEndToEnd.test_custom_chs_and_legacy_label_only_rules",
+        "tests/integration/test_server.py::NntpEndToEnd.test_alias_automatic_conversion_and_forced_group_precedence_over_tcp"
       ],
       "platforms": [
         "linux",
@@ -1866,7 +1915,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1875,14 +1924,16 @@
       "features": [
         "requirement:text-transcoding/Unicode-safe MIME and formatting"
       ],
-      "variant": "normal/rejection/boundary/state",
+      "variant": "normal, boundary, rejection and state invariants in the named concrete selectors",
       "preconditions": "Disposable JAM fixtures and local server; identity and group configured per case",
-      "input": "Positive, negative, boundary and state-transition cases from the referenced requirement",
-      "expected": "All normative statement and scenario outcomes of requirement:text-transcoding/Unicode-safe MIME and formatting; independent oracle required",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent fixtures/decoder and byte snapshots; see docs/testing/plan.md",
       "level": "unit+e2e",
       "selectors": [
-        "tests/integration/test_server.py::NntpEndToEnd.test_standard_encodings_read_post_reply_and_special_symbols"
+        "tests/integration/test_server.py::NntpEndToEnd.test_subject_final_byte_boundary_and_independent_mime_decode",
+        "tests/integration/test_server.py::NntpEndToEnd.test_replacement_flowed_nbsp_and_rejected_incomplete_post",
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_validation_and_transfer_encodings_preserve_storage_contract"
       ],
       "platforms": [
         "linux",
@@ -1890,7 +1941,7 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "planned",
+      "status": "implemented",
       "evidence": [],
       "risk": "normal"
     },
@@ -1901,8 +1952,8 @@
       ],
       "variant": "valid generation, supplementary Unicode, ASCII override, identity, fallback and invalid maps",
       "preconditions": "Private temporary mapping files; native makechs executable",
-      "input": "Generate UTF-8 and custom tables; repeat with malformed and missing maps",
-      "expected": "Independent CHS interpreter sees exact mappings; invalid maps return nonzero with no table",
+      "input": "Execute the named selectors with fixed disposable fixtures and parameterized variants; see docs/testing/plan.md.",
+      "expected": "All named assertions pass: response/decoded data match the independent oracle, and rejected mutations preserve byte snapshots.",
       "oracle": "Independent CHS parser and known Unicode vectors",
       "level": "unit+e2e",
       "selectors": [
@@ -1918,6 +1969,29 @@
       "status": "implemented",
       "evidence": [],
       "risk": "normal"
+    },
+    {
+      "id": "LOG-FULL-RUNTIME",
+      "features": [
+        "requirement:service-logging/Logging failure isolation"
+      ],
+      "variant": "Linux /dev/full runtime sink exhaustion",
+      "preconditions": "Linux native /dev/full; disposable server and fixtures",
+      "input": "Use /dev/full as the active log destination and issue real NNTP commands",
+      "expected": "Bounded fallback diagnostic, continued serving and clean shutdown",
+      "oracle": "Real TCP responses and bounded stderr; no credentials",
+      "level": "e2e",
+      "selectors": [
+        "tests/integration/test_server.py::NntpEndToEnd.test_full_runtime_sink_has_bounded_fallback_and_keeps_serving"
+      ],
+      "platforms": [
+        "linux"
+      ],
+      "mandatory": true,
+      "status": "implemented",
+      "evidence": [],
+      "risk": "critical",
+      "reason": "/dev/full is Linux-specific; portable throwing-sink unit checks cover all three operating systems"
     }
   ]
 }

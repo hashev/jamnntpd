@@ -146,6 +146,15 @@ TEST_CASE("Backpressured native writes time out and observe stop after making pr
                                     reinterpret_cast<const sockaddr *>(&address), sizeof(address)));
         auto server = listener->accept({}, std::chrono::seconds{2});
         REQUIRE(server);
+        // Bound both queues: Winsock can otherwise buffer this entire payload locally.
+        const int send_buffer = 1024;
+#ifdef _WIN32
+        REQUIRE(setsockopt(server->native_handle(), SOL_SOCKET, SO_SNDBUF,
+                           reinterpret_cast<const char *>(&send_buffer), sizeof(send_buffer)) == 0);
+#else
+        REQUIRE(setsockopt(server->native_handle(), SOL_SOCKET, SO_SNDBUF, &send_buffer,
+                           sizeof(send_buffer)) == 0);
+#endif
         if (mode == 1) {
             std::stop_source stop;
             Result<void> written;

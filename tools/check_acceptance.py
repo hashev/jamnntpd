@@ -35,12 +35,12 @@ def selectors(root):
             if isinstance(node, ast.ClassDef):
                 for method in node.body:
                     if isinstance(method, ast.FunctionDef) and method.name.startswith('test_'):
-                        result.add(f'{source.relative_to(root)}::{node.name}.{method.name}')
+                        result.add(f'{source.relative_to(root).as_posix()}::{node.name}.{method.name}')
     for source in sorted((root / 'tests/unit').glob('*.cpp')):
         for match in re.finditer(r'TEST_CASE\s*\(\s*((?:"(?:\\.|[^"\\])*"\s*)+)', source.read_text()):
             name = ''.join(json.loads(part) for part in
                            re.findall(r'"(?:\\.|[^"\\])*"', match[1]))
-            result.add(f'{source.relative_to(root)}::{name}')
+            result.add(f'{source.relative_to(root).as_posix()}::{name}')
     return result
 
 

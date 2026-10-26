@@ -1,6 +1,6 @@
 # Comprehensive functional testing
 
-Current status: 29/41 tasks complete. The expanded local macOS suite passes all
+Current status: 32/41 tasks complete. The expanded local macOS suite passes all
 13 CTest groups; formatting, standalone headers and clang-tidy pass locally.
 Native CI, sanitizer/coverage gates, full extended runs and real client acceptance
 remain pending. Historical failures below are retained as defect evidence, not
@@ -418,3 +418,47 @@ compatibility use the existing def_showto off (or user showto=off), then fetch
 fresh headers. This is a client identity check, not a new server contract.
 Unicode entry uses paste: native simulated typing did not insert non-ASCII
 characters; the composed text and returned BODY are verified independently.
+
+Real client acceptance completed: both clients read/post/reply/cancel/reconnect.
+Thunderbird was restarted, reauthenticated and displayed the persisted Unicode
+reply (article 6); slrn was restarted, read its own article 4 and cancelled it.
+Independent HEAD/BODY checks returned 430 for both cancelled articles (3 and 4),
+verified reply References for 5/6, and decoded the deleted Unicode record directly
+from the private JAM header/text to confirm CP866 bytes and the leading dot.
+[Sanitized client evidence](evidence/manual-clients-macos.json) contains only
+synthetic fixture content, compiler-independent production tree and binary hash;
+no credentials, user profile or server users/config files are included.
+
+CI static-analysis passed for PR source 005f267 with LLVM/clang-format 23.1.3,
+all owned-source clang-tidy diagnostics, 63-file formatting, standalone public
+headers and the acceptance matrix validator. [Recorded evidence](evidence/static-pr-005f267.txt).
+The same-source workflow_dispatch quality matrix is still in progress.
+
+## Final traceability review
+
+The registry covers 79 distinct inventory features in 80 concrete rows. Each row
+now points to the relevant observable configuration/protocol/storage tests rather
+than a generic configuration smoke check. Runtime /dev/full exhaustion has its
+own mandatory Linux row; portable throwing-sink unit checks remain mandatory
+on Linux, macOS and Windows. Native /dev/full unavailability is never relabelled
+as a passing e2e method. Every passing row still requires all named methods to
+have executed and passed in matching-platform, matching-revision evidence.
+The slow-reader preflight additionally requires the successful XOVER response
+class, so an error response cannot masquerade as backpressure activity.
+
+## Native Windows findings
+
+Windows clang-cl executed and passed all applicable server e2e methods, including
+CTRL_BREAK during connection/read/incomplete POST/external lock, and the native
+lifecycle probe. [Scoped lifecycle evidence](evidence/windows-lifecycle-005f267.json)
+does not claim the whole job passed: unit backpressure and baseline selectors
+failed separately. Console close/logoff remain outside automated process-group
+CTRL_BREAK coverage, as documented for the service.
+
+The backpressure test limited only the receiver queue, so Winsock could buffer
+the full 32 MiB locally and legitimately complete the send. The test now bounds
+SO_SNDBUF as well as SO_RCVBUF before checking timeout/stop. No production socket
+deadline changes. MSVC also rejected unreachable code after Catch FAIL; unknown
+generator families now throw invalid_argument directly. Selector discovery now
+uses explicit POSIX paths on every OS. These test-infrastructure failures remain
+recorded in the 005f267 workflow; new runs require the corrected source.

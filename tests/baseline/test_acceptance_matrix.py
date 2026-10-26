@@ -39,7 +39,9 @@ class AcceptanceMatrix(unittest.TestCase):
         self.assertIn('unknown selector', self.errors())
 
     def test_unmapped_feature_is_rejected(self):
-        self.matrix['scenarios'].pop()
+        feature = self.matrix['scenarios'][0]['features'][0]
+        self.matrix['scenarios'] = [row for row in self.matrix['scenarios']
+                                    if feature not in row['features']]
         self.assertIn('Unmapped features', self.errors())
 
     def test_mandatory_skip_is_rejected(self):
@@ -75,9 +77,13 @@ class AcceptanceMatrix(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT/'build') as folder:
             path = Path(folder)/'proof.json'
             row = self.matrix['scenarios'][0]
-            caption = row['selectors'][0].split('::')[1]
+            case_results = {'unit': {}, 'server-e2e': {}}
+            for selector in row['selectors']:
+                filename, caption = selector.split('::')
+                suite = 'unit' if filename.endswith('.cpp') else 'server-e2e'
+                case_results[suite][caption if suite == 'unit' else caption.rsplit('.', 1)[-1]] = 'passed'
             proof = {'status': 'passed', 'revision': 'a'*40, 'platform_key': 'macos',
-                     'case_results': {'unit': {caption: 'passed'}}}
+                     'case_results': case_results}
             path.write_text(json.dumps(proof))
             self.matrix['revision'] = 'a'*40
             row.update(status='passed', platforms=['macos'], evidence=[{
