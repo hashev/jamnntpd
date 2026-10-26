@@ -462,3 +462,43 @@ deadline changes. MSVC also rejected unreachable code after Catch FAIL; unknown
 generator families now throw invalid_argument directly. Selector discovery now
 uses explicit POSIX paths on every OS. These test-infrastructure failures remain
 recorded in the 005f267 workflow; new runs require the corrected source.
+
+## Mixed-read timeout defect and corrected resource baseline
+
+A second full diagnostic load at 005f267 completed the 1/5-client phases but
+failed a mixed ARTICLE/HEAD/BODY/STAT assertion during the 32-client phase.
+[Original diagnostic report](evidence/extended-read-timeout-failure-macos.json)
+is retained. A held-lock TCP regression then independently reproduced the
+concrete production defect: existing article 1 returned 430 after its five-second
+JAM lock timeout. Unit regressions also showed XOVER returning an incomplete
+success when its second visible record timed out. Separate production commit
+`2e59e8a31d9d055c9bf7df752b876cb527fdc299` maps these timeouts to 503.
+[Red TCP result](evidence/read-timeout-e2e-red.txt),
+[red unit result](evidence/read-timeout-unit-red.txt),
+[passing 13-group suite](evidence/read-timeout-fix-tests.txt) and
+[clang-tidy](evidence/read-timeout-fix-tidy.txt) record the correction.
+
+Resource acceptance now performs the independent import/restart first, warms
+read/POST/cancel and encoding paths on both bases, then compares baseline,
+100 connect/disconnect cycles and post-load observations from the same PID.
+The evidence gate rejects missing warm-up and mixed-PID resource counts; its
+negative tests demonstrate both rejections. A 60-second/10000-message diagnostic
+with the corrected production code passed all three concurrency phases, with
+5 fd before and after load on the same PID. It is not a 30-minute acceptance.
+
+Windows does not guarantee that a single 32 MiB send will block. The native
+network test now fills the actual sender queue with bounded 64 KiB sends until
+a real timeout is observed, before checking timeout and cancellation. The stop
+writer uses bounded chunks so one large successful send cannot bypass the
+stop observation. The original failures at 005f267 and 8aca51e are retained in CI;
+a successful later run at either revision would not erase them. See Microsoft's
+[send semantics](https://learn.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-send)
+and [send-buffer limit](https://learn.microsoft.com/en-us/windows/win32/winsock/sio-ideal-send-backlog-query).
+
+The Windows PR cache restored only five packages and rebuilt both host ICU and
+static target ICU for roughly fifteen minutes. It was an incomplete cache saved
+after an interrupted configure. The workflow now saves native caches only after
+a successful configure and promotes a verified Windows cache under a fresh key;
+old caches remain fallback inputs checked by vcpkg, never acceptance evidence.
+Before another full extended run, execute the corrected native PR/dispatch suite
+first so fast unit failures do not waste the 35-minute workload budget.

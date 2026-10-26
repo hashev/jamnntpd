@@ -33,7 +33,11 @@ def validate(reports, revision):
                 continue
             before, after = report.get('resources_before', {}), report.get('resources_after_load', {})
             cycled = report.get('resources_after_100_cycles', {})
-            if (not before.get('native_handles') or not before.get('rss_bytes') or
+            if (report.get('warmup_completed') is not True or
+                not before.get('process_id') or
+                before['process_id'] != after.get('process_id') or
+                before['process_id'] != cycled.get('process_id') or
+                not before.get('native_handles') or not before.get('rss_bytes') or
                 not after.get('rss_bytes') or
                 after.get('native_handles', 10**9) > before['native_handles'] or
                 cycled.get('native_handles', 10**9) > before['native_handles']):

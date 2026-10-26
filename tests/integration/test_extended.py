@@ -23,11 +23,11 @@ def resources(pid):
     if sys.platform.startswith('linux'):
         lines = Path(f'/proc/{pid}/status').read_text().splitlines()
         rss = int(next(line.split()[1] for line in lines if line.startswith('VmRSS:')))*1024
-        return {'rss_bytes': rss, 'native_handles': len(list(Path(f'/proc/{pid}/fd').iterdir()))}
+        return {'process_id': pid, 'rss_bytes': rss, 'native_handles': len(list(Path(f'/proc/{pid}/fd').iterdir()))}
     if sys.platform == 'darwin':
         rss = int(subprocess.check_output(['ps', '-o', 'rss=', '-p', str(pid)], timeout=3))*1024
         listing = subprocess.check_output(['lsof', '-a', '-p', str(pid), '-Ff'], timeout=3).decode()
-        return {'rss_bytes': rss, 'native_handles': sum(line.startswith('f') and line[1:].isdigit()
+        return {'process_id': pid, 'rss_bytes': rss, 'native_handles': sum(line.startswith('f') and line[1:].isdigit()
                                                        for line in listing.splitlines())}
     if os.name == 'nt':
         from ctypes import wintypes
@@ -49,7 +49,7 @@ def resources(pid):
             memory.cb = ctypes.sizeof(memory)
             if not psapi.GetProcessMemoryInfo(handle, ctypes.byref(memory), memory.cb) or not kernel.GetProcessHandleCount(handle, ctypes.byref(handles)):
                 raise ctypes.WinError(ctypes.get_last_error())
-            return {'rss_bytes': memory.working, 'native_handles': handles.value}
+            return {'process_id': pid, 'rss_bytes': memory.working, 'native_handles': handles.value}
         finally:
             kernel.CloseHandle(handle)
     raise RuntimeError('No native resource observer for this platform')
@@ -127,20 +127,33 @@ def idle(args, report):
 
 def load(args, report, destination):
     with test_server.Server(recipe={'messages': args.messages}, extra='max 32\n') as server:
+        successful = {'test': set(), 'local': set()}
+        cancelled = {'test': set(), 'local': set()}
+        # Import with all writers stopped, then observe one warmed-up server process.
+        server.stop()
+        subprocess.run([sys.executable, str(Path(__file__).with_name('fake_tosser.py')), str(server.root/'test')],
+                       check=True, timeout=5)
+        server.restart()
+        with server.client() as client:
+            client.socket.settimeout(60)
+            assert client.login().startswith(b'281')
+            for name in successful:
+                assert client.command('GROUP '+name).startswith(b'211')
+                for command in ('HEAD', 'BODY'):
+                    status, _ = client.multiline(f'{command} <1${name}@JamNNTPd>')
+                    assert status[:3] in (b'221', b'222')
+                number = len(test_server.jam_oracle.indices(server.snapshot(name)['.jdx']))+1
+                assert client.post(test_server.article('Warm-up Н─│', group=name)).startswith(b'240')
+                assert client.post(test_server.article('', group=name,
+                    extra=f'Control: cancel <{number}${name}@JamNNTPd>\r\n')).startswith(b'240')
         baseline = quiescent(server)
         for _ in range(100):
             with server.client() as client:
                 assert client.command('QUIT') == b'205 Goodbye\r\n'
         after_cycles = quiescent(server, baseline['native_handles'])
         assert after_cycles['native_handles'] <= baseline['native_handles'], (baseline, after_cycles)
-        report.update(resources_before=baseline, resources_after_100_cycles=after_cycles, phases=[])
-        successful = {'test': set(), 'local': set()}
-        cancelled = {'test': set(), 'local': set()}
-        # An independent writer imports once with all writers stopped; live contention below is a separate process.
-        server.stop()
-        subprocess.run([sys.executable, str(Path(__file__).with_name('fake_tosser.py')), str(server.root/'test')],
-                       check=True, timeout=5)
-        server.restart()
+        report.update(warmup_completed=True, resources_before=baseline,
+                      resources_after_100_cycles=after_cycles, phases=[])
         starts = {name: len(test_server.jam_oracle.indices(server.snapshot(name)['.jdx'])) for name in successful}
         acknowledged = Counter()
         available = {name: deque() for name in successful}
@@ -183,7 +196,7 @@ def load(args, report, destination):
                                 elif choice < 80:
                                     operation = rng.choice(['stat', 'head', 'body', 'article'])
                                     response, _ = client.multiline(f'{operation.upper()} <1${name}@JamNNTPd>')
-                                    assert response[:3] in (b'220', b'221', b'222', b'223', b'503')
+                                    assert response[:3] in (b'220', b'221', b'222', b'223', b'503'), (operation, response)
                                 elif choice < 95:
                                     operation = 'reply' if choice >= 90 else 'post'
                                     marker = f'load/{phase}/{worker}/{iteration}'
@@ -354,6 +367,7 @@ def main():
     except Exception as error:
         report['status'] = 'failed'
         report['error_type'] = type(error).__name__
+        report['error'] = str(error)[:8192]
         raise
     finally:
         (destination/'report.json').write_text(json.dumps(report, indent=2))

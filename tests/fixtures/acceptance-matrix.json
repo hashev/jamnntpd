@@ -1625,7 +1625,9 @@
         "tests/unit/storage.cpp::Published header corruption is rejected before append can conceal it",
         "tests/unit/storage.cpp::Rollback resize failure quarantines the base before any further append",
         "tests/integration/test_server.py::NntpEndToEnd.test_truncated_text_base_rejects_post_without_reviving_old_article",
-        "tests/integration/test_server.py::NntpEndToEnd.test_post_storage_failure_is_503_and_rejected_article_is_441"
+        "tests/integration/test_server.py::NntpEndToEnd.test_post_storage_failure_is_503_and_rejected_article_is_441",
+        "tests/unit/session.cpp::Article and overview storage timeouts remain local errors without partial success",
+        "tests/integration/test_server.py::NntpEndToEnd.test_storage_lock_timeout_is_503_and_article_recovers_without_mutation"
       ],
       "platforms": [
         "linux",
@@ -1730,7 +1732,9 @@
       "selectors": [
         "tests/integration/test_server.py::NntpEndToEnd.test_raw_command_boundaries_fragmentation_and_coalescing",
         "tests/integration/test_server.py::NntpEndToEnd.test_post_aggregate_boundaries_and_exact_dot_unstuffing",
-        "tests/integration/test_server.py::NntpEndToEnd.test_eof_at_each_incomplete_post_phase_never_mutates"
+        "tests/integration/test_server.py::NntpEndToEnd.test_eof_at_each_incomplete_post_phase_never_mutates",
+        "tests/unit/session.cpp::Article and overview storage timeouts remain local errors without partial success",
+        "tests/integration/test_server.py::NntpEndToEnd.test_storage_lock_timeout_is_503_and_article_recovers_without_mutation"
       ],
       "platforms": [
         "linux",

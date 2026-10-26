@@ -25,8 +25,8 @@ def native_reports():
     for platform in ['linux', 'macos', 'windows']:
         common = {'platform_key': platform, 'revision': SHA, 'acceptance_profile': True,
                   'source_dirty': False, 'status': 'passed'}
-        resource = {'native_handles': 10, 'rss_bytes': 1000}
-        reports.append({**common, 'mode': 'load', 'messages_per_base': 10000,
+        resource = {'process_id': 1234, 'native_handles': 10, 'rss_bytes': 1000}
+        reports.append({**common, 'mode': 'load', 'messages_per_base': 10000, 'warmup_completed': True,
             'phases': [{'clients': clients, 'active_seconds': 600,
                         'resources': [resource], 'operations': {'post:240': 1}} for clients in [1, 5, 32]],
             'resources_before': dict(resource), 'resources_after_load': dict(resource),
@@ -44,7 +44,7 @@ class EvidenceGates(unittest.TestCase):
     def test_dirty_stale_smoke_short_or_leaking_run_cannot_pass(self):
         mutations = [('source_dirty', True), ('acceptance_profile', False),
                      ('revision', 'b'*40), ('status', 'failed'), ('messages_per_base', 50),
-                     ('shutdown_seconds', 8), ('external_lock_iterations', 0), ('phases', [])]
+                     ('warmup_completed', False), ('shutdown_seconds', 8), ('external_lock_iterations', 0), ('phases', [])]
         for key, value in mutations:
             with self.subTest(key=key):
                 reports = copy.deepcopy(native_reports())
@@ -52,6 +52,11 @@ class EvidenceGates(unittest.TestCase):
                 self.assertTrue(EXTENDED.validate(reports, SHA))
         reports = copy.deepcopy(native_reports())
         reports[0]['resources_after_load']['native_handles'] = 100
+        self.assertTrue(EXTENDED.validate(reports, SHA))
+
+    def test_resource_counts_from_different_processes_cannot_prove_no_leak(self):
+        reports = native_reports()
+        reports[0]['resources_after_load']['process_id'] += 1
         self.assertTrue(EXTENDED.validate(reports, SHA))
 
     def test_later_success_does_not_hide_failure_at_same_revision(self):

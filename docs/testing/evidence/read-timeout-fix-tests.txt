@@ -1,0 +1,35 @@
+Test project /Users/yurik/Projects/jamnntpd/build/debug
+      Start  1: server-stress
+ 1/13 Test  #1: server-stress ....................   Passed   14.95 sec
+      Start  2: server-e2e
+ 2/13 Test  #2: server-e2e .......................   Passed   23.78 sec
+      Start  3: server-generated
+ 3/13 Test  #3: server-generated .................   Passed    0.57 sec
+      Start  4: server-load-smoke
+ 4/13 Test  #4: server-load-smoke ................   Passed    5.18 sec
+      Start  5: lifecycle-native
+ 5/13 Test  #5: lifecycle-native .................   Passed    0.38 sec
+      Start  6: storage-process-lock
+ 6/13 Test  #6: storage-process-lock .............   Passed    0.62 sec
+      Start  7: makechs-cli
+ 7/13 Test  #7: makechs-cli ......................   Passed    0.46 sec
+      Start  8: unit
+ 8/13 Test  #8: unit .............................   Passed    1.07 sec
+      Start  9: storage-quarantine
+ 9/13 Test  #9: storage-quarantine ...............   Passed    0.01 sec
+      Start 10: storage-quarantine-reopen
+10/13 Test #10: storage-quarantine-reopen ........   Passed    0.01 sec
+      Start 11: storage-quarantine-resize
+11/13 Test #11: storage-quarantine-resize ........   Passed    0.01 sec
+      Start 12: timezone-native
+12/13 Test #12: timezone-native ..................   Passed    0.01 sec
+      Start 13: baseline
+13/13 Test #13: baseline .........................   Passed    1.28 sec
+
+100% tests passed out of 13
+
+Label Time Summary:
+resources    =   5.18 sec*proc (1 test)
+smoke        =   5.18 sec*proc (1 test)
+
+Total Test time (real) =  48.33 sec

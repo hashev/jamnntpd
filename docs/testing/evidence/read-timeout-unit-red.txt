@@ -1,0 +1,119 @@
+Filters: "Article and overview storage timeouts*"
+Randomness seeded to: 390541569
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jam_unit is a Catch2 v3.16.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Article and overview storage timeouts remain local errors without partial
+success
+-------------------------------------------------------------------------------
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:244
+...............................................................................
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "423 No article with that number
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  ARTICLE 3
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "430 No such article found
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  ARTICLE <3$test@JamNNTPd>
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "423 No article with that number
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  HEAD 3
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "430 No such article found
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  HEAD <3$test@JamNNTPd>
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "423 No article with that number
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  BODY 3
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "430 No such article found
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  BODY <3$test@JamNNTPd>
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "423 No article with that number
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  STAT 3
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "430 No such article found
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  STAT <3$test@JamNNTPd>
+
+/Users/yurik/Projects/jamnntpd/tests/unit/session.cpp:271: FAILED:
+  CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
+with expansion:
+  "224 Overview information follows
+  1	Test	Alice	date	<id>			
+  .
+  "
+  ==
+  "503 Local error: Could not access messagebase
+  "
+with message:
+  XOVER 1-3
+
+===============================================================================
+test cases:  1 |  0 passed | 1 failed
+assertions: 57 | 48 passed | 9 failed
+

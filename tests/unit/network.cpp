@@ -155,11 +155,39 @@ TEST_CASE("Backpressured native writes time out and observe stop after making pr
         REQUIRE(setsockopt(server->native_handle(), SOL_SOCKET, SO_SNDBUF, &send_buffer,
                            sizeof(send_buffer)) == 0);
 #endif
+        if (mode != 2) {
+            // Establish actual backpressure instead of assuming one large send must block.
+            const auto chunk = std::string_view{payload}.substr(0, 64U * 1024U);
+            Result<void> primed;
+            std::size_t primed_bytes{};
+            const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds{2};
+            while (primed_bytes < 64U * 1024U * 1024U &&
+                   std::chrono::steady_clock::now() < deadline) {
+                primed = server->send(chunk, {}, std::chrono::milliseconds{20});
+                if (!primed) {
+                    break;
+                }
+                primed_bytes += chunk.size();
+            }
+            INFO("Primed bytes: " << primed_bytes);
+            REQUIRE_FALSE(primed);
+            REQUIRE(primed.error().kind == ErrorKind::timeout);
+        }
         if (mode == 1) {
             std::stop_source stop;
             Result<void> written;
             std::jthread writer{[&] {
-                written = server->send(payload, stop.get_token(), std::chrono::seconds{2});
+                written = write_all(
+                    payload,
+                    [&](std::string_view remaining) -> Result<std::size_t> {
+                        const auto part = remaining.substr(0, 4096);
+                        auto result = server->send(part, stop.get_token(), std::chrono::seconds{2});
+                        if (!result) {
+                            return std::unexpected{result.error()};
+                        }
+                        return part.size();
+                    },
+                    stop.get_token());
             }};
             const auto progress = client->receive({}, std::chrono::seconds{2});
             REQUIRE(progress);

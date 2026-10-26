@@ -38,7 +38,8 @@ jobs:
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: build/vcpkg-binary-cache
-          key: vcpkg-b42e8ed-${{ runner.os }}-${{ runner.arch }}-${{ matrix.triplet }}-native
+          key: vcpkg-b42e8ed-${{ runner.os }}-${{ runner.arch }}-${{ matrix.triplet }}-native${{ runner.os == 'Windows' && '-complete-v2' || '' }}
+          restore-keys: vcpkg-b42e8ed-${{ runner.os }}-${{ runner.arch }}-${{ matrix.triplet }}-native
       - name: Pinned dependency manager
         shell: bash
         run: |
@@ -54,10 +55,12 @@ jobs:
         shell: pwsh
         run: '& "$env:RUNNER_TEMP/jam-vcpkg/bootstrap-vcpkg.bat" -disableMetrics'
       - name: Configure (POSIX)
+        id: configure_posix
         if: runner.os != 'Windows'
         shell: bash
         run: cmake -S . -B build/ci -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_CXX_FLAGS="${{ matrix.flags }}" -DCMAKE_TOOLCHAIN_FILE="$RUNNER_TEMP/jam-vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} -DJAM_EXTENDED_TESTS=${{ github.event_name == 'workflow_dispatch' && inputs.extended && (matrix.compiler == 'g++-14' || matrix.os == 'macos-26' || matrix.compiler == 'cl') && 'ON' || 'OFF' }}
       - name: Configure (MSVC)
+        id: configure_windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
@@ -85,11 +88,11 @@ jobs:
           $llvm = Split-Path $compiler
           python tools/check_coverage.py --build build/ci --native-windows-evidence --llvm-cov "$llvm/llvm-cov.exe" --llvm-profdata "$llvm/llvm-profdata.exe"
       - name: Save pinned dependency binaries
-        if: always() && steps.dependencies.outputs.cache-hit != 'true'
+        if: always() && steps.dependencies.outputs.cache-hit != 'true' && (steps.configure_posix.outcome == 'success' || steps.configure_windows.outcome == 'success')
         uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: build/vcpkg-binary-cache
-          key: vcpkg-b42e8ed-${{ runner.os }}-${{ runner.arch }}-${{ matrix.triplet }}-native
+          key: vcpkg-b42e8ed-${{ runner.os }}-${{ runner.arch }}-${{ matrix.triplet }}-native${{ runner.os == 'Windows' && '-complete-v2' || '' }}
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
