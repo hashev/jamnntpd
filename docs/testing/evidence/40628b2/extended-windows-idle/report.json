@@ -1,0 +1,12 @@
+{
+  "mode": "idle",
+  "platform": "Windows-2025Server-10.0.26100-SP0",
+  "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+  "platform_key": "windows",
+  "source_dirty": false,
+  "seed": 20261026,
+  "messages_per_base": 10000,
+  "acceptance_profile": true,
+  "status": "passed",
+  "idle_seconds": 299.9859808000001
+}

@@ -53,20 +53,20 @@
 
 - [x] 8.1 Реализовать seeded parser/JAM/codec генераторы и модельные последовательности сессий; verify минимум 1000 cases/семейство и 100 сессий PR, сохранение seed/reproducer, regression fixtures для найденных ошибок.
 - [x] 8.2 Добавить extended профиль 10000 cases/семейство и 1000 сессий; verify детерминированный повтор seed и контролируемый лимит времени/памяти, описать команды в plan.md.
-- [ ] 8.3 Реализовать 30-минутный mixed-load профиль с 1/5/32 клиентами, двумя базами по 10000 сообщений и external locker; сохранить latency/throughput/resource временные ряды и проверить JAM invariants после штатного stop/restart.
-- [ ] 8.4 Добавить warm-up/quiescent проверки fd/handles и 100 connect/disconnect cycles, RSS trend и leak diagnostics; verify нет роста native resources, без ложного требования точного возврата allocator RSS.
-- [ ] 8.5 Выполнить реальный 5-минутный idle timeout в extended профиле каждой ОС; verify закрытие в документированном bounded window и отсутствие изменения production default.
+- [x] 8.3 Реализовать 30-минутный mixed-load профиль с 1/5/32 клиентами, двумя базами по 10000 сообщений и external locker; сохранить latency/throughput/resource временные ряды и проверить JAM invariants после штатного stop/restart.
+- [x] 8.4 Добавить warm-up/quiescent проверки fd/handles и 100 connect/disconnect cycles, RSS trend и leak diagnostics; verify нет роста native resources, без ложного требования точного возврата allocator RSS.
+- [x] 8.5 Выполнить реальный 5-минутный idle timeout в extended профиле каждой ОС; verify закрытие в документированном bounded window и отсутствие изменения production default.
 
 ## 9. CI и внешняя совместимость
 
 - [x] 9.1 Подключить новые CTest labels/матрицу к native Linux GCC/Clang, macOS AppleClang, Windows MSVC/clang-cl; verify все обязательные сценарии выполняются, прежние группы не удалены, skip не превращается в pass.
 - [x] 9.2 Обеспечить отдельные ASan+UBSan/TSan и Linux/Windows whole-production coverage ≥90% lines/85% branches; проверить CI failures на недостигнутый gate, без исключений own files/error paths.
 - [x] 9.3 Добавить CI запуск clang-tidy согласованного профиля, formatting и standalone header checks; verify warnings-as-errors и toolchain versions, не отключать семейства диагностики.
-- [ ] 9.4 Добавить workflow_dispatch extended native jobs с 60-минутным budget/job и выгрузкой JUnit/CTest/transcripts/seeds/snapshots/metrics; выполнить по одному полному прогону каждой ОС и проверить артефакты.
+- [x] 9.4 Добавить workflow_dispatch extended native jobs с 60-минутным budget/job и выгрузкой JUnit/CTest/transcripts/seeds/snapshots/metrics; выполнить по одному полному прогону каждой ОС и проверить артефакты.
 - [x] 9.5 Провести Thunderbird и slrn (или эквивалентный терминальный клиент) read/post/reply/cancel/reconnect на disposable server; записать реальные версии/ОС/результаты и обезличенный transcript, отсутствие клиента учитывать как blocker соответствующей строки.
 
 ## 10. Итоговая приёмка
 
-- [ ] 10.1 На одном принятом source SHA выполнить всю PR/native/sanitizer/static/coverage и extended матрицу; сверить отчёты по commit и платформам, никаких повторных runs для сокрытия нестабильных отказов.
-- [ ] 10.2 Сформировать docs/testing/acceptance.md с evidence для каждого обязательного ID, найденными дефектами и исправлениями/regressions; verify 100% обязательных строк passed, нет unmapped/failed/blocked и спорных ожиданий.
-- [ ] 10.3 Проверить final diff, отсутствие production data/secrets/неожиданных generated artifacts и запустить openspec validate comprehensive-functional-testing --strict; completion только после выполнения критериев design.md.
+- [x] 10.1 На одном принятом source SHA выполнить всю PR/native/sanitizer/static/coverage и extended матрицу; сверить отчёты по commit и платформам, никаких повторных runs для сокрытия нестабильных отказов.
+- [x] 10.2 Сформировать docs/testing/acceptance.md с evidence для каждого обязательного ID, найденными дефектами и исправлениями/regressions; verify 100% обязательных строк passed, нет unmapped/failed/blocked и спорных ожиданий.
+- [x] 10.3 Проверить final diff, отсутствие production data/secrets/неожиданных generated artifacts и запустить openspec validate comprehensive-functional-testing --strict; completion только после выполнения критериев design.md.

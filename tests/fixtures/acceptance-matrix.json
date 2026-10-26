@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": null,
+  "revision": "40628b2fa09256ffabe28215c755b011313a895e",
   "scenarios": [
     {
       "id": "TRACE-001",
@@ -23,8 +23,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -48,8 +67,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -73,8 +111,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -98,8 +155,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -123,8 +199,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -148,8 +243,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -173,8 +287,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -198,8 +331,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -223,8 +375,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -248,8 +419,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -273,8 +463,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -298,8 +507,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -323,8 +551,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -348,8 +595,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -373,8 +639,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -398,8 +683,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -423,8 +727,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -448,8 +771,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -473,8 +815,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -498,8 +859,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -523,8 +903,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -548,8 +947,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -573,8 +991,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -598,8 +1035,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -623,8 +1079,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -647,8 +1122,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -671,8 +1165,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -697,8 +1210,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -722,8 +1254,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -748,8 +1299,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -772,8 +1342,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -796,8 +1385,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -820,8 +1428,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -844,8 +1471,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -868,8 +1514,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -892,8 +1557,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -916,8 +1600,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -940,8 +1643,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -964,8 +1686,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -990,8 +1731,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1014,8 +1774,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1040,8 +1819,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1066,8 +1864,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1090,8 +1907,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1116,8 +1952,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1140,8 +1995,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1164,8 +2038,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1188,8 +2081,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1212,8 +2124,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1236,8 +2167,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1260,8 +2210,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1284,8 +2253,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1308,8 +2296,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1332,8 +2339,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1356,8 +2382,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1382,8 +2427,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1406,8 +2470,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1430,8 +2513,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1454,8 +2556,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1478,8 +2599,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1502,8 +2642,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1526,8 +2685,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1551,8 +2729,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1577,8 +2774,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "critical"
     },
     {
@@ -1604,8 +2820,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "critical"
     },
     {
@@ -1635,8 +2870,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "reason": "JAM-01 fixed in 2e068aa; local regression passes, full native acceptance pending",
       "risk": "critical"
     },
@@ -1663,8 +2917,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "critical"
     },
     {
@@ -1690,8 +2963,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1716,8 +3008,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1744,8 +3055,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1769,8 +3099,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1795,8 +3144,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1820,8 +3188,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1845,8 +3232,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1870,8 +3276,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1896,8 +3321,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1921,8 +3365,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1947,8 +3410,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1972,8 +3454,27 @@
         "windows"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        },
+        {
+          "platform": "macos",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-macos-26-2.json",
+          "result": "passed"
+        },
+        {
+          "platform": "windows",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-windows-2025-3.json",
+          "result": "passed"
+        }
+      ],
       "risk": "normal"
     },
     {
@@ -1994,8 +3495,15 @@
         "linux"
       ],
       "mandatory": true,
-      "status": "implemented",
-      "evidence": [],
+      "status": "passed",
+      "evidence": [
+        {
+          "platform": "linux",
+          "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+          "artifact": "docs/testing/evidence/40628b2/native-ubuntu-24.04-0.json",
+          "result": "passed"
+        }
+      ],
       "risk": "critical",
       "reason": "/dev/full is Linux-specific; portable throwing-sink unit checks cover all three operating systems"
     }

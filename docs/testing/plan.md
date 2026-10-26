@@ -1,12 +1,11 @@
 # Comprehensive functional testing
 
-Current status: 34/41 tasks complete. Ordinary candidate `deae699` passed
-all nine CI jobs and real clients, but failed full macOS mixed load with POST
-response starvation. Its full Linux/Windows load and real idle passed; the
-failed candidate is not final acceptance. The production queue correction and
-CI mirror correction require a new complete source acceptance run. Historical
-failures and exact evidence below are retained. The registry contains 80
-mandatory scenarios covering 79 distinct features.
+Current status: 41/41 tasks complete. Final acceptance passed on source
+`40628b2fa09256ffabe28215c755b011313a895e`; final tracking and diff review passed. All nine PR jobs and all nine exact-source full workflow jobs passed.
+The 80 mandatory scenarios cover 79 distinct features, and all six full native
+load/idle reports passed the evidence gate. See [acceptance.md](acceptance.md)
+for the final report, metrics, versions and per-scenario evidence. Historical
+failures below remain diagnostic evidence and are not accepted results.
 
 ## Baseline — 2026-10-26
 

@@ -1,0 +1,12 @@
+{
+  "mode": "idle",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+  "platform_key": "linux",
+  "source_dirty": false,
+  "seed": 20261026,
+  "messages_per_base": 10000,
+  "acceptance_profile": true,
+  "status": "passed",
+  "idle_seconds": 300.0008343889999
+}

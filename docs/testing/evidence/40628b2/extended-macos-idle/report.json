@@ -1,0 +1,12 @@
+{
+  "mode": "idle",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "revision": "40628b2fa09256ffabe28215c755b011313a895e",
+  "platform_key": "macos",
+  "source_dirty": false,
+  "seed": 20261026,
+  "messages_per_base": 10000,
+  "acceptance_profile": true,
+  "status": "passed",
+  "idle_seconds": 300.00405891599985
+}
