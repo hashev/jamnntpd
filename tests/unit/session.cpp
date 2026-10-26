@@ -192,7 +192,7 @@ TEST_CASE(
     CHECK(failed.command("GROUP test").bytes.starts_with("211"));
     CHECK(failed.command("ARTICLE").bytes.starts_with("503"));
     CHECK(failed.command("XOVER 1-3").bytes.starts_with("503"));
-    CHECK(failed.post("input").bytes == "441 Posting failed\r\n");
+    CHECK(failed.post("input").bytes == "503 Local error: Could not access messagebase\r\n");
 }
 TEST_CASE("Successful reauthentication replaces permissions and invalidates an unauthorized "
           "current group") {
@@ -216,4 +216,27 @@ TEST_CASE("Successful reauthentication replaces permissions and invalidates an u
     CHECK(session.command("GROUP test").bytes.starts_with("411"));
     CHECK(session.command("STAT <1$test@JamNNTPd>").bytes.starts_with("430"));
     CHECK(session.command("POST").bytes.starts_with("440"));
+}
+
+TEST_CASE("POST distinguishes local storage failures from article rejection") {
+    for (const auto kind :
+         {ErrorKind::input, ErrorKind::encoding, ErrorKind::permission, ErrorKind::stopped,
+          ErrorKind::io, ErrorKind::corrupt, ErrorKind::timeout}) {
+        auto backend = services();
+        backend.submit = [kind](std::string_view, const Identity &, const UserOptions &,
+                                const std::stop_token &) -> Result<std::string> {
+            return failure(kind, "private backend diagnostic");
+        };
+        Session session{
+            {},
+            {.username = "alice", .permissions = {.read = "a", .post = "a"}, .realnames = "Alice"},
+            {},
+            backend};
+        REQUIRE(session.command("POST").bytes.starts_with("340"));
+        const bool local =
+            kind == ErrorKind::io || kind == ErrorKind::corrupt || kind == ErrorKind::timeout;
+        CHECK(session.post("input").bytes ==
+              (local ? "503 Local error: Could not access messagebase\r\n"
+                     : "441 Posting failed\r\n"));
+    }
 }

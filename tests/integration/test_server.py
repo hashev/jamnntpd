@@ -375,6 +375,26 @@ class NntpEndToEnd(unittest.TestCase):
             self.assertTrue(client.command('STAT <1$test@JamNNTPd>').startswith(b'223'))
             server.stop()
             self.assertEqual((server.root / 'stderr').read_text().count('JamNNTPd: logging destination failed'), 1)
+    def test_post_storage_failure_is_503_and_rejected_article_is_441(self):
+        with Server() as server, server.client() as client:
+            self.assertTrue(client.login().startswith(b'281'))
+            text_path = server.root / 'test.jdt'
+            saved_text = text_path.read_bytes()
+            text_path.unlink()
+            remaining = {suffix: (server.root / ('test' + suffix)).read_bytes()
+                         for suffix in ['.jhr', '.jdx', '.jlr']}
+            self.assertEqual(client.post(article()),
+                             b'503 Local error: Could not access messagebase\r\n')
+            self.assertFalse(text_path.exists())
+            self.assertEqual(remaining, {suffix: (server.root / ('test' + suffix)).read_bytes()
+                                       for suffix in remaining})
+            text_path.write_bytes(saved_text)
+            before = server.snapshot()
+            self.assertEqual(client.post(article(extra='Control: unsupported\r\n')),
+                             b'441 Posting failed\r\n')
+            self.assertEqual(server.snapshot(), before)
+            self.assertEqual(client.post(article()), b'240 Article posted\r\n')
+
     def test_protocol_characterization_transcripts(self):
         with Server(allow='127.0.0.1 "" ""\n') as server, server.client() as client:
             transcripts = json.loads((OPTIONS.fixtures / 'protocol/session.json').read_text())
