@@ -59,8 +59,8 @@
 
 ## 9. CI и внешняя совместимость
 
-- [ ] 9.1 Подключить новые CTest labels/матрицу к native Linux GCC/Clang, macOS AppleClang, Windows MSVC/clang-cl; verify все обязательные сценарии выполняются, прежние группы не удалены, skip не превращается в pass.
-- [ ] 9.2 Обеспечить отдельные ASan+UBSan/TSan и Linux/Windows whole-production coverage ≥90% lines/85% branches; проверить CI failures на недостигнутый gate, без исключений own files/error paths.
+- [x] 9.1 Подключить новые CTest labels/матрицу к native Linux GCC/Clang, macOS AppleClang, Windows MSVC/clang-cl; verify все обязательные сценарии выполняются, прежние группы не удалены, skip не превращается в pass.
+- [x] 9.2 Обеспечить отдельные ASan+UBSan/TSan и Linux/Windows whole-production coverage ≥90% lines/85% branches; проверить CI failures на недостигнутый gate, без исключений own files/error paths.
 - [x] 9.3 Добавить CI запуск clang-tidy согласованного профиля, formatting и standalone header checks; verify warnings-as-errors и toolchain versions, не отключать семейства диагностики.
 - [ ] 9.4 Добавить workflow_dispatch extended native jobs с 60-минутным budget/job и выгрузкой JUnit/CTest/transcripts/seeds/snapshots/metrics; выполнить по одному полному прогону каждой ОС и проверить артефакты.
 - [x] 9.5 Провести Thunderbird и slrn (или эквивалентный терминальный клиент) read/post/reply/cancel/reconnect на disposable server; записать реальные версии/ОС/результаты и обезличенный transcript, отсутствие клиента учитывать как blocker соответствующей строки.

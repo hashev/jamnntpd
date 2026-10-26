@@ -1,3 +1,4 @@
+Whitespace-normalized Catch diagnostic; the exact protocol assertions remain in tests/unit/session.cpp.
 Filters: "Article and overview storage timeouts*"
 Randomness seeded to: 390541569
 
@@ -104,7 +105,7 @@ with message:
   CHECK( session.command(command).bytes == "503 Local error: Could not access messagebase\r\n" )
 with expansion:
   "224 Overview information follows
-  1	Test	Alice	date	<id>			
+  1	Test	Alice	date	<id>
   .
   "
   ==
@@ -116,4 +117,3 @@ with message:
 ===============================================================================
 test cases:  1 |  0 passed | 1 failed
 assertions: 57 | 48 passed | 9 failed
-

@@ -32,7 +32,10 @@ jobs:
           python-version: '3.13.9'
       - name: Linux compiler and build dependencies
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 libclang-rt-19-dev autoconf automake libtool
+        run: |
+          sudo sed -i 's|azure.archive.ubuntu.com|archive.ubuntu.com|g' /etc/apt/apt-mirrors.txt
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 install -y g++-14 clang-19 clang-tools-19 libclang-rt-19-dev autoconf automake libtool
       - name: Restore pinned dependency binaries
         id: dependencies
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
@@ -115,7 +118,10 @@ jobs:
         profile: [asan-ubsan, tsan, coverage]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 llvm-19 libclang-rt-19-dev autoconf automake libtool
+      - run: |
+          sudo sed -i 's|azure.archive.ubuntu.com|archive.ubuntu.com|g' /etc/apt/apt-mirrors.txt
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 install -y g++-14 clang-19 clang-tools-19 llvm-19 libclang-rt-19-dev autoconf automake libtool
       - name: Restore pinned dependency binaries
         id: dependencies
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
@@ -176,7 +182,10 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - run: sudo apt-get update && sudo apt-get install -y g++-14 clang-19 clang-tools-19 autoconf automake libtool zstd libxml2 libtinfo6 libz3-4
+      - run: |
+          sudo sed -i 's|azure.archive.ubuntu.com|archive.ubuntu.com|g' /etc/apt/apt-mirrors.txt
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=2 install -y g++-14 clang-19 clang-tools-19 autoconf automake libtool zstd libxml2 libtinfo6 libz3-4
       - name: Restore pinned dependencies
         id: dependencies
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830

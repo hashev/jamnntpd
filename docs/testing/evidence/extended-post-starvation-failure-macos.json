@@ -1,0 +1,1495 @@
+{
+  "mode": "load",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "revision": "deae699ec72e1dd945dc1e9fe60fb44a9b4e215e",
+  "platform_key": "macos",
+  "source_dirty": false,
+  "seed": 20261026,
+  "messages_per_base": 10000,
+  "acceptance_profile": true,
+  "status": "failed",
+  "warmup_completed": true,
+  "resources_before": {
+    "process_id": 5850,
+    "rss_bytes": 4161536,
+    "native_handles": 5
+  },
+  "resources_after_100_cycles": {
+    "process_id": 5850,
+    "rss_bytes": 4325376,
+    "native_handles": 5
+  },
+  "phases": [
+    {
+      "clients": 1,
+      "slow_clients": 0,
+      "slow_bytes_received": [],
+      "active_seconds": 600.0,
+      "elapsed_with_drain": 600.1221795,
+      "operations": {
+        "mode:200": 30536,
+        "article:220": 2506,
+        "body:222": 2474,
+        "post:240": 5176,
+        "head:221": 2477,
+        "reply:240": 2530,
+        "stat:223": 2584,
+        "cancel:240": 2563
+      },
+      "throughput": 84.72608034977651,
+      "latency_seconds": {
+        "50": 0.00010104199998295371,
+        "95": 0.07144266599999582,
+        "99": 0.09721029099989664
+      },
+      "resources": [
+        {
+          "seconds": 0.00034170800000765666,
+          "process_id": 5850,
+          "rss_bytes": 4341760,
+          "native_handles": 10
+        },
+        {
+          "seconds": 5.073869958000046,
+          "process_id": 5850,
+          "rss_bytes": 4685824,
+          "native_handles": 10
+        },
+        {
+          "seconds": 10.243442415999994,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 15.307564666000019,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 20.340218541000013,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 25.372578040999997,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 30.411244750000037,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 35.58385845800001,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 40.822474750000026,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 45.981189208000046,
+          "process_id": 5850,
+          "rss_bytes": 4702208,
+          "native_handles": 10
+        },
+        {
+          "seconds": 51.099603290999994,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 56.308295000000044,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 61.43624541600002,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 66.46963791600001,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 71.598566,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 76.75793829100002,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 81.846886375,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 86.97324020799999,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 92.19168791600003,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 97.34075804100002,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 102.43864620800002,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 107.57979612500003,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 112.709784958,
+          "process_id": 5850,
+          "rss_bytes": 4210688,
+          "native_handles": 10
+        },
+        {
+          "seconds": 117.86340825000002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 123.11412283300001,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 128.21579862500005,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 133.30810537500003,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 138.34227833300002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 143.483492458,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 148.58076983300003,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 153.708628083,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 158.83694954100002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 163.93811458300002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 168.98522458300005,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 174.52375725000002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 179.68278183300004,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 184.81136966600002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 189.83907766600004,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 195.008595791,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 200.111399,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 205.234188083,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 210.26085154100002,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 215.34220145800003,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 220.50712166600005,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 225.6145715,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 230.76449808300003,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 235.92734374999998,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 241.09068050000008,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 246.154114875,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 251.217220708,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 256.34414645800007,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 261.4983205,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 266.622307791,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 271.75071183299997,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 276.84076849999997,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 281.96574462500007,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 287.11956995800006,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 292.260636375,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 297.371328166,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 302.49284591599996,
+          "process_id": 5850,
+          "rss_bytes": 4227072,
+          "native_handles": 10
+        },
+        {
+          "seconds": 307.66016175000004,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 312.80060066600004,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 317.96638529100005,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 322.98037175,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 328.096939583,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 333.215965666,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 338.257292041,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 343.27064025000004,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 348.438317375,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 353.52629941600003,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 358.673262166,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 363.78931950000003,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 368.830734291,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 373.985852541,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 379.09081770800003,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 384.10846816599997,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 389.262947208,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 394.415913208,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 399.555319583,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 404.71749450000004,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 409.85478025,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 414.9454876660001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 419.96896325,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 425.07890175,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 430.13161012500007,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 435.270790916,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 440.37718133300007,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 445.475158375,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 450.572734083,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 455.765794,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 460.81279358300003,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 465.968845333,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 471.124384458,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 476.160945708,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 481.320176208,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 486.348495791,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 491.496649208,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 7
+        },
+        {
+          "seconds": 496.520238083,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 501.55501141600007,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 506.591184333,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 511.716996375,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 516.756592125,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 521.843792583,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 526.9928495,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 532.1365506660001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 537.215757833,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 542.3787116660001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 547.535147166,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 552.6173441660001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 557.6593843750001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 562.7893726660001,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 567.924957958,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 572.96681225,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 578.090679958,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 583.215727583,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 588.300074125,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 593.335156458,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        },
+        {
+          "seconds": 598.465735041,
+          "process_id": 5850,
+          "rss_bytes": 4243456,
+          "native_handles": 10
+        }
+      ]
+    },
+    {
+      "clients": 5,
+      "slow_clients": 1,
+      "slow_bytes_received": [
+        4231
+      ],
+      "active_seconds": 600.0,
+      "elapsed_with_drain": 600.4073327909999,
+      "operations": {
+        "mode:200": 23613,
+        "stat:223": 2037,
+        "body:222": 2030,
+        "head:221": 1971,
+        "reply:240": 1935,
+        "post:240": 3878,
+        "cancel:240": 1925,
+        "article:220": 1996,
+        "cancel:441": 4
+      },
+      "throughput": 65.60379570465905,
+      "latency_seconds": {
+        "50": 0.0001772079999682319,
+        "95": 0.30055733299991516,
+        "99": 0.48141945800011854
+      },
+      "resources": [
+        {
+          "seconds": 0.0012742500000513246,
+          "process_id": 5850,
+          "rss_bytes": 7716864,
+          "native_handles": 14
+        },
+        {
+          "seconds": 5.154453208000064,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 10.28443366600004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 15.341624249999995,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 22
+        },
+        {
+          "seconds": 20.46674262500005,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 25.601520832999995,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 22
+        },
+        {
+          "seconds": 30.702893915999994,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 35.85911316600004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 40.97050945800004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 46.133143958000005,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 51.288063666000085,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 56.44876600000009,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 61.60738416600009,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 66.77150362500004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 71.91858237500003,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 76.93672904100004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 81.96845870800007,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 87.12191691600003,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 92.30826920800007,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 97.35036479100006,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 22
+        },
+        {
+          "seconds": 102.4299987500001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 107.55628108300004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 112.71638500000006,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 18
+        },
+        {
+          "seconds": 117.84666341600007,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 122.91044233299999,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 14
+        },
+        {
+          "seconds": 127.93933279100008,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 133.10859187500012,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 138.248706125,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 143.296824291,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 148.46666562500002,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 153.48888041600014,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 158.61086404100013,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 163.7099098750001,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 168.8526395,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 173.94955300000004,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 179.1152101250001,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 184.21962166600008,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 189.34163779100015,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 194.48425620800015,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 199.59320333300013,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 204.72019483299994,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 209.853522666,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 214.95447237500014,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 220.08818354100015,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 225.136476583,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 230.2907395000001,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 235.38625354099997,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 240.538726333,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 245.64282466600014,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 250.83302262500013,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 255.96730466600013,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 261.098649291,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 266.21465483300005,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 271.36656162500014,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 276.5294438750001,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 281.68268145800005,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 286.79603691599993,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 291.91448741600004,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 297.06543445800014,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 18
+        },
+        {
+          "seconds": 302.197324458,
+          "process_id": 5850,
+          "rss_bytes": 7946240,
+          "native_handles": 14
+        },
+        {
+          "seconds": 307.35679062500014,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 312.482295916,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 317.55316099999993,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 322.71368566600006,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 327.88468983300015,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 332.955807875,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 337.98150154100006,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 343.060883708,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 348.21634533300005,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 353.38063924999994,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 21
+        },
+        {
+          "seconds": 358.48148374999994,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 363.504433125,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 368.6662581250001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 373.69676279099997,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 378.84161462500003,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 384.0056595,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 389.123591958,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 394.26662758300006,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 399.37330083300014,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 404.491662583,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 409.6404261660001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 414.75416662500004,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 419.84611908299996,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 425.0188925410001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 430.1925298750001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 435.341824666,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 440.51928020799994,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 445.67809124999997,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 450.7723944160001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 455.819806416,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 21
+        },
+        {
+          "seconds": 460.8862754160001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 465.929213,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 471.0487656250001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 476.09913695800003,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 481.1989433750001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 486.2166820410001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 491.2595755000001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 496.424447666,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 21
+        },
+        {
+          "seconds": 501.591847625,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 506.63313266600005,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 511.7879199160001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 516.8416190000002,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 521.9700885000001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 527.096448291,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 532.2229919580001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 537.374224666,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 542.4667316660001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 547.593192125,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 552.753034666,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 557.90767475,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 562.9669485410001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 568.0919834580001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 573.131437458,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 578.241065,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 583.3426415,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        },
+        {
+          "seconds": 588.4726595000001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 593.5375155830001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 13
+        },
+        {
+          "seconds": 598.7178735000001,
+          "process_id": 5850,
+          "rss_bytes": 7929856,
+          "native_handles": 17
+        }
+      ]
+    }
+  ],
+  "error_type": "AssertionError",
+  "error": "['Traceback (most recent call last):\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_extended.py\", line 203, in writer\\n    response = client.post(test_server.article(marker, group=name,\\n        extra=f\\'References: <1${name}@JamNNTPd>\\\\r\\\\n\\' if operation == \\'reply\\' else \\'\\'))\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_server.py\", line 61, in post\\n    return self.line()\\n           ~~~~~~~~~^^\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_server.py\", line 38, in line\\n    value = self.file.readline()\\n  File \"/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socket.py\", line 719, in readinto\\n    return self._sock.recv_into(b)\\n           ~~~~~~~~~~~~~~~~~~~~^^^\\nTimeoutError: timed out\\n', 'Traceback (most recent call last):\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_extended.py\", line 203, in writer\\n    response = client.post(test_server.article(marker, group=name,\\n        extra=f\\'References: <1${name}@JamNNTPd>\\\\r\\\\n\\' if operation == \\'reply\\' else \\'\\'))\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_server.py\", line 61, in post\\n    return self.line()\\n           ~~~~~~~~~^^\\n  File \"/Users/runner/work/jamnntpd/jamnntpd/tests/integration/test_server.py\", line 38, in line\\n    value = self.file.readline()\\n  File \"/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/socket.py\", line 719, in readinto\\n    return self._sock.recv_into(b)\\n           ~~~~~~~~~~~~~~~~~~~~^^^\\nTimeoutError: timed out\\n']"
+}

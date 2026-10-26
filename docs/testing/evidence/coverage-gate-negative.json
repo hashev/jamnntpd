@@ -1,0 +1,24 @@
+{
+  "revision": "deae699ec72e1dd945dc1e9fe60fb44a9b4e215e",
+  "method": "Actual check_coverage.py with mocked LLVM export and merge, all production TUs represented; isolated temporary profiles",
+  "results": [
+    {
+      "metric_below_gate": "lines",
+      "covered_percent": 80,
+      "exit_code": 1,
+      "diagnostic": [
+        "lines: 1680/2100 = 80.00% (required 90%)",
+        "branches: 2100/2100 = 100.00% (required 85%)"
+      ]
+    },
+    {
+      "metric_below_gate": "branches",
+      "covered_percent": 80,
+      "exit_code": 1,
+      "diagnostic": [
+        "lines: 2100/2100 = 100.00% (required 90%)",
+        "branches: 1680/2100 = 80.00% (required 85%)"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,12 @@
 # Comprehensive functional testing
 
-Current status: 32/41 tasks complete. The expanded local macOS suite passes all
-13 CTest groups; formatting, standalone headers and clang-tidy pass locally.
-Native CI, sanitizer/coverage gates, full extended runs and real client acceptance
-remain pending. Historical failures below are retained as defect evidence, not
-current acceptance results. The registry now contains 79 features, including makechs.
+Current status: 34/41 tasks complete. Ordinary candidate `deae699` passed
+all nine CI jobs and real clients, but failed full macOS mixed load with POST
+response starvation. Its full Linux/Windows load and real idle passed; the
+failed candidate is not final acceptance. The production queue correction and
+CI mirror correction require a new complete source acceptance run. Historical
+failures and exact evidence below are retained. The registry contains 80
+mandatory scenarios covering 79 distinct features.
 
 ## Baseline — 2026-10-26
 
@@ -502,3 +504,30 @@ a successful configure and promotes a verified Windows cache under a fresh key;
 old caches remain fallback inputs checked by vcpkg, never acceptance evidence.
 Before another full extended run, execute the corrected native PR/dispatch suite
 first so fast unit failures do not waste the 35-minute workload budget.
+
+## Final-candidate contention failure and production follow-up
+
+Extended workflow 40313017495 on `deae699` passed full native load/idle on Linux
+GCC and Windows MSVC, but macOS failed in the 32-client phase: two POST responses
+exceeded the existing 60-second client bound. Its first two phases and real idle
+passed. The failed report is retained as
+`evidence/extended-post-starvation-failure-macos.json`; it is not accepted evidence.
+A short old-source 180-second diagnostic passed, illustrating why smoke results
+cannot substitute for the mandatory 30-minute profile.
+
+Native process sampling during local contention found BaseState destructors
+blocked in the registry's unbounded recursive mutex lock while timed new
+operations competed for the same mutex. The registry now uses an allocation-free
+FIFO recursive queue shared by open, close and operations. Cancellation/expiry
+remove waiting tickets; lock ownership remains RAII and the POSIX first-byte
+protocol is unchanged. New unit cases verify recursion, expiry, cancellation,
+queue cleanup and progress for all 16 competing owners. All 13 local CTest groups
+pass (48.13 seconds), changed production code passes clang-tidy, all 64 owned C++
+files pass formatting and standalone headers compile.
+
+The same extended workflow also exposed an infrastructure failure: Azure's
+Ubuntu apt mirror repeatedly stalled downloading LLVM packages; static analysis
+exhausted its 30-minute job budget before configure. Its ordinary same-SHA job
+had passed. CI now selects the primary Ubuntu mirror and bounds HTTP waits and
+retries, without changing packages or versions. The old run/log remains retained.
+The new source candidate requires all final checks and client evidence again.

@@ -1680,7 +1680,9 @@
       "level": "unit+e2e",
       "selectors": [
         "tests/integration/test_server.py::NntpEndToEnd.test_native_shutdown_in_connection_read_post_and_external_lock_phases",
-        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one"
+        "tests/integration/test_server.py::NntpEndToEnd.test_admission_at_max_minus_one_max_and_max_plus_one",
+        "tests/unit/storage.cpp::Storage registry queues closes and cleans cancelled or expired waiters",
+        "tests/unit/storage.cpp::Storage registry admits every waiting owner during continuous contention"
       ],
       "platforms": [
         "linux",
