@@ -12,6 +12,7 @@ import socket
 import subprocess
 import sys
 import threading
+import traceback
 import time
 
 import test_server
@@ -81,13 +82,17 @@ def validate_base(server, name):
     return markers
 
 
-def quiescent(server):
-    # A final connection reaps completed worker entries in both observations.
-    time.sleep(.2)
-    with server.client() as client:
-        assert client.command('QUIT') == b'205 Goodbye\r\n'
-    time.sleep(.2)
-    return resources(server.process.pid)
+def quiescent(server, maximum_handles=None):
+    # Reap completed workers and allow in-flight replies to observe peer EOF.
+    deadline = time.monotonic()+8
+    while True:
+        time.sleep(.2)
+        with server.client() as client:
+            assert client.command('QUIT') == b'205 Goodbye\r\n'
+        time.sleep(.2)
+        observed = resources(server.process.pid)
+        if maximum_handles is None or observed['native_handles'] <= maximum_handles or time.monotonic() >= deadline:
+            return observed
 
 
 def locker(args):
@@ -126,7 +131,7 @@ def load(args, report, destination):
         for _ in range(100):
             with server.client() as client:
                 assert client.command('QUIT') == b'205 Goodbye\r\n'
-        after_cycles = quiescent(server)
+        after_cycles = quiescent(server, baseline['native_handles'])
         assert after_cycles['native_handles'] <= baseline['native_handles'], (baseline, after_cycles)
         report.update(resources_before=baseline, resources_after_100_cycles=after_cycles, phases=[])
         successful = {'test': set(), 'local': set()}
@@ -176,9 +181,9 @@ def load(args, report, destination):
                                     response = client.command('MODE READER')
                                     assert response.startswith(b'200')
                                 elif choice < 80:
-                                    operation = 'stat'
-                                    response = client.command(f'STAT <1${name}@JamNNTPd>')
-                                    assert response[:3] in (b'223', b'503')
+                                    operation = rng.choice(['stat', 'head', 'body', 'article'])
+                                    response, _ = client.multiline(f'{operation.upper()} <1${name}@JamNNTPd>')
+                                    assert response[:3] in (b'220', b'221', b'222', b'223', b'503')
                                 elif choice < 95:
                                     operation = 'reply' if choice >= 90 else 'post'
                                     marker = f'load/{phase}/{worker}/{iteration}'
@@ -205,9 +210,11 @@ def load(args, report, destination):
                                 record(operation, response[:3].decode('ascii'), time.monotonic()-began)
                     except Exception as error:
                         with mutex:
-                            errors.append(type(error).__name__)
+                            errors.append(traceback.format_exc())
                         stopped.set()
-                def slow_reader():
+                slow_ready = [threading.Event() for _ in range(0 if concurrency == 1 else (1 if concurrency == 5 else 2))]
+                slow_bytes = [0 for _ in slow_ready]
+                def slow_reader(index):
                     try:
                         with server.client() as client:
                             assert client.greeting.startswith(b'200')
@@ -215,22 +222,40 @@ def load(args, report, destination):
                             assert client.command('GROUP test').startswith(b'211')
                             client.socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 1024)
                             client.socket.sendall(f'XOVER 1-{args.messages}\r\n'.encode())
+                            first = client.socket.recv(1)
+                            assert first, 'Slow reader received EOF before overview'
+                            slow_bytes[index] += len(first)
+                            client.socket.settimeout(.2)
+                            slow_ready[index].set()
                             while not stopped.is_set():
-                                value = client.socket.recv(1)
+                                try:
+                                    value = client.socket.recv(1)
+                                except socket.timeout:
+                                    continue
                                 if not value:
                                     break
+                                slow_bytes[index] += len(value)
                                 stopped.wait(.05)
                     except Exception as error:
                         if not stopped.is_set():
                             with mutex:
-                                errors.append('slow:'+type(error).__name__)
+                                errors.append('slow:'+traceback.format_exc())
                             stopped.set()
                 slow_count = 0 if concurrency == 1 else (1 if concurrency == 5 else 2)
                 threads = [threading.Thread(target=writer, args=(i,)) for i in range(concurrency-slow_count)]
-                threads += [threading.Thread(target=slow_reader) for _ in range(slow_count)]
+                slow_threads = [threading.Thread(target=slow_reader, args=(i,)) for i in range(slow_count)]
+                for thread in slow_threads:
+                    thread.start()
+                ready = all(event.wait(60) for event in slow_ready)
+                if not ready:
+                    stopped.set()
+                    for thread in slow_threads:
+                        thread.join(timeout=65)
+                    raise AssertionError('Slow reader GROUP preparation failed: '+str(errors))
                 start, samples = time.monotonic(), []
                 for thread in threads:
                     thread.start()
+                threads += slow_threads
                 try:
                     while time.monotonic()-start < args.duration/3 and not stopped.is_set():
                         samples.append({'seconds': time.monotonic()-start, **resources(server.process.pid)})
@@ -242,11 +267,12 @@ def load(args, report, destination):
                         thread.join(timeout=65)
                     assert not any(thread.is_alive() for thread in threads), 'Load thread did not finish'
                 assert not errors, errors
+                assert all(count > 0 for count in slow_bytes), 'Slow readers received no response bytes'
                 ordered = sorted(latencies)
                 assert ordered, 'No completed load operations'
                 elapsed = time.monotonic()-start
                 report['phases'].append({'clients': concurrency, 'slow_clients': slow_count,
-                    'active_seconds': args.duration/3, 'elapsed_with_drain': elapsed,
+                    'slow_bytes_received': slow_bytes, 'active_seconds': args.duration/3, 'elapsed_with_drain': elapsed,
                     'operations': dict(counters), 'throughput': len(ordered)/elapsed,
                     'latency_seconds': {str(percent): ordered[min(len(ordered)-1, int((len(ordered)-1)*percent/100))]
                                         for percent in (50, 95, 99)}, 'resources': samples})
@@ -263,7 +289,7 @@ def load(args, report, destination):
                 output.close()
         assert helper.returncode == 0, 'External locker failed'
         report['external_lock_iterations'] = int(ready_path.read_text())
-        after = quiescent(server)
+        after = quiescent(server, baseline['native_handles'])
         report['resources_after_load'] = after
         assert after['native_handles'] <= baseline['native_handles'], (baseline, after)
         start = time.monotonic()

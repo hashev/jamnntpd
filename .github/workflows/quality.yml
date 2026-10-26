@@ -219,6 +219,7 @@ jobs:
         run: |
           "$RUNNER_TEMP/jam-llvm23/bin/clang-tidy" --version
           "$RUNNER_TEMP/jam-llvm23/bin/clang-format" --version
+          cmake --build build/static --parallel 4
           cmake --build build/static --target clang-tidy --parallel 4
           cmake --build build/static --target check-headers --parallel 4
           python3 tools/check_format.py --formatter "$RUNNER_TEMP/jam-llvm23/bin/clang-format"
